@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CharacterCustomization : MonoBehaviour
 {
@@ -49,13 +50,18 @@ public class CharacterCustomization : MonoBehaviour
         Class0Btn.onClick.AddListener(() => ClassConfirmation(classInt, 0));
         Class1Btn.onClick.AddListener(() => ClassConfirmation(classInt, 1));
         NoBtn.onClick.AddListener(Back);
-        YesBtn.onClick.AddListener(Back); //Switch Scene
+        YesBtn.onClick.AddListener(GoToScene); //Switch Scene
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void GoToScene()
+    {
+        SceneManager.LoadScene(1);
     }
 
     void ClassType(int x)
@@ -96,12 +102,18 @@ public class CharacterCustomization : MonoBehaviour
             {
                 case 0:
                     RaceClassText.text = "Race : Human \n Class : Paladin";
+                    PlayerManager.instance.PlayerRace = PlayerManager.Race.Human;
+                    PlayerManager.instance.PlayerClass = PlayerManager.Class.Paladin;
                     break;
                 case 1:
                     RaceClassText.text = "Race : High Elf \n Class : Sorcerer";
+                    PlayerManager.instance.PlayerRace = PlayerManager.Race.HighElf;
+                    PlayerManager.instance.PlayerClass = PlayerManager.Class.Sorcerer;
                     break;
                 case 2:
                     RaceClassText.text = "Race : Dragonborn \n Class : Fighter";
+                    PlayerManager.instance.PlayerRace = PlayerManager.Race.Dragonborn;
+                    PlayerManager.instance.PlayerClass = PlayerManager.Class.Fighter;
                     break;
                 default:
                     break;
@@ -114,12 +126,18 @@ public class CharacterCustomization : MonoBehaviour
             {
                 case 0:
                     RaceClassText.text = "Race : Human \n Class : Rogue";
+                    PlayerManager.instance.PlayerRace = PlayerManager.Race.Human;
+                    PlayerManager.instance.PlayerClass = PlayerManager.Class.Rogue;
                     break;
                 case 1:
                     RaceClassText.text = "Race : High Elf \n Class : Ranger";
+                    PlayerManager.instance.PlayerRace = PlayerManager.Race.HighElf;
+                    PlayerManager.instance.PlayerClass = PlayerManager.Class.Ranger;
                     break;
                 case 2:
                     RaceClassText.text = "Race : Dragonborn \n Class : Druid";
+                    PlayerManager.instance.PlayerRace = PlayerManager.Race.Dragonborn;
+                    PlayerManager.instance.PlayerClass = PlayerManager.Class.Druid;
                     break;
                 default:
                     break;

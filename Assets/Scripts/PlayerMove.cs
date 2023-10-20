@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
     public float moveSpeed = 5f; // Adjust the speed to your liking
 
     private bool isMoving = false;
+
     private Vector3 targetPosition;
 
     private void Update()
@@ -33,6 +34,14 @@ public class PlayerMove : MonoBehaviour
     private void SetTargetPosition()
     {
         targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (targetPosition.x < transform.position.x)
+        {
+            PlayerManager.instance.FlipSprite(true);
+        }
+        else
+        {
+            PlayerManager.instance.FlipSprite(false);
+        }
         targetPosition.z = transform.position.z; // Ensure the z-coordinate remains the same
         isMoving = true;
         return;

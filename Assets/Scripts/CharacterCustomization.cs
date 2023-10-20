@@ -8,10 +8,14 @@ using UnityEngine.SceneManagement;
 public class CharacterCustomization : MonoBehaviour
 {
     //references
+
     //game objects
     public GameObject RaceSelectionUI;
     public GameObject ClassSelectionUI;
     public GameObject ConfirmationUI;
+
+    //sprites
+    public Sprite paladin;
 
     //buttons
     public Button Race0btn;
@@ -104,16 +108,19 @@ public class CharacterCustomization : MonoBehaviour
                     RaceClassText.text = "Race : Human \n Class : Paladin";
                     PlayerManager.instance.PlayerRace = PlayerManager.Race.Human;
                     PlayerManager.instance.PlayerClass = PlayerManager.Class.Paladin;
+                    PlayerManager.instance.playerSprite = paladin;
                     break;
                 case 1:
                     RaceClassText.text = "Race : High Elf \n Class : Sorcerer";
                     PlayerManager.instance.PlayerRace = PlayerManager.Race.HighElf;
                     PlayerManager.instance.PlayerClass = PlayerManager.Class.Sorcerer;
+                    PlayerManager.instance.playerSprite = paladin;
                     break;
                 case 2:
                     RaceClassText.text = "Race : Dragonborn \n Class : Fighter";
                     PlayerManager.instance.PlayerRace = PlayerManager.Race.Dragonborn;
                     PlayerManager.instance.PlayerClass = PlayerManager.Class.Fighter;
+                    PlayerManager.instance.playerSprite = paladin;
                     break;
                 default:
                     break;
@@ -128,16 +135,19 @@ public class CharacterCustomization : MonoBehaviour
                     RaceClassText.text = "Race : Human \n Class : Rogue";
                     PlayerManager.instance.PlayerRace = PlayerManager.Race.Human;
                     PlayerManager.instance.PlayerClass = PlayerManager.Class.Rogue;
+                    PlayerManager.instance.playerSprite = paladin;
                     break;
                 case 1:
                     RaceClassText.text = "Race : High Elf \n Class : Ranger";
                     PlayerManager.instance.PlayerRace = PlayerManager.Race.HighElf;
                     PlayerManager.instance.PlayerClass = PlayerManager.Class.Ranger;
+                    PlayerManager.instance.playerSprite = paladin;
                     break;
                 case 2:
                     RaceClassText.text = "Race : Dragonborn \n Class : Druid";
                     PlayerManager.instance.PlayerRace = PlayerManager.Race.Dragonborn;
                     PlayerManager.instance.PlayerClass = PlayerManager.Class.Druid;
+                    PlayerManager.instance.playerSprite = paladin;
                     break;
                 default:
                     break;

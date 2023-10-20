@@ -33,7 +33,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             toggleFollowPlayer = !toggleFollowPlayer;
             FollowPlayer(toggleFollowPlayer);

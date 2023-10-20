@@ -1120,6 +1120,7 @@ MonoBehaviour:
   RaceSelectionUI: {fileID: 1738689027}
   ClassSelectionUI: {fileID: 315238780}
   ConfirmationUI: {fileID: 2112102031}
+  paladin: {fileID: 21300000, guid: 28ee00d79084a4942b3eb5082a7d7ccc, type: 3}
   Race0btn: {fileID: 46598599}
   Race1btn: {fileID: 1110284266}
   Race2btn: {fileID: 1332444125}
@@ -1617,6 +1618,14 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4665218645162043692, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665218645162043692, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665218645162043692, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5631716
       objectReference: {fileID: 0}
@@ -1659,6 +1668,30 @@ PrefabInstance:
     - target: {fileID: 4665218645162043694, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665218645162043695, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665218645162043695, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_Size.x
+      value: 4.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665218645162043695, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_Size.y
+      value: 4.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665218645162043695, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665218645162043695, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665218645162043695, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}

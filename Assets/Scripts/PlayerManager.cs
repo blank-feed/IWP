@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -29,8 +31,38 @@ public class PlayerManager : MonoBehaviour
 
     private bool runOnce = false;
 
+    //sprites
     public Sprite playerSprite;
     private SpriteRenderer spriteRenderer;
+
+    //player stats
+
+    //speed
+    public float moveSpeed = 5f; // Adjust the speed to your liking
+
+    //health
+    public int health = 100;
+    public int maxHealth = 100;
+
+    //mana
+    public int mana = 100;
+    public int maxMana = 100;
+
+    //level / exp
+    public int level = 1;
+    public int exp = 0;
+    public int maxExp = 100;
+    public int SkillPoints = 1;
+
+    //sliders
+    private Slider HealthBar;
+    private Slider ExpBar;
+    private Slider ManaBar;
+
+    //TMPros
+    private TextMeshProUGUI HealthText;
+    private TextMeshProUGUI LevelText;
+    private TextMeshProUGUI ManaText;
 
     private void Awake()
     {
@@ -58,10 +90,58 @@ public class PlayerManager : MonoBehaviour
         {
             if (!runOnce)
             {
-                transform.position = new Vector3(0, 0, 0);
-                spriteRenderer.sprite = playerSprite;
-                runOnce = true;
+                SceneStart();
             }
+
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                exp += 10;
+            }
+
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                mana -= 10;
+            }
+
+            LevelCheck();
+
+            //Update UI values
+            ExpBar.value = exp;
+            HealthBar.value = health;
+            ManaBar.value = mana;
+            HealthText.text = health.ToString();
+            LevelText.text = level.ToString();
+            ManaText.text = mana.ToString();
+        }
+
+        
+    }
+
+    void SceneStart()
+    {
+        transform.position = new Vector3(0, 0, 0);
+        spriteRenderer.sprite = playerSprite;
+        ExpBar = GameObject.Find("ExpBar").GetComponent<Slider>();
+        HealthBar = GameObject.Find("Healthbar").GetComponent<Slider>();
+        ManaBar = GameObject.Find("ManaBar").GetComponent<Slider>();
+        HealthText = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
+        LevelText = GameObject.Find("LevelNum").GetComponent<TextMeshProUGUI>();
+        ManaText = GameObject.Find("ManaText").GetComponent<TextMeshProUGUI>();
+        ExpBar.maxValue = maxExp;
+        HealthBar.maxValue = maxHealth;
+        ManaBar.maxValue = maxMana;
+        runOnce = true;
+    }
+
+    void LevelCheck()
+    {
+        if (exp == maxExp)
+        {
+            level++;
+            SkillPoints++;
+            exp = 0;
+            maxExp += 10;
+            ExpBar.maxValue = maxExp;
         }
     }
 

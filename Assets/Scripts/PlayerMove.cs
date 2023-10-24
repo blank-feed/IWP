@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Adjust the speed to your liking
-
     private bool isMoving = false;
 
     private Vector3 targetPosition;
@@ -51,7 +49,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (isMoving)
         {
-            float step = moveSpeed * Time.deltaTime;
+            float step =  PlayerManager.instance.moveSpeed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
 
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)

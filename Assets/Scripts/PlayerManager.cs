@@ -95,15 +95,10 @@ public class PlayerManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.H))
             {
-                exp += 10;
+                StartCoroutine(GradualExpIncrease(10));
             }
 
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                mana -= 10;
-            }
-
-            LevelCheck();
+            //LevelCheck();
 
             //Update UI values
             ExpBar.value = exp;
@@ -174,6 +169,23 @@ public class PlayerManager : MonoBehaviour
                 // Update the local scale
                 transform.localScale = scale;
             }
+        }
+    }
+
+    IEnumerator GradualExpIncrease(int expAdded)
+    {
+        float decreaseSpeed = .01f; // Adjust the speed as needed.
+        int targetExp = exp + expAdded;
+
+        while (exp < targetExp)
+        {
+            exp += Mathf.CeilToInt(decreaseSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        if (exp == maxExp)
+        {
+            LevelCheck();
         }
     }
 }

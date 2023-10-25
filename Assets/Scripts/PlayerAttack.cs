@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -17,9 +18,19 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            ShootBall();
+            if (PlayerManager.instance.mana >= 10)
+            {
+                //PlayerManager.instance.mana -= 10;
+                StartCoroutine(GradualManaDecrease(10));
+                ShootBall();
+            }
         }
     }
 
@@ -39,5 +50,17 @@ public class PlayerAttack : MonoBehaviour
         rb.AddForce(shootDirection * shootForce, ForceMode2D.Impulse);
 
         Destroy(newBall, ballLifetime);
+    }
+
+    IEnumerator GradualManaDecrease(int manaCost)
+    {
+        float decreaseSpeed = .01f; // Adjust the speed as needed.
+        int targetMana = PlayerManager.instance.mana - manaCost;
+
+        while (PlayerManager.instance.mana > targetMana)
+        {
+            PlayerManager.instance.mana -= Mathf.CeilToInt(decreaseSpeed * Time.deltaTime);
+            yield return null;
+        }
     }
 }

@@ -98,18 +98,36 @@ public class PlayerManager : MonoBehaviour
                 StartCoroutine(GradualExpIncrease(10));
             }
 
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                InventoryManager.instance.AddItem("candy", 1, 2);
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                InventoryManager.instance.AddItem("chocolate", 1, 2);
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                InventoryManager.instance.RemoveItem("candy", 1);
+            }
+
             //LevelCheck();
 
             //Update UI values
-            ExpBar.value = exp;
-            HealthBar.value = health;
-            ManaBar.value = mana;
-            HealthText.text = health.ToString();
-            LevelText.text = level.ToString();
-            ManaText.text = mana.ToString();
+            UIUpdate();
         }
+    }
 
-        
+    void UIUpdate()
+    {
+        ExpBar.value = exp;
+        HealthBar.value = health;
+        ManaBar.value = mana;
+        HealthText.text = health.ToString();
+        LevelText.text = level.ToString();
+        ManaText.text = mana.ToString();
     }
 
     void SceneStart()

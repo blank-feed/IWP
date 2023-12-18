@@ -30,10 +30,11 @@ public class PlayerManager : MonoBehaviour
     public Class PlayerClass;
 
     private bool runOnce = false;
+    private bool inRange = false;
 
     //sprites
     public Sprite playerSprite;
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
 
     //player stats
 
@@ -64,9 +65,15 @@ public class PlayerManager : MonoBehaviour
     private TextMeshProUGUI LevelText;
     private TextMeshProUGUI ManaText;
 
+    //skills
+    private PlayerSkills playerSkills;
+
+    GameObject enemy;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerSkills = new PlayerSkills();
 
         if (instance == null)
         {
@@ -98,25 +105,45 @@ public class PlayerManager : MonoBehaviour
                 StartCoroutine(GradualExpIncrease(10));
             }
 
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                InventoryManager.instance.AddItem("candy", 1, 2);
-            }
 
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                InventoryManager.instance.AddItem("chocolate", 1, 2);
-            }
 
             if (Input.GetKeyDown(KeyCode.X))
             {
-                InventoryManager.instance.RemoveItem("candy", 1);
+                InventoryManager.instance.RemoveItem("Egg", 1);
+            }
+
+            if (Input.GetKeyDown(KeyCode.M) && inRange && !DialogueManager.isActive)
+            {
+                //CombatManager.instance.SetPlayer(gameObject);
+                //CombatManager.instance.SetEnemy(enemy);
+                CombatManager.instance.SetEnemyData(enemy);
+                CombatManager.instance.SetPlayerData();
+                FindAnyObjectByType<DialogueTrigger>().StartDialogue();
             }
 
             //LevelCheck();
 
             //Update UI values
             UIUpdate();
+        }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("conversable"))
+        {
+            inRange = true;
+            enemy = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("conversable"))
+        {
+            inRange = false;
+            enemy = null;
         }
     }
 
@@ -156,6 +183,11 @@ public class PlayerManager : MonoBehaviour
             maxExp += 10;
             ExpBar.maxValue = maxExp;
         }
+    }
+
+    public PlayerSkills GetPlayerSkills()
+    {
+        return playerSkills;
     }
 
     public void FlipSprite(bool ToF)

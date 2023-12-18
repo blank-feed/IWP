@@ -108,18 +108,21 @@ public class CharacterCustomization : MonoBehaviour
                     RaceClassText.text = "Race : Human \n Class : Paladin";
                     PlayerManager.instance.PlayerRace = PlayerManager.Race.Human;
                     PlayerManager.instance.PlayerClass = PlayerManager.Class.Paladin;
+                    PlayerSkills.instance.PaladinSkillSet();
                     PlayerManager.instance.playerSprite = paladin;
                     break;
                 case 1:
                     RaceClassText.text = "Race : High Elf \n Class : Sorcerer";
                     PlayerManager.instance.PlayerRace = PlayerManager.Race.HighElf;
                     PlayerManager.instance.PlayerClass = PlayerManager.Class.Sorcerer;
+                    PlayerSkills.instance.SorcererSkillSet();
                     PlayerManager.instance.playerSprite = paladin;
                     break;
                 case 2:
                     RaceClassText.text = "Race : Dragonborn \n Class : Fighter";
                     PlayerManager.instance.PlayerRace = PlayerManager.Race.Dragonborn;
                     PlayerManager.instance.PlayerClass = PlayerManager.Class.Fighter;
+                    PlayerSkills.instance.FighterSkillSet();
                     PlayerManager.instance.playerSprite = paladin;
                     break;
                 default:
@@ -135,18 +138,21 @@ public class CharacterCustomization : MonoBehaviour
                     RaceClassText.text = "Race : Human \n Class : Rogue";
                     PlayerManager.instance.PlayerRace = PlayerManager.Race.Human;
                     PlayerManager.instance.PlayerClass = PlayerManager.Class.Rogue;
+                    PlayerSkills.instance.RogueSkillSet();
                     PlayerManager.instance.playerSprite = paladin;
                     break;
                 case 1:
                     RaceClassText.text = "Race : High Elf \n Class : Ranger";
                     PlayerManager.instance.PlayerRace = PlayerManager.Race.HighElf;
                     PlayerManager.instance.PlayerClass = PlayerManager.Class.Ranger;
+                    PlayerSkills.instance.RangerSkillSet();
                     PlayerManager.instance.playerSprite = paladin;
                     break;
                 case 2:
                     RaceClassText.text = "Race : Dragonborn \n Class : Druid";
                     PlayerManager.instance.PlayerRace = PlayerManager.Race.Dragonborn;
                     PlayerManager.instance.PlayerClass = PlayerManager.Class.Druid;
+                    PlayerSkills.instance.DruidSkillSet();
                     PlayerManager.instance.playerSprite = paladin;
                     break;
                 default:

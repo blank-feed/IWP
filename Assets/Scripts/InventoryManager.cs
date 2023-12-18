@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class InventoryManager : MonoBehaviour
@@ -10,9 +12,14 @@ public class InventoryManager : MonoBehaviour
     public List<InventoryItem> Item_List;
 
     public GameObject InventoryUI;
-    public TextMeshProUGUI InventoryUIText;
+    public GameObject InventoryGrid;
+
+    public GameObject egg;
+    public GameObject Prefab_InventoryItem;
 
     public bool openInventoryUI = false;
+    bool displayOnce = false;
+
     private void Awake()
     {
         if (instance != null)
@@ -30,6 +37,11 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
+        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("MainLobby"))
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             openInventoryUI = !openInventoryUI;
@@ -37,27 +49,31 @@ public class InventoryManager : MonoBehaviour
 
         if (openInventoryUI)
         {
-            string thistext = "";
             InventoryUI.SetActive(true);
-            SkillManager.instance.SkillTree.SetActive(false);
-            if (Item_List.Count == 0)
+            //SkillManager.instance.SkillTree.SetActive(false);
+
+            //display things
+            if (!displayOnce)
             {
-                InventoryUIText.text = "";
-                return;
-            }
-            for (int i = 0; i < Item_List.Count; i++)
-            {
-                thistext += Item_List[i].Name + " | " + Item_List[i].quantity + "\n";
-                InventoryUIText.text = thistext;
+                DisplayItems();
             }
         }
         else
         {
+            if (InventoryUI == null)
+            {
+                InventoryUI = GameObject.Find("InventoryUI");
+            }
+            if (InventoryGrid == null)
+            {
+                InventoryGrid = GameObject.Find("inventorygrid");
+            }
+            UndisplayItems();
             InventoryUI.SetActive(false);
         }
     }
 
-    public void AddItem(string item_name, int addValue, int catnum)
+    public void AddItem(string item_name, int addValue, int catnum, Sprite item_sprite)
     {
         for (int i = 0; i < Item_List.Count; i++)
         {
@@ -70,7 +86,7 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        InventoryItem item = new InventoryItem(item_name, addValue, catnum);
+        InventoryItem item = new InventoryItem(item_name, addValue, catnum, item_sprite);
         Item_List.Add(item);
     }
 
@@ -87,5 +103,46 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void DisplayItems()
+    {
+        for (int i = 0; i < Item_List.Count; i++)
+        {
+            Image itemImage = Prefab_InventoryItem.transform.Find("IUI_Image").GetComponent<Image>();
+            TextMeshProUGUI itemNameText = Prefab_InventoryItem.transform.Find("IUI_Name").GetComponent<TextMeshProUGUI>();
+            Transform quantityParent = Prefab_InventoryItem.transform.Find("IUI_Quantity");
+            TextMeshProUGUI itemQuantityText = quantityParent.Find("IUI_Number").GetComponent<TextMeshProUGUI>();
+
+            itemImage.sprite = Item_List[i].sprite;
+            itemNameText.text = Item_List[i].Name;
+            if (Item_List[i].quantity > 1)
+            {
+                if (!quantityParent.gameObject.activeSelf)
+                {
+                    quantityParent.gameObject.SetActive(true);
+                }
+                itemQuantityText.text = Item_List[i].quantity.ToString();
+            }
+            else
+            {
+                quantityParent.gameObject.SetActive(false);
+            }
+            Instantiate(Prefab_InventoryItem, InventoryGrid.transform);
+        }
+        displayOnce = true;
+    }
+
+    void UndisplayItems()
+    {
+        if (!InventoryGrid.activeSelf)
+        {
+            return;
+        }
+        for (int i = 0; i < InventoryGrid.transform.childCount; i++)
+        {
+            Destroy(InventoryGrid.transform.GetChild(i).gameObject);
+        }
+        displayOnce = false;
     }
 }

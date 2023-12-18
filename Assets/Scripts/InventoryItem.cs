@@ -6,6 +6,7 @@ public class InventoryItem
 {
     public string Name;
     public int quantity;
+    public Sprite sprite;
     public enum Category
     {
         weapon,
@@ -21,10 +22,11 @@ public class InventoryItem
         quantity = 0;
     }
 
-    public InventoryItem(string item_name, int item_quan, int CatNum)
+    public InventoryItem(string item_name, int item_quan, int CatNum, Sprite s)
     {
         Name = item_name;
         quantity = item_quan;
+        sprite = s;
         switch (CatNum)
         {
             case 0:

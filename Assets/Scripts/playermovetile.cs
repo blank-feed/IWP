@@ -5,9 +5,25 @@ using UnityEngine.Tilemaps;
 
 public class playermovetile : MonoBehaviour
 {
+    public static playermovetile instance;
+
     GameObject player;
+    public GameObject enemy;
     Tilemap tmap;
     private Vector3 targetPosition;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -16,22 +32,45 @@ public class playermovetile : MonoBehaviour
         tmap = GameObject.Find("Tilemap_Base").GetComponent<Tilemap>();
         player.transform.localScale = new Vector3(.5f, .5f, 1);
         player.transform.position = tmap.GetCellCenterWorld(new Vector3Int(-4, 0));
+        enemy.transform.position = tmap.GetCellCenterWorld(new Vector3Int(4, 0));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && BattleManager.instance.moveable)
+        if (BattleManager.instance.enemyhp <= 0)
         {
-            targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(GetDestination(targetPosition));
-            TileBase destinationTile = GetDestination(targetPosition);
-            if (destinationTile != null)
+            Destroy(enemy);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (BattleManager.instance.moveable)
             {
-                Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
-                player.transform.position = tmap.GetCellCenterWorld(destinationCell);
-                BattleManager.instance.moveable = false;
-                BattleManager.instance.bs = BattlingState.playerturn;
+                targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                TileBase destinationTile = GetDestination(targetPosition);
+                if (destinationTile != null && tmap.WorldToCell(targetPosition) != tmap.WorldToCell(enemy.transform.position))
+                {
+                    Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
+                    player.transform.position = tmap.GetCellCenterWorld(destinationCell);
+                    BattleManager.instance.moveable = false;
+                    BattleManager.instance.bs = BattlingState.enemyturn;
+                }
+            }
+            if (BattleManager.instance.shootable)
+            {
+                targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                TileBase destinationTile = GetDestination(targetPosition);
+                if (destinationTile != null)
+                {
+                    Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
+                    if (tmap.GetCellCenterWorld(destinationCell) == tmap.GetCellCenterWorld(tmap.WorldToCell(enemy.transform.position)))
+                    {
+                        BattleManager.instance.enemyhp -= 50;
+                    }
+                    BattleManager.instance.shootable = false;
+                    BattleManager.instance.bs = BattlingState.enemyturn;
+                }
             }
         }
     }
@@ -66,4 +105,46 @@ public class playermovetile : MonoBehaviour
 
         return null;
     }
+
+    public bool IsPlayerOneTileAway()
+    {
+        Vector3Int playerCell = tmap.WorldToCell(player.transform.position);
+        Vector3Int enemyCell = tmap.WorldToCell(enemy.transform.position);
+
+        // Check if the player is exactly one tile above, below, to the left, or to the right of the enemy
+        return Mathf.Abs(playerCell.x - enemyCell.x) == 1 && playerCell.y == enemyCell.y
+            || Mathf.Abs(playerCell.y - enemyCell.y) == 1 && playerCell.x == enemyCell.x;
+    }
+
+    public void MoveTowardsPlayer()
+    {
+        Vector3Int playerCell = tmap.WorldToCell(player.transform.position);
+        Vector3Int enemyCell = tmap.WorldToCell(enemy.transform.position);
+
+        Vector3 destinationCell;
+
+        if (playerCell.x < enemyCell.x)
+        {
+            // Player is to the left of the enemy
+            destinationCell = tmap.GetCellCenterWorld(new Vector3Int(enemyCell.x - 1, enemyCell.y, enemyCell.z));
+        }
+        else if (playerCell.x > enemyCell.x)
+        {
+            // Player is to the right of the enemy
+            destinationCell = tmap.GetCellCenterWorld(new Vector3Int(enemyCell.x + 1, enemyCell.y, enemyCell.z));
+        }
+        else if (playerCell.y < enemyCell.y)
+        {
+            // Player is below the enemy
+            destinationCell = tmap.GetCellCenterWorld(new Vector3Int(enemyCell.x, enemyCell.y - 1, enemyCell.z));
+        }
+        else
+        {
+            // Player is above the enemy
+            destinationCell = tmap.GetCellCenterWorld(new Vector3Int(enemyCell.x, enemyCell.y + 1, enemyCell.z));
+        }
+
+        enemy.transform.position = destinationCell;
+    }
+
 }

@@ -68,6 +68,9 @@ public class PlayerManager : MonoBehaviour
     //skills
     private PlayerSkills playerSkills;
 
+    //Die
+    public int MaxDieNum = 20;
+
     GameObject enemy;
 
     private void Awake()

@@ -30,9 +30,9 @@ public class playermovetile : MonoBehaviour
             {
                 Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
                 player.transform.position = tmap.GetCellCenterWorld(destinationCell);
+                BattleManager.instance.moveable = false;
+                BattleManager.instance.bs = BattlingState.playerturn;
             }
-            BattleManager.instance.moveable = false;
-            BattleManager.instance.bs = BattlingState.playerturn;
         }
     }
 

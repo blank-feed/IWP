@@ -16,6 +16,8 @@ public class BattleManager : MonoBehaviour
 {
     public static BattleManager instance;
 
+    public GameObject Menu_AoM;
+
     public BattlingState bs;
     public bool moveable = false;
 
@@ -44,23 +46,18 @@ public class BattleManager : MonoBehaviour
         switch (bs)
         {
             case BattlingState.start:
+                Menu_AoM.SetActive(false);
                 bs = BattlingState.playerturn;
                 break;
             case BattlingState.playerturn:
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    bs = BattlingState.move;
-                }
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    bs = BattlingState.attack;
-                }
+                Menu_AoM.SetActive(true);
                 break;
             case BattlingState.move:
+                Menu_AoM.SetActive(false);
                 moveable = true;
                 break;
             case BattlingState.attack:
-
+                Menu_AoM.SetActive(false);
                 break;
             case BattlingState.enemyturn:
 
@@ -75,4 +72,15 @@ public class BattleManager : MonoBehaviour
                 break;
         }
     }
+
+    public void Move()
+    {
+        bs = BattlingState.move;
+    }
+
+    public void Attack()
+    {
+        bs = BattlingState.attack;
+    }
+
 }

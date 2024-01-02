@@ -38,11 +38,6 @@ public class playermovetile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (BattleManager.instance.enemyhp <= 0)
-        {
-            Destroy(enemy);
-        }
-
         if (Input.GetMouseButtonDown(0))
         {
             if (BattleManager.instance.moveable)
@@ -57,7 +52,7 @@ public class playermovetile : MonoBehaviour
                     BattleManager.instance.bs = BattlingState.enemyturn;
                 }
             }
-            if (BattleManager.instance.shootable)
+            if (BattleManager.instance.can_melee)
             {
                 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 TileBase destinationTile = GetDestination(targetPosition);
@@ -68,9 +63,30 @@ public class playermovetile : MonoBehaviour
                     {
                         BattleManager.instance.enemyhp -= 50;
                     }
-                    BattleManager.instance.shootable = false;
+                    BattleManager.instance.can_melee = false;
                     BattleManager.instance.bs = BattlingState.enemyturn;
                 }
+            }
+        }
+
+        //right click to cancel
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (BattleManager.instance.moveable)
+            {
+                BattleManager.instance.moveable = false;
+                BattleManager.instance.bs = BattlingState.playerturn;
+            }
+
+            if (BattleManager.instance.can_melee)
+            {
+                BattleManager.instance.can_melee = false;
+                BattleManager.instance.bs = BattlingState.Select_attack;
+            }
+
+            if (BattleManager.instance.bs == BattlingState.Select_attack)
+            {
+                BattleManager.instance.bs = BattlingState.playerturn;
             }
         }
     }

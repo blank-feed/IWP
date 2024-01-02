@@ -43,9 +43,9 @@ public class PlayerSkills : MonoBehaviour
     public allskills skill2;
     public allskills skill3;
 
-    int Skill1_Level = 1;
-    int Skill2_Level = 1;
-    int Skill3_Level = 1;
+    //int Skill1_Level = 1;
+    //int Skill2_Level = 1;
+    //int Skill3_Level = 1;
 
     private void Awake()
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public enum BattlingState
 {
@@ -25,8 +26,12 @@ public class BattleManager : MonoBehaviour
     public GameObject Menu_Attack;
 
     public BattlingState bs;
+
+    //can move
     public bool moveable = false;
-    public bool shootable = false;
+
+    //can melee
+    public bool can_melee = false;
 
     public TextMeshProUGUI playerhpinfo;
     public TextMeshProUGUI enemyhpinfo;
@@ -44,7 +49,6 @@ public class BattleManager : MonoBehaviour
         else
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -59,6 +63,12 @@ public class BattleManager : MonoBehaviour
     {
         playerhpinfo.text = "player hp : " + PlayerManager.instance.health;
         enemyhpinfo.text = "enemy hp : " + enemyhp;
+
+        if (enemyhp <= 0)
+        {
+            Destroy(playermovetile.instance.enemy);
+            StartCoroutine(EndBattle());
+        }
 
         switch (bs)
         {
@@ -112,10 +122,10 @@ public class BattleManager : MonoBehaviour
         switch (skill)
         {
             case 1:
-                shootable = true;
+                can_melee = true;
                 break;
             case 2:
-                enemyhp -= 10;
+                enemyhp -= 100; //10
                 bs = BattlingState.enemyturn;
                 break;
             case 3:
@@ -181,5 +191,11 @@ public class BattleManager : MonoBehaviour
         // Wait for 1 second
         yield return new WaitForSeconds(1.0f);
         EnemyTurn();
+    }
+
+    IEnumerator EndBattle()
+    {
+        yield return new WaitForSeconds(1.0f);
+        SceneManager.LoadScene("MainLobby");
     }
 }

@@ -1,164 +1,127 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerSkills : MonoBehaviour
 {
     public static PlayerSkills instance;
 
-    public enum allskills
+    public enum AllSkills
     {
-        //Paladin Skills
         Holy_Strike,
-        Holy_Protection,
+        Holy_Heal,
         Holy_Rage,
-
-        //Rogue Skills
         Slip_Snip,
         Weakness_Policy,
         Agile_Snip,
-
-        //Sorcerer Skills
         Arcane_Smash,
         Blood_Siphon,
         Recovery_Pool,
-
-        //Ranger Skills
-        Volley,
+        Crippling_Volley,
         High_Shot,
-        Barrage,
-
-        //Fighter
-        Frenzy_Outrage,
+        Barrage_Strike,
+        Frenzy_Impact,
         Critical_Opportunity,
         Frail_Crush,
-
-        //Druid
-        Dragonic_Beams,
+        Dragon_Beam,
         Winged_Buddy,
-        Wrym_Wrath
+        Wyrm_Summon
     }
 
-    public allskills skill1;
-    public allskills skill2;
-    public allskills skill3;
-
-    //int Skill1_Level = 1;
-    //int Skill2_Level = 1;
-    //int Skill3_Level = 1;
+    public AllSkills S1;
+    public AllSkills S2;
+    public AllSkills S3;
+    public Array skillValues;
 
     private void Awake()
     {
-        if (instance != null)
+        instance = this;
+    }
+
+    private void Start()
+    {
+        skillValues = Enum.GetValues(typeof(AllSkills));
+    }
+
+    public string ProcessSkillName(AllSkills skill)
+    {
+        string originalName = skill.ToString();
+        string[] parts = originalName.Split('_');
+        return string.Join("\n", parts);
+    }
+
+    public void UseSkill(AllSkills skill_used)
+    {
+        int random = UnityEngine.Random.Range(1, 7);
+        Debug.Log("Dice Rolled : " + random);
+        switch (skill_used)
         {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-    }
-
-    public void PaladinSkillSet()
-    {
-        skill1 = allskills.Holy_Strike;
-        skill2 = allskills.Holy_Protection;
-        skill3 = allskills.Holy_Rage;
-    }
-
-    public void RogueSkillSet()
-    {
-        skill1 = allskills.Slip_Snip;
-        skill2 = allskills.Weakness_Policy;
-        skill3 = allskills.Agile_Snip;
-    }
-
-    public void SorcererSkillSet()
-    {
-        skill1 = allskills.Arcane_Smash;
-        skill2 = allskills.Blood_Siphon;
-        skill3 = allskills.Recovery_Pool;
-    }
-
-    public void RangerSkillSet()
-    {
-        skill1 = allskills.Volley;
-        skill2 = allskills.High_Shot;
-        skill3 = allskills.Barrage;
-    }
-
-    public void FighterSkillSet()
-    {
-        skill1 = allskills.Frenzy_Outrage;
-        skill2 = allskills.Critical_Opportunity;
-        skill3 = allskills.Frail_Crush;
-    }
-
-    public void DruidSkillSet()
-    {
-        skill1 = allskills.Dragonic_Beams;
-        skill2 = allskills.Winged_Buddy;
-        skill3 = allskills.Wrym_Wrath;
-    }
-
-    public void Use(allskills skillChosen)
-    {
-        switch (skillChosen)
-        {
-            case allskills.Holy_Strike:
-
+            case AllSkills.Holy_Strike:
+                BattleManager.instance.Damage = 30;
+                BattleManager.instance.can_melee = true;
                 break;
-            case allskills.Holy_Protection:
-
+            case AllSkills.Holy_Heal:
+                PlayerManager.instance.health += 10;
+                if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
+                {
+                    PlayerManager.instance.health = PlayerManager.instance.maxHealth;
+                }
+                BattleManager.instance.bs = BattlingState.enemyturn;
                 break;
-            case allskills.Holy_Rage:
-
+            case AllSkills.Holy_Rage:
+                if (PlayerManager.instance.health < 50)
+                {
+                    BattleManager.instance.Damage = 40;
+                }
+                else
+                {
+                    BattleManager.instance.Damage = 20;
+                }
+                BattleManager.instance.can_melee = true;
                 break;
-            case allskills.Slip_Snip:
-
+            case AllSkills.Slip_Snip:
                 break;
-            case allskills.Weakness_Policy:
-
+            case AllSkills.Weakness_Policy:
                 break;
-            case allskills.Agile_Snip:
-
+            case AllSkills.Agile_Snip:
                 break;
-            case allskills.Arcane_Smash:
-
+            case AllSkills.Arcane_Smash:
                 break;
-            case allskills.Blood_Siphon:
-
+            case AllSkills.Blood_Siphon:
                 break;
-            case allskills.Recovery_Pool:
-
+            case AllSkills.Recovery_Pool:
                 break;
-            case allskills.Volley:
-
+            case AllSkills.Crippling_Volley:
                 break;
-            case allskills.High_Shot:
-
+            case AllSkills.High_Shot:
                 break;
-            case allskills.Barrage:
-
+            case AllSkills.Barrage_Strike:
                 break;
-            case allskills.Frenzy_Outrage:
-
+            case AllSkills.Frenzy_Impact:
+                BattleManager.instance.Damage = 8 * random;
+                BattleManager.instance.can_melee = true;
                 break;
-            case allskills.Critical_Opportunity:
-
+            case AllSkills.Critical_Opportunity:
+                if (random > 4)
+                {
+                    BattleManager.instance.Damage = 70;
+                    BattleManager.instance.can_melee = true;
+                }
+                else
+                {
+                    BattleManager.instance.bs = BattlingState.enemyturn;
+                }
                 break;
-            case allskills.Frail_Crush:
-
+            case AllSkills.Frail_Crush:
+                BattleManager.instance.Damage = 10 * BattleManager.instance.combo;
+                BattleManager.instance.can_melee = true;
                 break;
-            case allskills.Dragonic_Beams:
-
+            case AllSkills.Dragon_Beam:
                 break;
-            case allskills.Winged_Buddy:
-
+            case AllSkills.Winged_Buddy:
                 break;
-            case allskills.Wrym_Wrath:
-
+            case AllSkills.Wyrm_Summon:
                 break;
             default:
                 break;

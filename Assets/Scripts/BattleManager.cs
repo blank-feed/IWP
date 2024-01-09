@@ -36,9 +36,17 @@ public class BattleManager : MonoBehaviour
     public TextMeshProUGUI playerhpinfo;
     public TextMeshProUGUI enemyhpinfo;
 
+    public TextMeshProUGUI Skill1_Name;
+    public TextMeshProUGUI Skill2_Name;
+    public TextMeshProUGUI Skill3_Name;
+
     public int enemyhp = 100;
 
     private bool delayTriggered = false;
+
+    public int Damage;
+
+    public int combo = 0;
 
     private void Awake()
     {
@@ -55,6 +63,10 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Skill1_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S1);
+        Skill2_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S2);
+        Skill3_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S3);
+        combo = 0;
         bs = BattlingState.start;
     }
 
@@ -122,19 +134,22 @@ public class BattleManager : MonoBehaviour
         switch (skill)
         {
             case 1:
-                can_melee = true;
+                //can_melee = true;
+                PlayerSkills.instance.UseSkill(PlayerSkills.instance.S1);
                 break;
             case 2:
-                enemyhp -= 100; //10
-                bs = BattlingState.enemyturn;
+                //enemyhp -= 100; //10
+                //bs = BattlingState.enemyturn;
+                PlayerSkills.instance.UseSkill(PlayerSkills.instance.S2);
                 break;
             case 3:
-                PlayerManager.instance.health += 10;
-                if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
-                {
-                    PlayerManager.instance.health = PlayerManager.instance.maxHealth;
-                }
-                bs = BattlingState.enemyturn;
+                //PlayerManager.instance.health += 10;
+                //if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
+                //{
+                //    PlayerManager.instance.health = PlayerManager.instance.maxHealth;
+                //}
+                //bs = BattlingState.enemyturn;
+                PlayerSkills.instance.UseSkill(PlayerSkills.instance.S3);
                 break;
             default:
                 break;

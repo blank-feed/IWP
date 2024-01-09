@@ -4559,10 +4559,14 @@ MonoBehaviour:
   Menu_Attack: {fileID: 1195075236}
   bs: 0
   moveable: 0
-  shootable: 0
+  can_melee: 0
   playerhpinfo: {fileID: 2072192183}
   enemyhpinfo: {fileID: 943236201}
+  Skill1_Name: {fileID: 1226711171}
+  Skill2_Name: {fileID: 398687969}
+  Skill3_Name: {fileID: 2012384362}
   enemyhp: 100
+  Damage: 0
 --- !u!1 &2012384360
 GameObject:
   m_ObjectHideFlags: 0

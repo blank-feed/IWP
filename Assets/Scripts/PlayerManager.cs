@@ -65,9 +65,6 @@ public class PlayerManager : MonoBehaviour
     private TextMeshProUGUI LevelText;
     private TextMeshProUGUI ManaText;
 
-    //skills
-    private PlayerSkills playerSkills;
-
     //Die
     public int MaxDieNum = 20;
 
@@ -76,7 +73,7 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        playerSkills = new PlayerSkills();
+        //playerSkills = new PlayerSkills();
 
         if (instance == null)
         {
@@ -188,10 +185,10 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public PlayerSkills GetPlayerSkills()
-    {
-        return playerSkills;
-    }
+    //public PlayerSkills GetPlayerSkills()
+    //{
+    //    //return playerSkills;
+    //}
 
     public void FlipSprite(bool ToF)
     {

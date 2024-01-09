@@ -1166,6 +1166,7 @@ MonoBehaviour:
   Class0Text: {fileID: 1548407222}
   Class1Text: {fileID: 1216375972}
   RaceClassText: {fileID: 2009693836}
+  playerSkills: {fileID: 814557353}
 --- !u!4 &794030389
 Transform:
   m_ObjectHideFlags: 0
@@ -1181,6 +1182,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &814557353 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 350658778532744568, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+  m_PrefabInstance: {fileID: 1175784806}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 324a6ac8b4aa9bc4ab242e8026f1eb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1067590789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1649,7 +1661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2732253920464025865, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: health
-      value: 30
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 2732253920464025865, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: moveSpeed

@@ -7,6 +7,8 @@ public class PlayerSkills : MonoBehaviour
 {
     public static PlayerSkills instance;
 
+    int random;
+
     public enum AllSkills
     {
         Holy_Strike,
@@ -53,7 +55,7 @@ public class PlayerSkills : MonoBehaviour
 
     public void UseSkill(AllSkills skill_used)
     {
-        int random = UnityEngine.Random.Range(1, 7);
+        random = UnityEngine.Random.Range(1, 7);
         Debug.Log("Dice Rolled : " + random);
         switch (skill_used)
         {
@@ -110,11 +112,12 @@ public class PlayerSkills : MonoBehaviour
                 }
                 else
                 {
+                    BattleManager.instance.momentum++;
                     BattleManager.instance.bs = BattlingState.enemyturn;
                 }
                 break;
             case AllSkills.Frail_Crush:
-                BattleManager.instance.Damage = 10 * BattleManager.instance.combo;
+                BattleManager.instance.Damage = 10 * BattleManager.instance.momentum;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Dragon_Beam:

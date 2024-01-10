@@ -48,6 +48,7 @@ public class playermovetile : MonoBehaviour
                 {
                     Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
                     player.transform.position = tmap.GetCellCenterWorld(destinationCell);
+                    BattleManager.instance.momentum--;
                     BattleManager.instance.moveable = false;
                     BattleManager.instance.bs = BattlingState.enemyturn;
                 }
@@ -62,7 +63,7 @@ public class playermovetile : MonoBehaviour
                     if (tmap.GetCellCenterWorld(destinationCell) == tmap.GetCellCenterWorld(tmap.WorldToCell(enemy.transform.position)))
                     {
                         BattleManager.instance.enemyhp -= BattleManager.instance.Damage;
-                        BattleManager.instance.combo++;
+                        BattleManager.instance.momentum++;
                     }
                     BattleManager.instance.can_melee = false;
                     BattleManager.instance.bs = BattlingState.enemyturn;

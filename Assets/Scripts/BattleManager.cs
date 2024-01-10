@@ -46,7 +46,7 @@ public class BattleManager : MonoBehaviour
 
     public int Damage;
 
-    public int combo = 0;
+    public int momentum = 0;
 
     private void Awake()
     {
@@ -66,7 +66,7 @@ public class BattleManager : MonoBehaviour
         Skill1_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S1);
         Skill2_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S2);
         Skill3_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S3);
-        combo = 0;
+        momentum = 0;
         bs = BattlingState.start;
     }
 

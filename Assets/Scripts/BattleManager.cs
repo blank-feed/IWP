@@ -22,6 +22,8 @@ public class BattleManager : MonoBehaviour
 {
     public static BattleManager instance;
 
+    private Camera MainCamera;
+
     public GameObject Menu_AoM;
     public GameObject Menu_Attack;
 
@@ -63,16 +65,19 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MainCamera = Camera.main;
         Skill1_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S1);
         Skill2_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S2);
         Skill3_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S3);
-        momentum = 0;
         bs = BattlingState.start;
+        momentum = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Menu_AoM.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
+
         playerhpinfo.text = "player hp : " + PlayerManager.instance.health;
         enemyhpinfo.text = "enemy hp : " + enemyhp;
 

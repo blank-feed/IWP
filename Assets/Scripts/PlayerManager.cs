@@ -9,6 +9,9 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
 
+    public GameObject MIcon_prefab;
+    GameObject newPrefabInstance;
+
     public enum Race
     {
         Human,
@@ -105,8 +108,6 @@ public class PlayerManager : MonoBehaviour
                 StartCoroutine(GradualExpIncrease(10));
             }
 
-
-
             if (Input.GetKeyDown(KeyCode.X))
             {
                 InventoryManager.instance.RemoveItem("Egg", 1);
@@ -121,6 +122,11 @@ public class PlayerManager : MonoBehaviour
                 FindAnyObjectByType<DialogueTrigger>().StartDialogue();
             }
 
+            if (inRange)
+            {
+                newPrefabInstance.transform.position = Camera.main.WorldToScreenPoint(enemy.transform.position);
+            }
+
             //LevelCheck();
 
             //Update UI values
@@ -133,6 +139,13 @@ public class PlayerManager : MonoBehaviour
     {
         if (other.CompareTag("conversable"))
         {
+            newPrefabInstance = Instantiate(MIcon_prefab, Vector3.zero, Quaternion.identity);
+            newPrefabInstance.name = "M_Icon";
+            Canvas canvas = FindObjectOfType<Canvas>();
+            if (canvas != null)
+            {
+                newPrefabInstance.transform.SetParent(canvas.transform, false);
+            }
             inRange = true;
             enemy = other.gameObject;
         }
@@ -140,8 +153,11 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
+
         if (other.CompareTag("conversable"))
         {
+            GameObject destroying = GameObject.Find("M_Icon");
+            Destroy(destroying);
             inRange = false;
             enemy = null;
         }

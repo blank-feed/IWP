@@ -1667,6 +1667,10 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2732253920464025865, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: MIcon_prefab
+      value: 
+      objectReference: {fileID: 8731405266958779075, guid: bfdbc44f8ecee124a8ae2d43b94f80bc, type: 3}
     - target: {fileID: 4665218645162043692, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_RootOrder
       value: 4

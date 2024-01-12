@@ -11,6 +11,7 @@ public class playermovetile : MonoBehaviour
     public GameObject enemy;
     Tilemap tmap;
     private Vector3 targetPosition;
+    public int temp_num = -1;
 
     private void Awake()
     {
@@ -42,15 +43,25 @@ public class playermovetile : MonoBehaviour
         {
             if (BattleManager.instance.moveable)
             {
-                targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                TileBase destinationTile = GetDestination(targetPosition);
-                if (destinationTile != null && tmap.WorldToCell(targetPosition) != tmap.WorldToCell(enemy.transform.position))
+                if (BattleManager.instance.MoveCount != 0)
                 {
-                    Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
-                    player.transform.position = tmap.GetCellCenterWorld(destinationCell);
-                    BattleManager.instance.momentum--;
-                    BattleManager.instance.moveable = false;
-                    BattleManager.instance.bs = BattlingState.enemyturn;
+                    targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    TileBase destinationTile = GetDestination(targetPosition);
+                    if (destinationTile != null && tmap.WorldToCell(targetPosition) != tmap.WorldToCell(enemy.transform.position))
+                    {
+                        Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
+                        player.transform.position = tmap.GetCellCenterWorld(destinationCell);
+                        BattleManager.instance.momentum--;
+                        BattleManager.instance.MoveCount--;
+                        BattleManager.instance.MoveCount_Text.text = BattleManager.instance.MoveCount.ToString();
+                    }
+                    if (BattleManager.instance.MoveCount == 0)
+                    {
+                        temp_num = -1;
+                        BattleManager.instance.MoveCount_UI.SetActive(false);
+                        BattleManager.instance.moveable = false;
+                        BattleManager.instance.bs = BattlingState.enemyturn;
+                    }
                 }
             }
             if (BattleManager.instance.can_melee)
@@ -77,6 +88,8 @@ public class playermovetile : MonoBehaviour
             if (BattleManager.instance.moveable)
             {
                 BattleManager.instance.moveable = false;
+                BattleManager.instance.MoveCount_UI.SetActive(false);
+                PlayerManager.instance.transform.position = BattleManager.instance.Ori_Pos;
                 BattleManager.instance.bs = BattlingState.playerturn;
             }
 
@@ -89,6 +102,18 @@ public class playermovetile : MonoBehaviour
             if (BattleManager.instance.bs == BattlingState.Select_attack)
             {
                 BattleManager.instance.bs = BattlingState.playerturn;
+            }
+        }
+
+        //end movement early
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (BattleManager.instance.moveable)
+            {
+                BattleManager.instance.moveable = false;
+                BattleManager.instance.MoveCount_UI.SetActive(false);
+                temp_num = -1;
+                BattleManager.instance.bs = BattlingState.enemyturn;
             }
         }
     }

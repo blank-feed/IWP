@@ -26,6 +26,8 @@ public class BattleManager : MonoBehaviour
 
     public GameObject Menu_AoM;
     public GameObject Menu_Attack;
+    public GameObject MoveCount_UI;
+    public TextMeshProUGUI MoveCount_Text;
 
     public BattlingState bs;
 
@@ -49,6 +51,10 @@ public class BattleManager : MonoBehaviour
     public int Damage;
 
     public int momentum = 0;
+
+    public int MoveCount;
+
+    public Vector3 Ori_Pos;
 
     private void Awake()
     {
@@ -77,6 +83,7 @@ public class BattleManager : MonoBehaviour
     void Update()
     {
         Menu_AoM.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
+        MoveCount_UI.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
 
         playerhpinfo.text = "player hp : " + PlayerManager.instance.health;
         enemyhpinfo.text = "enemy hp : " + enemyhp;
@@ -125,6 +132,18 @@ public class BattleManager : MonoBehaviour
 
     public void Move()
     {
+        Ori_Pos = PlayerManager.instance.transform.position;
+        MoveCount_UI.SetActive(true);
+        if (playermovetile.instance.temp_num == -1)
+        {
+            MoveCount = RollDie(6);
+        }
+        else
+        {
+            MoveCount = playermovetile.instance.temp_num;
+        }
+        MoveCount_Text.text = MoveCount.ToString();
+        playermovetile.instance.temp_num = MoveCount;
         bs = BattlingState.move;
     }
 

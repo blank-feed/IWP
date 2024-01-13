@@ -82,8 +82,23 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Menu_AoM.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
-        MoveCount_UI.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
+        //if player at the very bottom
+        //if (PlayerManager.instance.transform.position.y == -4.5)
+        //{
+        //    Menu_AoM.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
+        //    MoveCount_UI.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
+        //}
+        //if player near the top
+        /*else */if (PlayerManager.instance.transform.position.y >= 3.5)
+        {
+            MoveCount_UI.transform.position = MainCamera.WorldToScreenPoint(new Vector3(PlayerManager.instance.transform.position.x, PlayerManager.instance.transform.position.y - 3));
+            Menu_AoM.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
+        }
+        else
+        {
+            Menu_AoM.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
+            MoveCount_UI.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
+        }
 
         playerhpinfo.text = "player hp : " + PlayerManager.instance.health;
         enemyhpinfo.text = "enemy hp : " + enemyhp;
@@ -98,6 +113,7 @@ public class BattleManager : MonoBehaviour
         {
             case BattlingState.start:
                 SetMenuActive(0);
+                MoveCount_UI.SetActive(false);
                 bs = BattlingState.playerturn;
                 break;
             case BattlingState.playerturn:

@@ -12,6 +12,8 @@ public class playermovetile : MonoBehaviour
     Tilemap tmap;
     private Vector3 targetPosition;
     public int temp_num = -1;
+    public GameObject MoveableArrowsPrefab;
+    bool shown = false;
 
     private void Awake()
     {
@@ -39,6 +41,18 @@ public class playermovetile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (BattleManager.instance.moveable)
+        {
+            if (!shown)
+            {
+                ShowMoveableSpots();
+            }
+        }
+        else
+        {
+            DestroyObjectsWithName("BouncingArrow");
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             if (BattleManager.instance.moveable)
@@ -51,6 +65,7 @@ public class playermovetile : MonoBehaviour
                     {
                         Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
                         player.transform.position = tmap.GetCellCenterWorld(destinationCell);
+                        DestroyObjectsWithName("BouncingArrow");
                         BattleManager.instance.momentum--;
                         BattleManager.instance.MoveCount--;
                         BattleManager.instance.MoveCount_Text.text = BattleManager.instance.MoveCount.ToString();
@@ -64,6 +79,7 @@ public class playermovetile : MonoBehaviour
                     }
                 }
             }
+
             if (BattleManager.instance.can_melee)
             {
                 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -147,6 +163,46 @@ public class playermovetile : MonoBehaviour
         }
 
         return null;
+    }
+
+    void ShowMoveableSpots()
+    {
+        Vector3Int Temp_playerGridPos = tmap.WorldToCell(player.transform.position);
+        Vector2Int playerGridPos = new Vector2Int(Temp_playerGridPos.x, Temp_playerGridPos.y);
+
+        Vector3Int T = new Vector3Int(playerGridPos.x, playerGridPos.y + 1);
+        Vector3Int D = new Vector3Int(playerGridPos.x, playerGridPos.y - 1);
+        Vector3Int L = new Vector3Int(playerGridPos.x - 1, playerGridPos.y);
+        Vector3Int R = new Vector3Int(playerGridPos.x + 1, playerGridPos.y);
+
+        Vector3 Top = tmap.GetCellCenterWorld(T);
+        Vector3 Down = tmap.GetCellCenterWorld(D);
+        Vector3 Left = tmap.GetCellCenterWorld(L);
+        Vector3 Right = tmap.GetCellCenterWorld(R);
+
+        Instantiate(MoveableArrowsPrefab, new Vector3(Top.x, Top.y, Top.z), Quaternion.identity);
+        Instantiate(MoveableArrowsPrefab, new Vector3(Down.x, Down.y, Down.z), Quaternion.identity);
+        Instantiate(MoveableArrowsPrefab, new Vector3(Left.x, Left.y, Left.z), Quaternion.identity);
+        Instantiate(MoveableArrowsPrefab, new Vector3(Right.x, Right.y, Right.z), Quaternion.identity);
+
+        shown = true;
+    }
+
+    void DestroyObjectsWithName(string tagToFind)
+    {
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(tagToFind);
+
+        if (gameObjects == null || gameObjects.Length == 0)
+        {
+            return;
+        }
+
+        foreach (GameObject obj in gameObjects)
+        {
+            Destroy(obj);
+        }
+
+        shown = false;
     }
 
     public bool IsPlayerOneTileAway()

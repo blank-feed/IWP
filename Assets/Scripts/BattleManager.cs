@@ -176,6 +176,7 @@ public class BattleManager : MonoBehaviour
             case 1:
                 //can_melee = true;
                 PlayerSkills.instance.UseSkill(PlayerSkills.instance.S1);
+                playermovetile.instance.ShowHittableSpots();
                 break;
             case 2:
                 //enemyhp -= 100; //10
@@ -190,6 +191,7 @@ public class BattleManager : MonoBehaviour
                 //}
                 //bs = BattlingState.enemyturn;
                 PlayerSkills.instance.UseSkill(PlayerSkills.instance.S3);
+                playermovetile.instance.ShowHittableSpots();
                 break;
             default:
                 break;

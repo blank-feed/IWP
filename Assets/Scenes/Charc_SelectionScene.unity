@@ -1193,6 +1193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324a6ac8b4aa9bc4ab242e8026f1eb13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &814557359 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4665218645162043695, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+  m_PrefabInstance: {fileID: 1175784806}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1067590789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,6 +1676,14 @@ PrefabInstance:
       propertyPath: MIcon_prefab
       value: 
       objectReference: {fileID: 8731405266958779075, guid: bfdbc44f8ecee124a8ae2d43b94f80bc, type: 3}
+    - target: {fileID: 2732253920464025865, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: playerSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0d0771abc96591942ace6d4636cce63c, type: 3}
+    - target: {fileID: 2732253920464025865, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 814557359}
     - target: {fileID: 4665218645162043692, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_RootOrder
       value: 4

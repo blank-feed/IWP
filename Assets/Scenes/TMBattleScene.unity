@@ -289,6 +289,8 @@ MonoBehaviour:
   enemy: {fileID: 1851262555}
   temp_num: -1
   MoveableArrowsPrefab: {fileID: 2644070625012694242, guid: ff816d9fe9e94234cb00de4fa6031e3e, type: 3}
+  HittablePrefab: {fileID: 2644070625012694242, guid: 64482e022b3d387489a599b19ccaf1b6, type: 3}
+  shown: 0
 --- !u!4 &57410140
 Transform:
   m_ObjectHideFlags: 0
@@ -4764,7 +4766,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bce41414a9f1d6b4a9dce6702a6fd84d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

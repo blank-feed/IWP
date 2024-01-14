@@ -8,6 +8,7 @@ TagManager:
   - SpriteImage
   - gone
   - BouncingArrow
+  - swordcross
   layers:
   - Default
   - TransparentFX

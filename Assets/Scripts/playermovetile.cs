@@ -13,7 +13,8 @@ public class playermovetile : MonoBehaviour
     private Vector3 targetPosition;
     public int temp_num = -1;
     public GameObject MoveableArrowsPrefab;
-    bool shown = false;
+    public GameObject HittablePrefab;
+    public bool shown = false;
 
     private void Awake()
     {
@@ -64,8 +65,7 @@ public class playermovetile : MonoBehaviour
                     if (destinationTile != null && tmap.WorldToCell(targetPosition) != tmap.WorldToCell(enemy.transform.position))
                     {
                         Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
-                        player.transform.position = tmap.GetCellCenterWorld(destinationCell);
-                        DestroyObjectsWithName("BouncingArrow");
+                        LeanTweenIt(player, tmap.GetCellCenterWorld(destinationCell), 1f);
                         BattleManager.instance.momentum--;
                         BattleManager.instance.MoveCount--;
                         BattleManager.instance.MoveCount_Text.text = BattleManager.instance.MoveCount.ToString();
@@ -93,6 +93,7 @@ public class playermovetile : MonoBehaviour
                         BattleManager.instance.momentum++;
                     }
                     BattleManager.instance.can_melee = false;
+                    DestroyObjectsWithName("swordcross");
                     BattleManager.instance.bs = BattlingState.enemyturn;
                 }
             }
@@ -112,6 +113,7 @@ public class playermovetile : MonoBehaviour
             if (BattleManager.instance.can_melee)
             {
                 BattleManager.instance.can_melee = false;
+                DestroyObjectsWithName("swordcross");
                 BattleManager.instance.bs = BattlingState.Select_attack;
             }
 
@@ -165,7 +167,42 @@ public class playermovetile : MonoBehaviour
         return null;
     }
 
-    void ShowMoveableSpots()
+    public void ShowMoveableSpots()
+    {
+        Vector3Int Temp_playerGridPos = tmap.WorldToCell(player.transform.position);
+        Vector3Int enemyCell = tmap.WorldToCell(enemy.transform.position);
+        Vector2Int playerGridPos = new Vector2Int(Temp_playerGridPos.x, Temp_playerGridPos.y);
+
+        Vector3Int T = new Vector3Int(playerGridPos.x, playerGridPos.y + 1);
+        Vector3Int D = new Vector3Int(playerGridPos.x, playerGridPos.y - 1);
+        Vector3Int L = new Vector3Int(playerGridPos.x - 1, playerGridPos.y);
+        Vector3Int R = new Vector3Int(playerGridPos.x + 1, playerGridPos.y);
+
+        Vector3 Top = tmap.GetCellCenterWorld(T);
+        Vector3 Down = tmap.GetCellCenterWorld(D);
+        Vector3 Left = tmap.GetCellCenterWorld(L);
+        Vector3 Right = tmap.GetCellCenterWorld(R);
+
+        if (enemyCell != T)
+        {
+            Instantiate(MoveableArrowsPrefab, new Vector3(Top.x, Top.y, Top.z), Quaternion.identity);
+        }
+        if (enemyCell != D)
+        {
+            Instantiate(MoveableArrowsPrefab, new Vector3(Down.x, Down.y, Down.z), Quaternion.identity);
+        }
+        if (enemyCell != L)
+        {
+            Instantiate(MoveableArrowsPrefab, new Vector3(Left.x, Left.y, Left.z), Quaternion.identity);
+        }
+        if (enemyCell != R)
+        {
+            Instantiate(MoveableArrowsPrefab, new Vector3(Right.x, Right.y, Right.z), Quaternion.identity);
+        }
+        shown = true;
+    }
+
+    public void ShowHittableSpots()
     {
         Vector3Int Temp_playerGridPos = tmap.WorldToCell(player.transform.position);
         Vector2Int playerGridPos = new Vector2Int(Temp_playerGridPos.x, Temp_playerGridPos.y);
@@ -180,12 +217,10 @@ public class playermovetile : MonoBehaviour
         Vector3 Left = tmap.GetCellCenterWorld(L);
         Vector3 Right = tmap.GetCellCenterWorld(R);
 
-        Instantiate(MoveableArrowsPrefab, new Vector3(Top.x, Top.y, Top.z), Quaternion.identity);
-        Instantiate(MoveableArrowsPrefab, new Vector3(Down.x, Down.y, Down.z), Quaternion.identity);
-        Instantiate(MoveableArrowsPrefab, new Vector3(Left.x, Left.y, Left.z), Quaternion.identity);
-        Instantiate(MoveableArrowsPrefab, new Vector3(Right.x, Right.y, Right.z), Quaternion.identity);
-
-        shown = true;
+        Instantiate(HittablePrefab, new Vector3(Top.x, Top.y, Top.z), Quaternion.identity);
+        Instantiate(HittablePrefab, new Vector3(Down.x, Down.y, Down.z), Quaternion.identity);
+        Instantiate(HittablePrefab, new Vector3(Left.x, Left.y, Left.z), Quaternion.identity);
+        Instantiate(HittablePrefab, new Vector3(Right.x, Right.y, Right.z), Quaternion.identity);
     }
 
     void DestroyObjectsWithName(string tagToFind)
@@ -243,7 +278,35 @@ public class playermovetile : MonoBehaviour
             destinationCell = tmap.GetCellCenterWorld(new Vector3Int(enemyCell.x, enemyCell.y + 1, enemyCell.z));
         }
 
-        enemy.transform.position = destinationCell;
+        //enemy.transform.position = destinationCell;
+        LeanTweenIt(enemy, destinationCell, 1f);
     }
 
+    void LeanTweenIt(GameObject obj, Vector3 targetPos, float duration)
+    {
+        Vector3 originalPos = obj.transform.position;
+        bool isX;
+
+        // Use LeanTween to move the object without Hashtable
+        LeanTweenType easeType = LeanTweenType.easeInOutQuad; // You can change the ease type as needed
+
+        if (obj.transform.position.y == targetPos.y)
+        {
+            isX = true;
+        }
+        else
+        {
+            isX = false;
+        }
+
+        // Choose the appropriate tween method based on the specified axis
+        if (isX)
+        {
+            LeanTween.moveX(obj, targetPos.x, duration).setEase(easeType).setOnComplete(() => DestroyObjectsWithName("BouncingArrow"));
+        }
+        else
+        {
+            LeanTween.moveY(obj, targetPos.y, duration).setEase(easeType).setOnComplete(() => DestroyObjectsWithName("BouncingArrow"));
+        }
+    }
 }

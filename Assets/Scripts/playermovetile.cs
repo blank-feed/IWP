@@ -69,6 +69,10 @@ public class playermovetile : MonoBehaviour
                         Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
                         LeanTweenIt(player, tmap.GetCellCenterWorld(destinationCell), 1f);
                         BattleManager.instance.momentum--;
+                        if (BattleManager.instance.momentum < 0)
+                        {
+                            BattleManager.instance.momentum = 0;
+                        }
                         BattleManager.instance.MoveCount--;
                         BattleManager.instance.MoveCount_Text.text = BattleManager.instance.MoveCount.ToString();
                     }
@@ -99,6 +103,25 @@ public class playermovetile : MonoBehaviour
                     BattleManager.instance.bs = BattlingState.enemyturn;
                 }
             }
+
+            if (BattleManager.instance.can_dash)
+            {
+                targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                TileBase destinationTile = GetDestination(targetPosition, movespaces);
+                if (destinationTile != null)
+                {
+                    Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
+                    if (HitByDash(tmap.GetCellCenterWorld(tmap.WorldToCell(player.transform.position)), tmap.GetCellCenterWorld(destinationCell), tmap.GetCellCenterWorld(tmap.WorldToCell(enemy.transform.position))))
+                    {
+                        BattleManager.instance.enemyhp -= BattleManager.instance.Damage;
+                        BattleManager.instance.momentum++;
+                    }
+                    LeanTweenIt(player, tmap.GetCellCenterWorld(destinationCell), 1);
+                    BattleManager.instance.can_dash = false;
+                    DestroyObjectsWithName("swordcross");
+                    BattleManager.instance.bs = BattlingState.enemyturn;
+                }
+            }
         }
 
         //right click to cancel
@@ -115,6 +138,13 @@ public class playermovetile : MonoBehaviour
             if (BattleManager.instance.can_melee)
             {
                 BattleManager.instance.can_melee = false;
+                DestroyObjectsWithName("swordcross");
+                BattleManager.instance.bs = BattlingState.Select_attack;
+            }
+
+            if (BattleManager.instance.can_dash)
+            {
+                BattleManager.instance.can_dash = false;
                 DestroyObjectsWithName("swordcross");
                 BattleManager.instance.bs = BattlingState.Select_attack;
             }
@@ -225,7 +255,7 @@ public class playermovetile : MonoBehaviour
         Instantiate(HittablePrefab, new Vector3(Right.x, Right.y, Right.z), Quaternion.identity);
     }
 
-    void DestroyObjectsWithName(string tagToFind)
+    public void DestroyObjectsWithName(string tagToFind)
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(tagToFind);
 
@@ -246,6 +276,12 @@ public class playermovetile : MonoBehaviour
     {
         Vector3Int playerCell = tmap.WorldToCell(player.transform.position);
         Vector3Int enemyCell = tmap.WorldToCell(enemy.transform.position);
+
+        if (playerCell == enemyCell)
+        {
+            MoveTowardsPlayer();
+            return true;
+        }
 
         // Check if the player is exactly one tile above, below, to the left, or to the right of the enemy
         return Mathf.Abs(playerCell.x - enemyCell.x) == 1 && playerCell.y == enemyCell.y
@@ -282,6 +318,18 @@ public class playermovetile : MonoBehaviour
 
         //enemy.transform.position = destinationCell;
         LeanTweenIt(enemy, destinationCell, 1f);
+    }
+
+    bool HitByDash(Vector3 OriPos, Vector3 EndPos, Vector3 TargetPos)
+    {
+        // Check if TargetPos is between OriPos and EndPos along the X-axis
+        bool hitOnX = Mathf.Min(OriPos.x, EndPos.x) <= TargetPos.x && TargetPos.x <= Mathf.Max(OriPos.x, EndPos.x);
+
+        // Check if TargetPos is between OriPos and EndPos along the Y-axis
+        bool hitOnY = Mathf.Min(OriPos.y, EndPos.y) <= TargetPos.y && TargetPos.y <= Mathf.Max(OriPos.y, EndPos.y);
+
+        // Return true only if both conditions are satisfied
+        return hitOnX && hitOnY;
     }
 
     void LeanTweenIt(GameObject obj, Vector3 targetPos, float duration)

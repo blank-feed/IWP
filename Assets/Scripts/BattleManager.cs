@@ -27,7 +27,10 @@ public class BattleManager : MonoBehaviour
     public GameObject Menu_AoM;
     public GameObject Menu_Attack;
     public GameObject MoveCount_UI;
+    public GameObject Momentum_UI;
+
     public TextMeshProUGUI MoveCount_Text;
+    public TextMeshProUGUI Momentum_Text;
 
     public BattlingState bs;
 
@@ -36,6 +39,9 @@ public class BattleManager : MonoBehaviour
 
     //can melee
     public bool can_melee = false;
+
+    //can dash
+    public bool can_dash = false;
 
     public TextMeshProUGUI playerhpinfo;
     public TextMeshProUGUI enemyhpinfo;
@@ -75,6 +81,7 @@ public class BattleManager : MonoBehaviour
         Skill1_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S1);
         Skill2_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S2);
         Skill3_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S3);
+        
         bs = BattlingState.start;
         momentum = 0;
     }
@@ -82,6 +89,11 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Momentum_UI != null)
+        {
+            Momentum_Text.text = momentum.ToString();
+        }
+
         //if player at the very bottom
         //if (PlayerManager.instance.transform.position.y == -4.5)
         //{
@@ -220,6 +232,7 @@ public class BattleManager : MonoBehaviour
     {
         Menu_AoM.SetActive(false);
         Menu_Attack.SetActive(false);
+        Momentum_UI.SetActive(false);
 
         switch (ActiveMenu)
         {
@@ -229,6 +242,10 @@ public class BattleManager : MonoBehaviour
 
             case 2:
                 Menu_Attack.SetActive(true);
+                if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Fighter)
+                {
+                    Momentum_UI.SetActive(true);
+                }
                 break;
 
             default:

@@ -91,8 +91,9 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Slip_Snip:
                 self = false;
+                BattleManager.instance.Damage = 20;
                 playermovetile.instance.movespaces = 3;
-                BattleManager.instance.can_melee = true;
+                BattleManager.instance.can_dash = true;
                 break;
             case AllSkills.Weakness_Policy:
                 self = false;
@@ -102,7 +103,7 @@ public class PlayerSkills : MonoBehaviour
             case AllSkills.Agile_Snip:
                 self = false;
                 playermovetile.instance.movespaces = 1;
-                BattleManager.instance.can_melee = true;
+                BattleManager.instance.can_dash = true;
                 break;
             case AllSkills.Arcane_Smash:
                 self = false;
@@ -129,16 +130,14 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Critical_Opportunity:
                 self = false;
+                playermovetile.instance.movespaces = 1;
+                BattleManager.instance.Damage = 0;
                 if (random > 4)
                 {
                     BattleManager.instance.Damage = 70;
-                    BattleManager.instance.can_melee = true;
-                }
-                else
-                {
                     BattleManager.instance.momentum++;
-                    BattleManager.instance.bs = BattlingState.enemyturn;
                 }
+                BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Frail_Crush:
                 self = false;

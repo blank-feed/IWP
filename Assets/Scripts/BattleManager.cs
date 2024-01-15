@@ -160,6 +160,7 @@ public class BattleManager : MonoBehaviour
         }
         MoveCount_Text.text = MoveCount.ToString();
         playermovetile.instance.temp_num = MoveCount;
+        playermovetile.instance.movespaces = 1;
         bs = BattlingState.move;
     }
 
@@ -176,12 +177,19 @@ public class BattleManager : MonoBehaviour
             case 1:
                 //can_melee = true;
                 PlayerSkills.instance.UseSkill(PlayerSkills.instance.S1);
-                playermovetile.instance.ShowHittableSpots();
+                if (!PlayerSkills.instance.self)
+                {
+                    playermovetile.instance.ShowHittableSpots(playermovetile.instance.movespaces);
+                }
                 break;
             case 2:
                 //enemyhp -= 100; //10
                 //bs = BattlingState.enemyturn;
                 PlayerSkills.instance.UseSkill(PlayerSkills.instance.S2);
+                if (!PlayerSkills.instance.self)
+                {
+                    playermovetile.instance.ShowHittableSpots(playermovetile.instance.movespaces);
+                }
                 break;
             case 3:
                 //PlayerManager.instance.health += 10;
@@ -190,8 +198,11 @@ public class BattleManager : MonoBehaviour
                 //    PlayerManager.instance.health = PlayerManager.instance.maxHealth;
                 //}
                 //bs = BattlingState.enemyturn;
-                PlayerSkills.instance.UseSkill(PlayerSkills.instance.S3);
-                playermovetile.instance.ShowHittableSpots();
+                PlayerSkills.instance.UseSkill(PlayerSkills.instance.S3); 
+                if (!PlayerSkills.instance.self)
+                {
+                    playermovetile.instance.ShowHittableSpots(playermovetile.instance.movespaces);
+                }
                 break;
             default:
                 break;

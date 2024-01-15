@@ -36,6 +36,8 @@ public class PlayerSkills : MonoBehaviour
     public AllSkills S3;
     public Array skillValues;
 
+    public bool self = false;
+
     private void Awake()
     {
         instance = this;
@@ -60,10 +62,13 @@ public class PlayerSkills : MonoBehaviour
         switch (skill_used)
         {
             case AllSkills.Holy_Strike:
+                self = false;
+                playermovetile.instance.movespaces = 1;
                 BattleManager.instance.Damage = 30;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Holy_Heal:
+                self = true;
                 PlayerManager.instance.health += 10;
                 if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
                 {
@@ -72,6 +77,8 @@ public class PlayerSkills : MonoBehaviour
                 BattleManager.instance.bs = BattlingState.enemyturn;
                 break;
             case AllSkills.Holy_Rage:
+                self = false;
+                playermovetile.instance.movespaces = 1;
                 if (PlayerManager.instance.health < 50)
                 {
                     BattleManager.instance.Damage = 40;
@@ -83,28 +90,45 @@ public class PlayerSkills : MonoBehaviour
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Slip_Snip:
+                self = false;
+                playermovetile.instance.movespaces = 3;
+                BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Weakness_Policy:
+                self = false;
+                playermovetile.instance.movespaces = 1;
+                BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Agile_Snip:
+                self = false;
+                playermovetile.instance.movespaces = 1;
+                BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Arcane_Smash:
+                self = false;
                 break;
             case AllSkills.Blood_Siphon:
+                self = false;
                 break;
             case AllSkills.Recovery_Pool:
+                self = false;
                 break;
             case AllSkills.Crippling_Volley:
+                self = false;
                 break;
             case AllSkills.High_Shot:
+                self = false;
                 break;
             case AllSkills.Barrage_Strike:
+                self = false;
                 break;
             case AllSkills.Frenzy_Impact:
+                self = false;
                 BattleManager.instance.Damage = 8 * random;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Critical_Opportunity:
+                self = false;
                 if (random > 4)
                 {
                     BattleManager.instance.Damage = 70;
@@ -117,14 +141,19 @@ public class PlayerSkills : MonoBehaviour
                 }
                 break;
             case AllSkills.Frail_Crush:
+                self = false;
                 BattleManager.instance.Damage = 10 * BattleManager.instance.momentum;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Dragon_Beam:
+                self = false;
                 break;
             case AllSkills.Winged_Buddy:
+                self = false;
                 break;
             case AllSkills.Wyrm_Summon:
+                self = false;
+                playermovetile.instance.movespaces = 3;
                 break;
             default:
                 break;

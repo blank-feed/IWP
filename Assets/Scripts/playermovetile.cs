@@ -15,6 +15,7 @@ public class playermovetile : MonoBehaviour
     public GameObject MoveableArrowsPrefab;
     public GameObject HittablePrefab;
     public bool shown = false;
+    public int movespaces = 0;
 
     private void Awake()
     {
@@ -46,7 +47,7 @@ public class playermovetile : MonoBehaviour
         {
             if (!shown)
             {
-                ShowMoveableSpots();
+                ShowMoveableSpots(movespaces);
             }
         }
         else
@@ -61,7 +62,8 @@ public class playermovetile : MonoBehaviour
                 if (BattleManager.instance.MoveCount != 0)
                 {
                     targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    TileBase destinationTile = GetDestination(targetPosition);
+                    //movespaces = 1;
+                    TileBase destinationTile = GetDestination(targetPosition, movespaces);
                     if (destinationTile != null && tmap.WorldToCell(targetPosition) != tmap.WorldToCell(enemy.transform.position))
                     {
                         Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
@@ -83,7 +85,7 @@ public class playermovetile : MonoBehaviour
             if (BattleManager.instance.can_melee)
             {
                 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                TileBase destinationTile = GetDestination(targetPosition);
+                TileBase destinationTile = GetDestination(targetPosition, movespaces);
                 if (destinationTile != null)
                 {
                     Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
@@ -136,16 +138,16 @@ public class playermovetile : MonoBehaviour
         }
     }
 
-    public TileBase GetDestination(Vector3 worldPos)
+    public TileBase GetDestination(Vector3 worldPos, int spaces)
     {
         Vector3Int Temp_playerGridPos = tmap.WorldToCell(player.transform.position);
         Vector2Int playerGridPos = new Vector2Int(Temp_playerGridPos.x, Temp_playerGridPos.y);
         Vector3Int mouseGridPos = tmap.WorldToCell(worldPos);
 
-        Vector3Int Top = new Vector3Int(playerGridPos.x, playerGridPos.y + 1);
-        Vector3Int Down = new Vector3Int(playerGridPos.x, playerGridPos.y - 1);
-        Vector3Int Left = new Vector3Int(playerGridPos.x - 1, playerGridPos.y);
-        Vector3Int Right = new Vector3Int(playerGridPos.x + 1, playerGridPos.y);
+        Vector3Int Top = new Vector3Int(playerGridPos.x, playerGridPos.y + spaces);
+        Vector3Int Down = new Vector3Int(playerGridPos.x, playerGridPos.y - spaces);
+        Vector3Int Left = new Vector3Int(playerGridPos.x - spaces, playerGridPos.y);
+        Vector3Int Right = new Vector3Int(playerGridPos.x + spaces, playerGridPos.y);
 
         if (Top == mouseGridPos)
         {
@@ -167,16 +169,16 @@ public class playermovetile : MonoBehaviour
         return null;
     }
 
-    public void ShowMoveableSpots()
+    public void ShowMoveableSpots(int spaces)
     {
         Vector3Int Temp_playerGridPos = tmap.WorldToCell(player.transform.position);
         Vector3Int enemyCell = tmap.WorldToCell(enemy.transform.position);
         Vector2Int playerGridPos = new Vector2Int(Temp_playerGridPos.x, Temp_playerGridPos.y);
 
-        Vector3Int T = new Vector3Int(playerGridPos.x, playerGridPos.y + 1);
-        Vector3Int D = new Vector3Int(playerGridPos.x, playerGridPos.y - 1);
-        Vector3Int L = new Vector3Int(playerGridPos.x - 1, playerGridPos.y);
-        Vector3Int R = new Vector3Int(playerGridPos.x + 1, playerGridPos.y);
+        Vector3Int T = new Vector3Int(playerGridPos.x, playerGridPos.y + spaces);
+        Vector3Int D = new Vector3Int(playerGridPos.x, playerGridPos.y - spaces);
+        Vector3Int L = new Vector3Int(playerGridPos.x - spaces, playerGridPos.y);
+        Vector3Int R = new Vector3Int(playerGridPos.x + spaces, playerGridPos.y);
 
         Vector3 Top = tmap.GetCellCenterWorld(T);
         Vector3 Down = tmap.GetCellCenterWorld(D);
@@ -202,15 +204,15 @@ public class playermovetile : MonoBehaviour
         shown = true;
     }
 
-    public void ShowHittableSpots()
+    public void ShowHittableSpots(int range)
     {
         Vector3Int Temp_playerGridPos = tmap.WorldToCell(player.transform.position);
         Vector2Int playerGridPos = new Vector2Int(Temp_playerGridPos.x, Temp_playerGridPos.y);
 
-        Vector3Int T = new Vector3Int(playerGridPos.x, playerGridPos.y + 1);
-        Vector3Int D = new Vector3Int(playerGridPos.x, playerGridPos.y - 1);
-        Vector3Int L = new Vector3Int(playerGridPos.x - 1, playerGridPos.y);
-        Vector3Int R = new Vector3Int(playerGridPos.x + 1, playerGridPos.y);
+        Vector3Int T = new Vector3Int(playerGridPos.x, playerGridPos.y + range);
+        Vector3Int D = new Vector3Int(playerGridPos.x, playerGridPos.y - range);
+        Vector3Int L = new Vector3Int(playerGridPos.x - range, playerGridPos.y);
+        Vector3Int R = new Vector3Int(playerGridPos.x + range, playerGridPos.y);
 
         Vector3 Top = tmap.GetCellCenterWorld(T);
         Vector3 Down = tmap.GetCellCenterWorld(D);

@@ -183,4 +183,70 @@ public class PlayerSkills : MonoBehaviour
                 break;
         }
     }
+
+    public string GetSkillDescription(AllSkills skill)
+    {
+        string str = "";
+        switch (skill)
+        {
+            case AllSkills.Holy_Strike:
+                str = "Deals damage in a single direction | Melee";
+                break;
+            case AllSkills.Holy_Heal:
+                str = "Heals yourself | Self";
+                break;
+            case AllSkills.Holy_Rage:
+                str = "Deals more damage the lesser your health in a single direction | Melee";
+                break;
+            case AllSkills.Slip_Snip:
+                str = "Dashes through while dealing damage | Dash";
+                break;
+            case AllSkills.Weakness_Policy:
+                str = "Deals damage in a single direction | Melee";
+                break;
+            case AllSkills.Agile_Snip:
+                str = "High damage short dash | Dash";
+                break;
+            case AllSkills.Arcane_Smash:
+                str = "Deals damage in a single direction | Melee";
+                break;
+            case AllSkills.Blood_Siphon:
+                str = "Deals damage in a single direction | Melee";
+                break;
+            case AllSkills.Recovery_Pool:
+                str = "Deals damage in a single direction | Melee";
+                break;
+            case AllSkills.Crippling_Volley:
+                str = "Deals damage in a single direction | Melee";
+                break;
+            case AllSkills.High_Shot:
+                str = "Deals damage in a single direction | Melee";
+                break;
+            case AllSkills.Barrage_Strike:
+                str = "Deals damage in a single direction | Melee";
+                break;
+            case AllSkills.Frenzy_Impact:
+                str = "Strikes a random amount of times (Momentum increases) | Melee";
+                break;
+            case AllSkills.Critical_Opportunity:
+                str = "Have a chance to deal huge amount of damage (Momentum increases) | Melee";
+                break;
+            case AllSkills.Frail_Crush:
+                str = "The higher your Momentum, the higher the damage | Melee";
+                break;
+            case AllSkills.Dragon_Beam:
+                str = "Deals damage in a single direction | Melee";
+                break;
+            case AllSkills.Winged_Buddy:
+                str = "Deals damage in a single direction | Melee";
+                break;
+            case AllSkills.Wyrm_Summon:
+                str = "Deals damage in a single direction | Melee";
+                break;
+            default:
+                break;
+        }
+
+        return str;
+    }
 }

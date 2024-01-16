@@ -150,6 +150,9 @@ public class BattleManager : MonoBehaviour
             case BattlingState.Select_attack:
                 SetMenuActive(2);
                 break;
+            case BattlingState.Aim_attack:
+                SetMenuActive(4);
+                break;
             case BattlingState.enemyturn:
                 SetMenuActive(0);
                 if (!delayTriggered)
@@ -196,6 +199,7 @@ public class BattleManager : MonoBehaviour
     public void UseSkill(int skill)
     {
         SetMenuActive(0);
+        bs = BattlingState.Aim_attack;
         switch (skill)
         {
             case 1:
@@ -278,6 +282,9 @@ public class BattleManager : MonoBehaviour
             case 3:
                 BackIndicator.SetActive(true);
                 stopmove_UI.SetActive(true);
+                break;
+            case 4:
+                BackIndicator.SetActive(true);
                 break;
 
             default:

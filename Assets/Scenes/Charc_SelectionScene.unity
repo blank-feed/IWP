@@ -1154,6 +1154,10 @@ MonoBehaviour:
   RaceSelectionUI: {fileID: 1738689027}
   ClassSelectionUI: {fileID: 315238780}
   ConfirmationUI: {fileID: 2112102031}
+  skillImg:
+  - {fileID: 21300000, guid: 38457553287dd55449a7fb16ec8e644e, type: 3}
+  - {fileID: 21300000, guid: 0351136b823b74748a0cf1bc18f52d11, type: 3}
+  - {fileID: 21300000, guid: 60f22214ed6f74e418963d2ca44ed5ab, type: 3}
   paladin: {fileID: 21300000, guid: 28ee00d79084a4942b3eb5082a7d7ccc, type: 3}
   Race0btn: {fileID: 46598599}
   Race1btn: {fileID: 1110284266}

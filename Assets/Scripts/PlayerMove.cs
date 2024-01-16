@@ -16,7 +16,7 @@ public class PlayerMove : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             SetTargetPosition();
         }

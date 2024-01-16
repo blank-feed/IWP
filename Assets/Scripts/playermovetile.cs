@@ -14,6 +14,7 @@ public class playermovetile : MonoBehaviour
     public int temp_num = -1;
     public GameObject MoveableArrowsPrefab;
     public GameObject HittablePrefab;
+    public GameObject CrosshairPrefab;
     public bool shown = false;
     public int movespaces = 0;
 
@@ -122,6 +123,24 @@ public class playermovetile : MonoBehaviour
                     BattleManager.instance.bs = BattlingState.enemyturn;
                 }
             }
+
+            if (BattleManager.instance.can_shoot)
+            {
+                targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                TileBase destinationTile = GetDestination(targetPosition, movespaces);
+                if (destinationTile != null)
+                {
+                    Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
+                    if (HitByDash(tmap.GetCellCenterWorld(tmap.WorldToCell(player.transform.position)), tmap.GetCellCenterWorld(destinationCell), tmap.GetCellCenterWorld(tmap.WorldToCell(enemy.transform.position))))
+                    {
+                        BattleManager.instance.enemyhp -= BattleManager.instance.Damage;
+                        BattleManager.instance.momentum++;
+                    }
+                    BattleManager.instance.can_dash = false;
+                    DestroyObjectsWithName("crosshair");
+                    BattleManager.instance.bs = BattlingState.enemyturn;
+                }
+            }
         }
 
         //right click to cancel
@@ -146,6 +165,13 @@ public class playermovetile : MonoBehaviour
             {
                 BattleManager.instance.can_dash = false;
                 DestroyObjectsWithName("swordcross");
+                BattleManager.instance.bs = BattlingState.Select_attack;
+            }
+
+            if (BattleManager.instance.can_shoot)
+            {
+                BattleManager.instance.can_shoot = false;
+                DestroyObjectsWithName("crosshair");
                 BattleManager.instance.bs = BattlingState.Select_attack;
             }
 
@@ -253,6 +279,27 @@ public class playermovetile : MonoBehaviour
         Instantiate(HittablePrefab, new Vector3(Down.x, Down.y, Down.z), Quaternion.identity);
         Instantiate(HittablePrefab, new Vector3(Left.x, Left.y, Left.z), Quaternion.identity);
         Instantiate(HittablePrefab, new Vector3(Right.x, Right.y, Right.z), Quaternion.identity);
+    }
+
+    public void ShowShootableSpots(int range)
+    {
+        Vector3Int Temp_playerGridPos = tmap.WorldToCell(player.transform.position);
+        Vector2Int playerGridPos = new Vector2Int(Temp_playerGridPos.x, Temp_playerGridPos.y);
+
+        Vector3Int T = new Vector3Int(playerGridPos.x, playerGridPos.y + range);
+        Vector3Int D = new Vector3Int(playerGridPos.x, playerGridPos.y - range);
+        Vector3Int L = new Vector3Int(playerGridPos.x - range, playerGridPos.y);
+        Vector3Int R = new Vector3Int(playerGridPos.x + range, playerGridPos.y);
+
+        Vector3 Top = tmap.GetCellCenterWorld(T);
+        Vector3 Down = tmap.GetCellCenterWorld(D);
+        Vector3 Left = tmap.GetCellCenterWorld(L);
+        Vector3 Right = tmap.GetCellCenterWorld(R);
+
+        Instantiate(CrosshairPrefab, new Vector3(Top.x, Top.y, Top.z), Quaternion.identity);
+        Instantiate(CrosshairPrefab, new Vector3(Down.x, Down.y, Down.z), Quaternion.identity);
+        Instantiate(CrosshairPrefab, new Vector3(Left.x, Left.y, Left.z), Quaternion.identity);
+        Instantiate(CrosshairPrefab, new Vector3(Right.x, Right.y, Right.z), Quaternion.identity);
     }
 
     public void DestroyObjectsWithName(string tagToFind)

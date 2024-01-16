@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class PlayerSkills : MonoBehaviour
@@ -31,12 +32,27 @@ public class PlayerSkills : MonoBehaviour
         Wyrm_Summon
     }
 
+    public enum Range
+    {
+        Self,
+        Melee,
+        Ranged
+    }
+
     public AllSkills S1;
     public AllSkills S2;
     public AllSkills S3;
+
+    public Sprite S1_Img;
+    public Sprite S2_Img;
+    public Sprite S3_Img;
+
     public Array skillValues;
 
-    public bool self = false;
+    //public bool self = false;
+    public Range range;
+
+    public int repeat = -1;
 
     private void Awake()
     {
@@ -52,23 +68,32 @@ public class PlayerSkills : MonoBehaviour
     {
         string originalName = skill.ToString();
         string[] parts = originalName.Split('_');
-        return string.Join("\n", parts);
+        return string.Join(" ", parts);
     }
 
     public void UseSkill(AllSkills skill_used)
     {
-        random = UnityEngine.Random.Range(1, 7);
-        Debug.Log("Dice Rolled : " + random);
+        if (repeat == -1)
+        {
+            random = UnityEngine.Random.Range(1, 7);
+            Debug.Log("Dice Rolled : " + random);
+            repeat = random;
+        }
+        else
+        {
+            random = repeat;
+        }
+        
         switch (skill_used)
         {
             case AllSkills.Holy_Strike:
-                self = false;
+                range = Range.Melee;
                 playermovetile.instance.movespaces = 1;
                 BattleManager.instance.Damage = 30;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Holy_Heal:
-                self = true;
+                range = Range.Self;
                 PlayerManager.instance.health += 10;
                 if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
                 {
@@ -77,7 +102,7 @@ public class PlayerSkills : MonoBehaviour
                 BattleManager.instance.bs = BattlingState.enemyturn;
                 break;
             case AllSkills.Holy_Rage:
-                self = false;
+                range = Range.Melee;
                 playermovetile.instance.movespaces = 1;
                 if (PlayerManager.instance.health < 50)
                 {
@@ -90,46 +115,46 @@ public class PlayerSkills : MonoBehaviour
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Slip_Snip:
-                self = false;
+                range = Range.Melee;
                 BattleManager.instance.Damage = 20;
                 playermovetile.instance.movespaces = 3;
                 BattleManager.instance.can_dash = true;
                 break;
             case AllSkills.Weakness_Policy:
-                self = false;
+                range = Range.Melee;
                 playermovetile.instance.movespaces = 1;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Agile_Snip:
-                self = false;
+                range = Range.Melee;
                 playermovetile.instance.movespaces = 1;
                 BattleManager.instance.can_dash = true;
                 break;
             case AllSkills.Arcane_Smash:
-                self = false;
+                range = Range.Ranged;
                 break;
             case AllSkills.Blood_Siphon:
-                self = false;
+                range = Range.Ranged;
                 break;
             case AllSkills.Recovery_Pool:
-                self = false;
+                range = Range.Melee;
                 break;
             case AllSkills.Crippling_Volley:
-                self = false;
+                range = Range.Ranged;
                 break;
             case AllSkills.High_Shot:
-                self = false;
+                range = Range.Ranged;
                 break;
             case AllSkills.Barrage_Strike:
-                self = false;
+                range = Range.Ranged;
                 break;
             case AllSkills.Frenzy_Impact:
-                self = false;
+                range = Range.Melee;
                 BattleManager.instance.Damage = 8 * random;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Critical_Opportunity:
-                self = false;
+                range = Range.Melee;
                 playermovetile.instance.movespaces = 1;
                 BattleManager.instance.Damage = 0;
                 if (random > 4)
@@ -140,18 +165,18 @@ public class PlayerSkills : MonoBehaviour
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Frail_Crush:
-                self = false;
+                range = Range.Melee;
                 BattleManager.instance.Damage = 10 * BattleManager.instance.momentum;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Dragon_Beam:
-                self = false;
+                range = Range.Ranged;
                 break;
             case AllSkills.Winged_Buddy:
-                self = false;
+                range = Range.Ranged;
                 break;
             case AllSkills.Wyrm_Summon:
-                self = false;
+                range = Range.Ranged;
                 playermovetile.instance.movespaces = 3;
                 break;
             default:

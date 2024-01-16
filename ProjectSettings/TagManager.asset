@@ -9,6 +9,7 @@ TagManager:
   - gone
   - BouncingArrow
   - swordcross
+  - crosshair
   layers:
   - Default
   - TransparentFX

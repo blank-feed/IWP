@@ -14,6 +14,9 @@ public class CharacterCustomization : MonoBehaviour
     public GameObject ClassSelectionUI;
     public GameObject ConfirmationUI;
 
+    //Skill Images
+    public Sprite[] skillImg;
+
     //sprites
     public Sprite paladin;
 
@@ -114,6 +117,9 @@ public class CharacterCustomization : MonoBehaviour
                     playerSkills.S1 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(0);
                     playerSkills.S2 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(1);
                     playerSkills.S3 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(2);
+                    playerSkills.S1_Img = skillImg[0];
+                    playerSkills.S2_Img = skillImg[1];
+                    playerSkills.S3_Img = skillImg[2];
                     PlayerManager.instance.playerSprite = paladin;
                     break;
                 case 1:
@@ -123,6 +129,9 @@ public class CharacterCustomization : MonoBehaviour
                     playerSkills.S1 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(6);
                     playerSkills.S2 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(7);
                     playerSkills.S3 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(8);
+                    playerSkills.S1_Img = skillImg[6];
+                    playerSkills.S2_Img = skillImg[7];
+                    playerSkills.S3_Img = skillImg[8];
                     PlayerManager.instance.playerSprite = paladin;
                     break;
                 case 2:
@@ -132,6 +141,9 @@ public class CharacterCustomization : MonoBehaviour
                     playerSkills.S1 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(12);
                     playerSkills.S2 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(13);
                     playerSkills.S3 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(14);
+                    playerSkills.S1_Img = skillImg[12];
+                    playerSkills.S2_Img = skillImg[13];
+                    playerSkills.S3_Img = skillImg[14];
                     PlayerManager.instance.playerSprite = paladin;
                     break;
                 default:
@@ -150,6 +162,9 @@ public class CharacterCustomization : MonoBehaviour
                     playerSkills.S1 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(3);
                     playerSkills.S2 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(4);
                     playerSkills.S3 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(5);
+                    playerSkills.S1_Img = skillImg[3];
+                    playerSkills.S2_Img = skillImg[4];
+                    playerSkills.S3_Img = skillImg[5];
                     PlayerManager.instance.playerSprite = paladin;
                     break;
                 case 1:
@@ -158,6 +173,9 @@ public class CharacterCustomization : MonoBehaviour
                     playerSkills.S1 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(9);
                     playerSkills.S2 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(10);
                     playerSkills.S3 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(11);
+                    playerSkills.S1_Img = skillImg[9];
+                    playerSkills.S2_Img = skillImg[10];
+                    playerSkills.S3_Img = skillImg[11];
                     PlayerManager.instance.playerSprite = paladin;
                     break;
                 case 2:
@@ -167,6 +185,9 @@ public class CharacterCustomization : MonoBehaviour
                     playerSkills.S1 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(15);
                     playerSkills.S2 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(16);
                     playerSkills.S3 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(17);
+                    playerSkills.S1_Img = skillImg[15];
+                    playerSkills.S2_Img = skillImg[16];
+                    playerSkills.S3_Img = skillImg[17];
                     PlayerManager.instance.playerSprite = paladin;
                     break;
                 default:

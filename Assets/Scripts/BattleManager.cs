@@ -28,11 +28,17 @@ public class BattleManager : MonoBehaviour
     public GameObject Menu_Attack;
     public GameObject MoveCount_UI;
     public GameObject Momentum_UI;
+    public GameObject BackIndicator;
+    public GameObject stopmove_UI;
 
     public TextMeshProUGUI MoveCount_Text;
     public TextMeshProUGUI Momentum_Text;
 
     public BattlingState bs;
+
+    public Image S1_Img;
+    public Image S2_Img;
+    public Image S3_Img;
 
     //can move
     public bool moveable = false;
@@ -42,6 +48,9 @@ public class BattleManager : MonoBehaviour
 
     //can dash
     public bool can_dash = false;
+
+    //can shoot
+    public bool can_shoot = false;
 
     public TextMeshProUGUI playerhpinfo;
     public TextMeshProUGUI enemyhpinfo;
@@ -81,7 +90,9 @@ public class BattleManager : MonoBehaviour
         Skill1_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S1);
         Skill2_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S2);
         Skill3_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S3);
-        
+        S1_Img.sprite = PlayerSkills.instance.S1_Img;
+        S2_Img.sprite = PlayerSkills.instance.S2_Img;
+        S3_Img.sprite = PlayerSkills.instance.S3_Img;
         bs = BattlingState.start;
         momentum = 0;
     }
@@ -133,7 +144,7 @@ public class BattleManager : MonoBehaviour
                 delayTriggered = false;
                 break;
             case BattlingState.move:
-                SetMenuActive(0);
+                SetMenuActive(3);
                 moveable = true;
                 break;
             case BattlingState.Select_attack:
@@ -161,6 +172,7 @@ public class BattleManager : MonoBehaviour
     public void Move()
     {
         Ori_Pos = PlayerManager.instance.transform.position;
+        BackIndicator.SetActive(true);
         MoveCount_UI.SetActive(true);
         if (playermovetile.instance.temp_num == -1)
         {
@@ -189,18 +201,26 @@ public class BattleManager : MonoBehaviour
             case 1:
                 //can_melee = true;
                 PlayerSkills.instance.UseSkill(PlayerSkills.instance.S1);
-                if (!PlayerSkills.instance.self)
+                if (PlayerSkills.instance.range == PlayerSkills.Range.Melee)
                 {
                     playermovetile.instance.ShowHittableSpots(playermovetile.instance.movespaces);
+                }
+                else if (PlayerSkills.instance.range == PlayerSkills.Range.Ranged)
+                {
+                    playermovetile.instance.ShowShootableSpots(playermovetile.instance.movespaces);
                 }
                 break;
             case 2:
                 //enemyhp -= 100; //10
                 //bs = BattlingState.enemyturn;
                 PlayerSkills.instance.UseSkill(PlayerSkills.instance.S2);
-                if (!PlayerSkills.instance.self)
+                if (PlayerSkills.instance.range == PlayerSkills.Range.Melee)
                 {
                     playermovetile.instance.ShowHittableSpots(playermovetile.instance.movespaces);
+                }
+                else if (PlayerSkills.instance.range == PlayerSkills.Range.Ranged)
+                {
+                    playermovetile.instance.ShowShootableSpots(playermovetile.instance.movespaces);
                 }
                 break;
             case 3:
@@ -210,10 +230,14 @@ public class BattleManager : MonoBehaviour
                 //    PlayerManager.instance.health = PlayerManager.instance.maxHealth;
                 //}
                 //bs = BattlingState.enemyturn;
-                PlayerSkills.instance.UseSkill(PlayerSkills.instance.S3); 
-                if (!PlayerSkills.instance.self)
+                PlayerSkills.instance.UseSkill(PlayerSkills.instance.S3);
+                if (PlayerSkills.instance.range == PlayerSkills.Range.Melee)
                 {
                     playermovetile.instance.ShowHittableSpots(playermovetile.instance.movespaces);
+                }
+                else if (PlayerSkills.instance.range == PlayerSkills.Range.Ranged)
+                {
+                    playermovetile.instance.ShowShootableSpots(playermovetile.instance.movespaces);
                 }
                 break;
             default:
@@ -233,6 +257,8 @@ public class BattleManager : MonoBehaviour
         Menu_AoM.SetActive(false);
         Menu_Attack.SetActive(false);
         Momentum_UI.SetActive(false);
+        stopmove_UI.SetActive(false);
+        BackIndicator.SetActive(false);
 
         switch (ActiveMenu)
         {
@@ -242,10 +268,16 @@ public class BattleManager : MonoBehaviour
 
             case 2:
                 Menu_Attack.SetActive(true);
+                BackIndicator.SetActive(true);
                 if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Fighter)
                 {
                     Momentum_UI.SetActive(true);
                 }
+                break;
+
+            case 3:
+                BackIndicator.SetActive(true);
+                stopmove_UI.SetActive(true);
                 break;
 
             default:
@@ -255,6 +287,7 @@ public class BattleManager : MonoBehaviour
 
     void EnemyTurn()
     {
+        PlayerSkills.instance.repeat = -1;
         if (playermovetile.instance.enemy == null)
         {
             return;

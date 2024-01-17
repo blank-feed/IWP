@@ -62,7 +62,7 @@ public class SkillHoverManager : MonoBehaviour
         switch (PlayerManager.instance.PlayerClass)
         {
             case PlayerManager.Class.Paladin:
-                boonnamestr = "Deficiency";
+                boonnamestr = "Holy Blessing"; //aka Deficiency
                 BoonDesc.text = "The more health lost, the more damage you deal";
                 break;
             case PlayerManager.Class.Rogue:

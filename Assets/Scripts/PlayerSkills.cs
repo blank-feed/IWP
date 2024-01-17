@@ -153,6 +153,7 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Frenzy_Impact:
                 range = Range.Melee;
+                playermovetile.instance.movespaces = 1;
                 BattleManager.instance.Damage = 8 * random;
                 BattleManager.instance.can_melee = true;
                 break;
@@ -229,10 +230,10 @@ public class PlayerSkills : MonoBehaviour
                 str = "Deals damage in a single direction \nRange : Melee";
                 break;
             case AllSkills.Frenzy_Impact:
-                str = "Strikes a random amount of times (Momentum increases) \nRange : Melee";
+                str = "Performs a random number of strikes (1-6) \nRange : Melee";
                 break;
             case AllSkills.Critical_Opportunity:
-                str = "Have a chance to deal huge amount of damage (Momentum increases) \nRange : Melee";
+                str = "Has a 33% chance to inflict massive damage \nRange : Melee";
                 break;
             case AllSkills.Frail_Crush:
                 str = "The higher your Momentum, the higher the damage \nRange : Melee";

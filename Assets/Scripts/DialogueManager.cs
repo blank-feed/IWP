@@ -18,6 +18,7 @@ public class DialogueManager : MonoBehaviour
     Actor[] currentActors;
     int activeMessage = 0;
     public static bool isActive = false;
+    public static DialogueManager instance;
 
     public void OpenDialogue(Message[] messages, Actor[] actors)
     {
@@ -58,6 +59,7 @@ public class DialogueManager : MonoBehaviour
             }
             DialogueTrigger.AllMessages_Index = 0;
             DialogueTrigger.AllMessages_Length = 0;
+            PlayerManager.instance.dialogueStarted = false;
             isActive = false;
             DialogueUI.SetActive(false);
             SceneManager.LoadScene("TMBattleScene");
@@ -67,6 +69,7 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         DialogueUI.SetActive(false);
     }
 

@@ -47,6 +47,8 @@ public class PlayerSkills : MonoBehaviour
     public Sprite S2_Img;
     public Sprite S3_Img;
 
+    public Sprite[] Boon_Img;
+
     public Array skillValues;
 
     //public bool self = false;
@@ -89,7 +91,7 @@ public class PlayerSkills : MonoBehaviour
             case AllSkills.Holy_Strike:
                 range = Range.Melee;
                 playermovetile.instance.movespaces = 1;
-                BattleManager.instance.Damage = 30;
+                BattleManager.instance.Damage = 30 + BattleManager.instance.deficiency;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Holy_Heal:
@@ -116,7 +118,7 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Slip_Snip:
                 range = Range.Melee;
-                BattleManager.instance.Damage = 20;
+                BattleManager.instance.Damage = 20 + (BattleManager.instance.confiscation * random);
                 playermovetile.instance.movespaces = 3;
                 BattleManager.instance.can_dash = true;
                 break;
@@ -127,6 +129,7 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Agile_Snip:
                 range = Range.Melee;
+                BattleManager.instance.Damage = 40 + (BattleManager.instance.confiscation * random);
                 playermovetile.instance.movespaces = 1;
                 BattleManager.instance.can_dash = true;
                 break;
@@ -190,58 +193,58 @@ public class PlayerSkills : MonoBehaviour
         switch (skill)
         {
             case AllSkills.Holy_Strike:
-                str = "Deals damage in a single direction | Melee";
+                str = "Deals damage in a single direction \nRange : Melee";
                 break;
             case AllSkills.Holy_Heal:
-                str = "Heals yourself | Self";
+                str = "Heals yourself \nRange : Self";
                 break;
             case AllSkills.Holy_Rage:
-                str = "Deals more damage the lesser your health in a single direction | Melee";
+                str = "Deals more damage the lesser your health in a single direction \nRange : Melee";
                 break;
             case AllSkills.Slip_Snip:
-                str = "Dashes through while dealing damage | Dash";
+                str = "Dashes through while dealing damage \nRange : Dash";
                 break;
             case AllSkills.Weakness_Policy:
-                str = "Deals damage in a single direction | Melee";
+                str = "Steals attack from target \nRange : Melee";
                 break;
             case AllSkills.Agile_Snip:
-                str = "High damage short dash | Dash";
+                str = "High damage short dash \nRange : Dash";
                 break;
             case AllSkills.Arcane_Smash:
-                str = "Deals damage in a single direction | Melee";
+                str = "Deals damage in a single direction \nRange : Melee";
                 break;
             case AllSkills.Blood_Siphon:
-                str = "Deals damage in a single direction | Melee";
+                str = "Deals damage in a single direction \nRange : Melee";
                 break;
             case AllSkills.Recovery_Pool:
-                str = "Deals damage in a single direction | Melee";
+                str = "Deals damage in a single direction \nRange : Melee";
                 break;
             case AllSkills.Crippling_Volley:
-                str = "Deals damage in a single direction | Melee";
+                str = "Deals damage in a single direction \nRange : Melee";
                 break;
             case AllSkills.High_Shot:
-                str = "Deals damage in a single direction | Melee";
+                str = "Deals damage in a single direction \nRange : Melee";
                 break;
             case AllSkills.Barrage_Strike:
-                str = "Deals damage in a single direction | Melee";
+                str = "Deals damage in a single direction \nRange : Melee";
                 break;
             case AllSkills.Frenzy_Impact:
-                str = "Strikes a random amount of times (Momentum increases) | Melee";
+                str = "Strikes a random amount of times (Momentum increases) \nRange : Melee";
                 break;
             case AllSkills.Critical_Opportunity:
-                str = "Have a chance to deal huge amount of damage (Momentum increases) | Melee";
+                str = "Have a chance to deal huge amount of damage (Momentum increases) \nRange : Melee";
                 break;
             case AllSkills.Frail_Crush:
-                str = "The higher your Momentum, the higher the damage | Melee";
+                str = "The higher your Momentum, the higher the damage \nRange : Melee";
                 break;
             case AllSkills.Dragon_Beam:
-                str = "Deals damage in a single direction | Melee";
+                str = "Deals damage in a single direction \nRange : Melee";
                 break;
             case AllSkills.Winged_Buddy:
-                str = "Deals damage in a single direction | Melee";
+                str = "Deals damage in a single direction \nRange : Melee";
                 break;
             case AllSkills.Wyrm_Summon:
-                str = "Deals damage in a single direction | Melee";
+                str = "Deals damage in a single direction \nRange : Melee";
                 break;
             default:
                 break;

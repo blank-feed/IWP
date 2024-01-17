@@ -17,6 +17,7 @@ public class playermovetile : MonoBehaviour
     public GameObject CrosshairPrefab;
     public bool shown = false;
     public int movespaces = 0;
+    bool back = false;
 
     private void Awake()
     {
@@ -98,6 +99,7 @@ public class playermovetile : MonoBehaviour
                     {
                         BattleManager.instance.enemyhp -= BattleManager.instance.Damage;
                         BattleManager.instance.momentum++;
+                        BattleManager.instance.confiscation++;
                     }
                     BattleManager.instance.can_melee = false;
                     DestroyObjectsWithName("swordcross");
@@ -144,7 +146,7 @@ public class playermovetile : MonoBehaviour
         }
 
         //right click to cancel
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) || back)
         {
             if (BattleManager.instance.moveable)
             {
@@ -179,18 +181,25 @@ public class playermovetile : MonoBehaviour
             {
                 BattleManager.instance.bs = BattlingState.playerturn;
             }
-        }
 
-        //end movement early
-        if (Input.GetKeyDown(KeyCode.Space))
+            back = false;
+        }
+    }
+
+    public void PressBack()
+    {
+        back = true;
+    }
+
+    //end movement early
+    public void StopEarly()
+    {
+        if (BattleManager.instance.moveable)
         {
-            if (BattleManager.instance.moveable)
-            {
-                BattleManager.instance.moveable = false;
-                BattleManager.instance.MoveCount_UI.SetActive(false);
-                temp_num = -1;
-                BattleManager.instance.bs = BattlingState.enemyturn;
-            }
+            BattleManager.instance.moveable = false;
+            BattleManager.instance.MoveCount_UI.SetActive(false);
+            temp_num = -1;
+            BattleManager.instance.bs = BattlingState.enemyturn;
         }
     }
 

@@ -1,57 +1,39 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
 public class SkillHoverManager : MonoBehaviour
 {
-    public GameObject button1;
-    public GameObject button2;
-    public GameObject button3;
     public GameObject SkillDescriptionUI;
-    public TextMeshProUGUI SkillName;
-    public TextMeshProUGUI SkillDesc;
 
-    private GameObject currentHoveredButton;
+    public Image Skill1Img;
+    public Image Skill2Img;
+    public Image Skill3Img;
+
+    public TextMeshProUGUI Skill1Name;
+    public TextMeshProUGUI Skill2Name;
+    public TextMeshProUGUI Skill3Name;
+
+    public TextMeshProUGUI Skill1Desc;
+    public TextMeshProUGUI Skill2Desc;
+    public TextMeshProUGUI Skill3Desc;
+
+    public Image BoonImg;
+    public TextMeshProUGUI BoonName;
+    public TextMeshProUGUI BoonDesc;
+
 
     void Start()
     {
         SkillDescriptionUI.SetActive(false);
-        SetupButtonHoverEvents(button1);
-        SetupButtonHoverEvents(button2);
-        SetupButtonHoverEvents(button3);
-    }
-
-    void SetupButtonHoverEvents(GameObject button)
-    {
-        if (button == null)
-        {
-            Debug.LogError("Button GameObject is null!");
-            return;
-        }
-
-        EventTrigger eventTrigger = button.GetComponent<EventTrigger>();
-
-        if (eventTrigger == null)
-        {
-            eventTrigger = button.AddComponent<EventTrigger>();
-        }
-
-        EventTrigger.Entry entryEnter = new EventTrigger.Entry();
-        entryEnter.eventID = EventTriggerType.PointerEnter;
-        entryEnter.callback.AddListener((data) => { OnPointerEnter(button); });
-        eventTrigger.triggers.Add(entryEnter);
-
-        EventTrigger.Entry entryExit = new EventTrigger.Entry();
-        entryExit.eventID = EventTriggerType.PointerExit;
-        entryExit.callback.AddListener((data) => { OnPointerExit(); });
-        eventTrigger.triggers.Add(entryExit);
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.F1) && currentHoveredButton != null)
+        if (Input.GetKey(KeyCode.F1))
         {
-            OnF1KeyPress(currentHoveredButton.name);
+            OnF1KeyPress();
         }
         else if (Input.GetKeyUp(KeyCode.F1))
         {
@@ -59,43 +41,58 @@ public class SkillHoverManager : MonoBehaviour
         }
     }
 
-    void OnPointerEnter(GameObject button)
-    {
-        currentHoveredButton = button;
-    }
-
-    void OnPointerExit()
-    {
-        currentHoveredButton = null;
-    }
-
-    void OnF1KeyPress(string buttonName)
+    public void OnF1KeyPress()
     {
         SkillDescriptionUI.SetActive(true);
-        string desc = "";
-        switch (buttonName)
+
+        Skill1Img.sprite = PlayerSkills.instance.S1_Img;
+        Skill1Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S1);
+        Skill1Desc.text = PlayerSkills.instance.GetSkillDescription(PlayerSkills.instance.S1);
+
+        Skill2Img.sprite = PlayerSkills.instance.S2_Img;
+        Skill2Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S2);
+        Skill2Desc.text = PlayerSkills.instance.GetSkillDescription(PlayerSkills.instance.S2);
+
+        Skill3Img.sprite = PlayerSkills.instance.S3_Img;
+        Skill3Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S3);
+        Skill3Desc.text = PlayerSkills.instance.GetSkillDescription(PlayerSkills.instance.S3);
+
+        BoonImg.sprite = BattleManager.instance.BoonImg.sprite;
+        string boonnamestr = "";
+        switch (PlayerManager.instance.PlayerClass)
         {
-            case "Skill1":
-                SkillName.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S1);
-                desc = PlayerSkills.instance.GetSkillDescription(PlayerSkills.instance.S1);
+            case PlayerManager.Class.Paladin:
+                boonnamestr = "Deficiency";
+                BoonDesc.text = "The more health lost, the more damage you deal";
                 break;
-            case "Skill2":
-                SkillName.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S2);
-                desc = PlayerSkills.instance.GetSkillDescription(PlayerSkills.instance.S2);
+            case PlayerManager.Class.Rogue:
+                boonnamestr = "Confiscation";
+                BoonDesc.text = "The more damage stolen, the more damage you deal";
                 break;
-            case "Skill3":
-                SkillName.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S3);
-                desc = PlayerSkills.instance.GetSkillDescription(PlayerSkills.instance.S3);
+            case PlayerManager.Class.Sorcerer:
+                boonnamestr = "DKDC";
+                BoonDesc.text = "DKDC";
+                break;
+            case PlayerManager.Class.Ranger:
+                boonnamestr = "Crippled";
+                BoonDesc.text = "The further away you are from the enemy, the more damage you deal";
+                break;
+            case PlayerManager.Class.Fighter:
+                boonnamestr = "Momentum";
+                BoonDesc.text = "The more skills you use in a row, the more damage you deal";
+                break;
+            case PlayerManager.Class.Druid:
+                boonnamestr = "Dragon Pals";
+                BoonDesc.text = "The more Dragon Pals, the more damage you deal";
                 break;
             default:
                 break;
         }
-        SkillDesc.text = desc;
+        BoonName.text = "Boon :\n" + boonnamestr;
     }
 
-    void OnF1KeyReleased()
+    public void OnF1KeyReleased()
     {
         SkillDescriptionUI.SetActive(false);
-        currentHoveredButton = null;
     }
 }

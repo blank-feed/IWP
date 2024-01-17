@@ -34,6 +34,7 @@ public class PlayerManager : MonoBehaviour
 
     private bool runOnce = false;
     private bool inRange = false;
+    public bool dialogueStarted = false;
 
     //sprites
     public Sprite playerSprite;
@@ -115,10 +116,9 @@ public class PlayerManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.M) && inRange && !DialogueManager.isActive)
             {
-                //CombatManager.instance.SetPlayer(gameObject);
-                //CombatManager.instance.SetEnemy(enemy);
                 CombatManager.instance.SetEnemyData(enemy);
                 CombatManager.instance.SetPlayerData();
+                dialogueStarted = true;
                 FindAnyObjectByType<DialogueTrigger>().StartDialogue();
             }
 

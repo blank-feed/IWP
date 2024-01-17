@@ -27,18 +27,21 @@ public class BattleManager : MonoBehaviour
     public GameObject Menu_AoM;
     public GameObject Menu_Attack;
     public GameObject MoveCount_UI;
-    public GameObject Momentum_UI;
+    public GameObject Boon_UI;
     public GameObject BackIndicator;
     public GameObject stopmove_UI;
 
     public TextMeshProUGUI MoveCount_Text;
-    public TextMeshProUGUI Momentum_Text;
+
+    public TextMeshProUGUI Boon_Text;
 
     public BattlingState bs;
 
     public Image S1_Img;
     public Image S2_Img;
     public Image S3_Img;
+
+    public Image BoonImg;
 
     //can move
     public bool moveable = false;
@@ -60,12 +63,30 @@ public class BattleManager : MonoBehaviour
     public TextMeshProUGUI Skill3_Name;
 
     public int enemyhp = 100;
+    public int enemyAtk = 15;
 
     private bool delayTriggered = false;
 
     public int Damage;
 
+    //boons
+    //paladin
+    public int deficiency = 0;
+
+    //rogue
+    public int confiscation = 0;
+
+    //sorcerer
+
+
+    //archer
+    public int cripple = 0;
+
+    //fighter
     public int momentum = 0;
+
+    //druid
+    public int Dragon_Pals = 0;
 
     public int MoveCount;
 
@@ -93,26 +114,64 @@ public class BattleManager : MonoBehaviour
         S1_Img.sprite = PlayerSkills.instance.S1_Img;
         S2_Img.sprite = PlayerSkills.instance.S2_Img;
         S3_Img.sprite = PlayerSkills.instance.S3_Img;
+        switch (PlayerManager.instance.PlayerClass)
+        {
+            case PlayerManager.Class.Paladin:
+                BoonImg.sprite = PlayerSkills.instance.Boon_Img[0];
+                break;
+            case PlayerManager.Class.Rogue:
+                BoonImg.sprite = PlayerSkills.instance.Boon_Img[1];
+                break;
+            case PlayerManager.Class.Sorcerer:
+                BoonImg.sprite = PlayerSkills.instance.Boon_Img[2];
+                break;
+            case PlayerManager.Class.Ranger:
+                BoonImg.sprite = PlayerSkills.instance.Boon_Img[3];
+                break;
+            case PlayerManager.Class.Fighter:
+                BoonImg.sprite = PlayerSkills.instance.Boon_Img[4];
+                break;
+            case PlayerManager.Class.Druid:
+                BoonImg.sprite = PlayerSkills.instance.Boon_Img[5];
+                break;
+            default:
+                break;
+        }
         bs = BattlingState.start;
-        momentum = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Momentum_UI != null)
+        if (Boon_UI != null)
         {
-            Momentum_Text.text = momentum.ToString();
+            string boonCount = "";
+            switch (PlayerManager.instance.PlayerClass)
+            {
+                case PlayerManager.Class.Paladin:
+                    boonCount = deficiency.ToString();
+                    break;
+                case PlayerManager.Class.Rogue:
+                    boonCount = confiscation.ToString();
+                    break;
+                case PlayerManager.Class.Sorcerer:
+                    break;
+                case PlayerManager.Class.Ranger:
+                    boonCount = cripple.ToString();
+                    break;
+                case PlayerManager.Class.Fighter:
+                    boonCount = momentum.ToString();
+                    break;
+                case PlayerManager.Class.Druid:
+                    boonCount = Dragon_Pals.ToString();
+                    break;
+                default:
+                    break;
+            }
+            Boon_Text.text = boonCount.ToString();
         }
 
-        //if player at the very bottom
-        //if (PlayerManager.instance.transform.position.y == -4.5)
-        //{
-        //    Menu_AoM.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
-        //    MoveCount_UI.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
-        //}
-        //if player near the top
-        /*else */if (PlayerManager.instance.transform.position.y >= 3.5)
+        if (PlayerManager.instance.transform.position.y >= 3.5)
         {
             MoveCount_UI.transform.position = MainCamera.WorldToScreenPoint(new Vector3(PlayerManager.instance.transform.position.x, PlayerManager.instance.transform.position.y - 3));
             Menu_AoM.transform.position = MainCamera.WorldToScreenPoint(PlayerManager.instance.transform.position);
@@ -260,7 +319,7 @@ public class BattleManager : MonoBehaviour
     {
         Menu_AoM.SetActive(false);
         Menu_Attack.SetActive(false);
-        Momentum_UI.SetActive(false);
+        Boon_UI.SetActive(false);
         stopmove_UI.SetActive(false);
         BackIndicator.SetActive(false);
 
@@ -273,10 +332,7 @@ public class BattleManager : MonoBehaviour
             case 2:
                 Menu_Attack.SetActive(true);
                 BackIndicator.SetActive(true);
-                if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Fighter)
-                {
-                    Momentum_UI.SetActive(true);
-                }
+                Boon_UI.SetActive(true);
                 break;
 
             case 3:
@@ -300,9 +356,19 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
+        if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Rogue)
+        {
+            enemyAtk -= confiscation;
+            if (enemyAtk <= 0)
+            {
+                enemyAtk = 1;
+            }
+        }
+
         if (playermovetile.instance.IsPlayerOneTileAway())
         {
-            PlayerManager.instance.health -= 15;
+            PlayerManager.instance.health -= enemyAtk;
+            deficiency += Mathf.FloorToInt(enemyAtk / 3);
         }
         else
         {

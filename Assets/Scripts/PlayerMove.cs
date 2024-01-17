@@ -18,10 +18,18 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (PlayerManager.instance.dialogueStarted)
+            {
+                if (DialogueManager.isActive)
+                {
+                    DialogueManager.instance.NextMessage();
+                }
+                return;
+            }
             SetTargetPosition();
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) || PlayerManager.instance.dialogueStarted)
         {
             isMoving = false;
             HideIndicator();

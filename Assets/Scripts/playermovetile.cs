@@ -8,7 +8,8 @@ public class playermovetile : MonoBehaviour
     public static playermovetile instance;
 
     GameObject player;
-    public GameObject enemy;
+    //public GameObject enemy;
+    public GameObject[] enemies;
     Tilemap tmap;
     private Vector3 targetPosition;
     public int temp_num = -1;
@@ -39,7 +40,8 @@ public class playermovetile : MonoBehaviour
         tmap = GameObject.Find("Tilemap_Base").GetComponent<Tilemap>();
         player.transform.localScale = new Vector3(.5f, .5f, 1);
         player.transform.position = tmap.GetCellCenterWorld(new Vector3Int(-4, 0));
-        enemy.transform.position = tmap.GetCellCenterWorld(new Vector3Int(4, 0));
+        enemies[0].transform.position = tmap.GetCellCenterWorld(new Vector3Int(4, 0));
+        enemies[1].transform.position = tmap.GetCellCenterWorld(new Vector3Int(4, 3));
     }
 
     // Update is called once per frame
@@ -66,8 +68,15 @@ public class playermovetile : MonoBehaviour
                     targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     //movespaces = 1;
                     TileBase destinationTile = GetDestination(targetPosition, movespaces);
-                    if (destinationTile != null && tmap.WorldToCell(targetPosition) != tmap.WorldToCell(enemy.transform.position))
+                    if (destinationTile != null /*&& tmap.WorldToCell(targetPosition) != tmap.WorldToCell(enemy.transform.position)*/)
                     {
+                        foreach (GameObject e in enemies)
+                        {
+                            if (tmap.WorldToCell(targetPosition) == tmap.WorldToCell(e.transform.position))
+                            {
+                                return;
+                            }
+                        }
                         Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
                         LeanTweenIt(player, tmap.GetCellCenterWorld(destinationCell), 1f);
                         BattleManager.instance.momentum--;
@@ -95,11 +104,19 @@ public class playermovetile : MonoBehaviour
                 if (destinationTile != null)
                 {
                     Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
-                    if (tmap.GetCellCenterWorld(destinationCell) == tmap.GetCellCenterWorld(tmap.WorldToCell(enemy.transform.position)))
+                    foreach (GameObject e in enemies)
                     {
-                        BattleManager.instance.enemyhp -= BattleManager.instance.Damage;
-                        BattleManager.instance.momentum++;
-                        BattleManager.instance.confiscation++;
+                        //if (tmap.GetCellCenterWorld(destinationCell) != tmap.GetCellCenterWorld(tmap.WorldToCell(e.transform.position)))
+                        //{
+                        //    return;
+                        //}
+
+                        if (tmap.GetCellCenterWorld(destinationCell) == tmap.GetCellCenterWorld(tmap.WorldToCell(e.transform.position)))
+                        {
+                            e.GetComponent<Enemy>().health -= BattleManager.instance.Damage;
+                            BattleManager.instance.momentum++;
+                            BattleManager.instance.confiscation++;
+                        }
                     }
                     BattleManager.instance.can_melee = false;
                     DestroyObjectsWithName("swordcross");
@@ -114,10 +131,13 @@ public class playermovetile : MonoBehaviour
                 if (destinationTile != null)
                 {
                     Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
-                    if (HitByDash(tmap.GetCellCenterWorld(tmap.WorldToCell(player.transform.position)), tmap.GetCellCenterWorld(destinationCell), tmap.GetCellCenterWorld(tmap.WorldToCell(enemy.transform.position))))
+                    foreach (GameObject e in enemies)
                     {
-                        BattleManager.instance.enemyhp -= BattleManager.instance.Damage;
-                        BattleManager.instance.momentum++;
+                        if (HitByDash(tmap.GetCellCenterWorld(tmap.WorldToCell(player.transform.position)), tmap.GetCellCenterWorld(destinationCell), tmap.GetCellCenterWorld(tmap.WorldToCell(e.transform.position))))
+                        {
+                            e.GetComponent<Enemy>().health -= BattleManager.instance.Damage;
+                            BattleManager.instance.momentum++;
+                        }
                     }
                     LeanTweenIt(player, tmap.GetCellCenterWorld(destinationCell), 1);
                     BattleManager.instance.can_dash = false;
@@ -133,12 +153,15 @@ public class playermovetile : MonoBehaviour
                 if (destinationTile != null)
                 {
                     Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
-                    if (HitByDash(tmap.GetCellCenterWorld(tmap.WorldToCell(player.transform.position)), tmap.GetCellCenterWorld(destinationCell), tmap.GetCellCenterWorld(tmap.WorldToCell(enemy.transform.position))))
+                    foreach (GameObject e in enemies)
                     {
-                        BattleManager.instance.enemyhp -= BattleManager.instance.Damage;
-                        BattleManager.instance.momentum++;
+                        if (HitByDash(tmap.GetCellCenterWorld(tmap.WorldToCell(player.transform.position)), tmap.GetCellCenterWorld(destinationCell), tmap.GetCellCenterWorld(tmap.WorldToCell(e.transform.position))))
+                        {
+                            e.GetComponent<Enemy>().health -= BattleManager.instance.Damage;
+                            BattleManager.instance.momentum++;
+                        }
                     }
-                    BattleManager.instance.can_dash = false;
+                    BattleManager.instance.can_shoot = false;
                     DestroyObjectsWithName("crosshair");
                     BattleManager.instance.bs = BattlingState.enemyturn;
                 }
@@ -236,8 +259,12 @@ public class playermovetile : MonoBehaviour
 
     public void ShowMoveableSpots(int spaces)
     {
+        bool noneOnTop = true;
+        bool noneOnDown = true;
+        bool noneOnLeft = true;
+        bool noneOnRight = true;
+
         Vector3Int Temp_playerGridPos = tmap.WorldToCell(player.transform.position);
-        Vector3Int enemyCell = tmap.WorldToCell(enemy.transform.position);
         Vector2Int playerGridPos = new Vector2Int(Temp_playerGridPos.x, Temp_playerGridPos.y);
 
         Vector3Int T = new Vector3Int(playerGridPos.x, playerGridPos.y + spaces);
@@ -245,24 +272,45 @@ public class playermovetile : MonoBehaviour
         Vector3Int L = new Vector3Int(playerGridPos.x - spaces, playerGridPos.y);
         Vector3Int R = new Vector3Int(playerGridPos.x + spaces, playerGridPos.y);
 
+        foreach (GameObject e in enemies)
+        {
+            Vector3Int enemyCell = tmap.WorldToCell(e.transform.position);
+            if (enemyCell == T)
+            {
+                noneOnTop = false;
+            }
+            if (enemyCell == D)
+            {
+                noneOnDown = false;
+            }
+            if (enemyCell == L)
+            {
+                noneOnLeft = false;
+            }
+            if (enemyCell == R)
+            {
+                noneOnRight = false;
+            }
+        }
+
         Vector3 Top = tmap.GetCellCenterWorld(T);
         Vector3 Down = tmap.GetCellCenterWorld(D);
         Vector3 Left = tmap.GetCellCenterWorld(L);
         Vector3 Right = tmap.GetCellCenterWorld(R);
 
-        if (enemyCell != T)
+        if (noneOnTop)
         {
             Instantiate(MoveableArrowsPrefab, new Vector3(Top.x, Top.y, Top.z), Quaternion.identity);
         }
-        if (enemyCell != D)
+        if (noneOnDown)
         {
             Instantiate(MoveableArrowsPrefab, new Vector3(Down.x, Down.y, Down.z), Quaternion.identity);
         }
-        if (enemyCell != L)
+        if (noneOnLeft)
         {
             Instantiate(MoveableArrowsPrefab, new Vector3(Left.x, Left.y, Left.z), Quaternion.identity);
         }
-        if (enemyCell != R)
+        if (noneOnRight)
         {
             Instantiate(MoveableArrowsPrefab, new Vector3(Right.x, Right.y, Right.z), Quaternion.identity);
         }
@@ -328,14 +376,14 @@ public class playermovetile : MonoBehaviour
         shown = false;
     }
 
-    public bool IsPlayerOneTileAway()
+    public bool IsPlayerOneTileAway(GameObject enemy)
     {
         Vector3Int playerCell = tmap.WorldToCell(player.transform.position);
         Vector3Int enemyCell = tmap.WorldToCell(enemy.transform.position);
 
         if (playerCell == enemyCell)
         {
-            MoveTowardsPlayer();
+            MoveTowardsPlayer(enemy);
             return true;
         }
 
@@ -344,7 +392,7 @@ public class playermovetile : MonoBehaviour
             || Mathf.Abs(playerCell.y - enemyCell.y) == 1 && playerCell.x == enemyCell.x;
     }
 
-    public void MoveTowardsPlayer()
+    public void MoveTowardsPlayer(GameObject enemy)
     {
         Vector3Int playerCell = tmap.WorldToCell(player.transform.position);
         Vector3Int enemyCell = tmap.WorldToCell(enemy.transform.position);

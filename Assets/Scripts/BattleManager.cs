@@ -56,14 +56,13 @@ public class BattleManager : MonoBehaviour
     public bool can_shoot = false;
 
     public TextMeshProUGUI playerhpinfo;
-    public TextMeshProUGUI enemyhpinfo;
 
     public TextMeshProUGUI Skill1_Name;
     public TextMeshProUGUI Skill2_Name;
     public TextMeshProUGUI Skill3_Name;
 
-    public int enemyhp = 100;
-    public int enemyAtk = 15;
+    //public int enemyhp = 100;
+    //public int enemyAtk = 15;
 
     private bool delayTriggered = false;
 
@@ -183,12 +182,24 @@ public class BattleManager : MonoBehaviour
         }
 
         playerhpinfo.text = "player hp : " + PlayerManager.instance.health;
-        enemyhpinfo.text = "enemy hp : " + enemyhp;
 
-        if (enemyhp <= 0)
+        if (PlayerManager.instance.health <= 0)
         {
-            Destroy(playermovetile.instance.enemy);
             StartCoroutine(EndBattle());
+        }
+
+        if (AreAllEnemiesInactive())
+        {
+            StartCoroutine(EndBattle());
+        }
+
+        foreach (GameObject e in playermovetile.instance.enemies)
+        {
+            if (e.GetComponent<Enemy>().health <= 0)
+            {
+                //Destroy(e);
+                e.SetActive(false);
+            }
         }
 
         switch (bs)
@@ -287,12 +298,6 @@ public class BattleManager : MonoBehaviour
                 }
                 break;
             case 3:
-                //PlayerManager.instance.health += 10;
-                //if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
-                //{
-                //    PlayerManager.instance.health = PlayerManager.instance.maxHealth;
-                //}
-                //bs = BattlingState.enemyturn;
                 PlayerSkills.instance.UseSkill(PlayerSkills.instance.S3);
                 if (PlayerSkills.instance.range == PlayerSkills.Range.Melee)
                 {
@@ -351,32 +356,50 @@ public class BattleManager : MonoBehaviour
     void EnemyTurn()
     {
         PlayerSkills.instance.repeat = -1;
-        if (playermovetile.instance.enemy == null)
+        if (playermovetile.instance.enemies == null)
         {
             return;
         }
 
-        if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Rogue)
+        foreach (GameObject e in playermovetile.instance.enemies)
         {
-            enemyAtk -= confiscation;
-            if (enemyAtk <= 0)
+            if (e.activeSelf)
             {
-                enemyAtk = 1;
-            }
-        }
+                if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Rogue)
+                {
+                    e.GetComponent<Enemy>().attack = e.GetComponent<Enemy>().baseatk - confiscation;
+                    if (e.GetComponent<Enemy>().attack <= 0)
+                    {
+                        e.GetComponent<Enemy>().attack = 1;
+                    }
+                }
 
-        if (playermovetile.instance.IsPlayerOneTileAway())
-        {
-            PlayerManager.instance.health -= enemyAtk;
-            deficiency += Mathf.FloorToInt(enemyAtk / 3);
-        }
-        else
-        {
-            playermovetile.instance.MoveTowardsPlayer();
+                if (playermovetile.instance.IsPlayerOneTileAway(e))
+                {
+                    PlayerManager.instance.health -= e.GetComponent<Enemy>().attack;
+                    deficiency += Mathf.FloorToInt(e.GetComponent<Enemy>().attack / 3);
+                }
+                else
+                {
+                    playermovetile.instance.MoveTowardsPlayer(e);
+                }
+            }
         }
         bs = BattlingState.playerturn;
     }
 
+    bool AreAllEnemiesInactive()
+    {
+        foreach (GameObject enemy in playermovetile.instance.enemies)
+        {
+            if (enemy != null && enemy.activeSelf)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
     IEnumerator DelayedAction()
     {
         // Wait for 1 second

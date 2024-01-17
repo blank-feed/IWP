@@ -11,9 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainLobby.unity
     guid: ad20af8357a0b2e40b63a7efece397a2
-  - enabled: 1
-    path: Assets/Scenes/BattleScene.unity
-    guid: 72360595f3dc47d4e9e192dbf780c70b
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/TMBattleScene.unity
     guid: 31728437a68daa7418fce6b8dc869634

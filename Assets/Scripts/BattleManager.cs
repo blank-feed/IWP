@@ -321,7 +321,7 @@ public class BattleManager : MonoBehaviour
     public int RollDie(int maxDieCount)
     {
         int NumRolled = Random.Range(1, maxDieCount + 1);
-        PrevDiceRoll = NumRolled;
+        PrevDiceRoll = NumRolled - 1;
         dicerolled = true;
 
         return NumRolled;

@@ -9172,7 +9172,9 @@ MonoBehaviour:
   Skill1_Name: {fileID: 1226711171}
   Skill2_Name: {fileID: 398687969}
   Skill3_Name: {fileID: 2012384362}
+  dicerolled: 0
   Damage: 0
+  PrevDiceRoll: 0
   deficiency: 0
   confiscation: 0
   cripple: 0

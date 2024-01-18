@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
     {
         if (BattleManager.instance.dicerolled)
         {
-            BattleManager.instance.Dice.sprite = BattleManager.instance.DiceFaces[BattleManager.instance.PrevDiceRoll - 1];
+            BattleManager.instance.Dice.sprite = BattleManager.instance.DiceFaces[BattleManager.instance.PrevDiceRoll];
             BattleManager.instance.dicerolled = false;
         }
 

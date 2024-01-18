@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
 
-    public GameObject MIcon_prefab;
+    public GameObject InteractIcon_prefab;
     GameObject newPrefabInstance;
 
     public enum Race
@@ -104,22 +104,15 @@ public class PlayerManager : MonoBehaviour
                 SceneStart();
             }
 
-            if (Input.GetKeyDown(KeyCode.H))
-            {
-                StartCoroutine(GradualExpIncrease(10));
-            }
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    InventoryManager.instance.RemoveItem("Egg", 1);
+            //}
 
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.F) && inRange && !DialogueManager.isActive)
             {
-                InventoryManager.instance.RemoveItem("Egg", 1);
-            }
-
-            if (Input.GetKeyDown(KeyCode.M) && inRange && !DialogueManager.isActive)
-            {
-                CombatManager.instance.SetEnemyData(enemy);
-                CombatManager.instance.SetPlayerData();
-                dialogueStarted = true;
                 FindAnyObjectByType<DialogueTrigger>().StartDialogue();
+                dialogueStarted = true;
             }
 
             if (inRange)
@@ -139,8 +132,8 @@ public class PlayerManager : MonoBehaviour
     {
         if (other.CompareTag("conversable"))
         {
-            newPrefabInstance = Instantiate(MIcon_prefab, Vector3.zero, Quaternion.identity);
-            newPrefabInstance.name = "M_Icon";
+            newPrefabInstance = Instantiate(InteractIcon_prefab, Vector3.zero, Quaternion.identity);
+            newPrefabInstance.name = "Interact_Icon";
             Canvas canvas = FindObjectOfType<Canvas>();
             if (canvas != null)
             {
@@ -156,7 +149,7 @@ public class PlayerManager : MonoBehaviour
 
         if (other.CompareTag("conversable"))
         {
-            GameObject destroying = GameObject.Find("M_Icon");
+            GameObject destroying = GameObject.Find("Interact_Icon");
             Destroy(destroying);
             inRange = false;
             enemy = null;

@@ -15,17 +15,20 @@ public class Enemy : MonoBehaviour
 
     public EnemyType enemyType;
     public int health = 100;
+    public int maxHp;
     public int attack = 15;
     public int baseatk = 15;
     public Vector3Int startingPosition;
     GameObject hpbar;
     TextMeshProUGUI hptxt;
+    int c = 0;
 
     public GameObject EnemyHpBarPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
+        maxHp = health;
         GameObject healthbars = GameObject.Find("healthbars");
         hpbar = Instantiate(EnemyHpBarPrefab, healthbars.transform);
         hpbar.GetComponent<Slider>().maxValue = health;
@@ -66,7 +69,7 @@ public class Enemy : MonoBehaviour
         switch (enemyType)
         {
             case EnemyType.Melee:
-                if (playermovetile.instance.IsPlayerOneTileAway(gameObject))
+                if (playermovetile.instance.IsPlayer_X_TileAway(gameObject, 1))
                 {
                     PlayerManager.instance.health -= gameObject.GetComponent<Enemy>().attack;
                     BattleManager.instance.deficiency += Mathf.FloorToInt(gameObject.GetComponent<Enemy>().attack / 3);
@@ -77,9 +80,64 @@ public class Enemy : MonoBehaviour
                 }
                 break;
             case EnemyType.Ranged:
-
+                switch (c)
+                {
+                    case 0: //move away from player
+                        if (playermovetile.instance.IsPlayer_X_TileAway(gameObject, 1)) //if enemy already far away, it attack
+                        {
+                            playermovetile.instance.MoveAwayFromPlayer(gameObject);
+                        }
+                        else
+                        {
+                            attack += Mathf.FloorToInt(playermovetile.instance.DistanceFromPlayer(gameObject));
+                            PlayerManager.instance.health -= gameObject.GetComponent<Enemy>().attack;
+                        }
+                        c = 1;
+                        break;
+                    case 1: //attack player
+                        attack += Mathf.FloorToInt(playermovetile.instance.DistanceFromPlayer(gameObject));
+                        PlayerManager.instance.health -= gameObject.GetComponent<Enemy>().attack;
+                        c = 0;
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case EnemyType.Healer:
+                switch (c)
+                {
+                    case 0: //move away from player
+                        if (playermovetile.instance.IsPlayer_X_TileAway(gameObject, 1)) //if enemy already far away, it heal
+                        {
+                            playermovetile.instance.MoveAwayFromPlayer(gameObject);
+                        }
+                        else
+                        {
+                            foreach (GameObject e in playermovetile.instance.enemies)
+                            {
+                                e.GetComponent<Enemy>().health += attack;
+                                if (e.GetComponent<Enemy>().health > e.GetComponent<Enemy>().maxHp)
+                                {
+                                    e.GetComponent<Enemy>().health = e.GetComponent<Enemy>().maxHp;
+                                }
+                            }
+                        }
+                        c = 1;
+                        break;
+                    case 1: //healing for everyone
+                        foreach (GameObject e in playermovetile.instance.enemies)
+                        {
+                            e.GetComponent<Enemy>().health += attack;
+                            if (e.GetComponent<Enemy>().health > e.GetComponent<Enemy>().maxHp)
+                            {
+                                e.GetComponent<Enemy>().health = e.GetComponent<Enemy>().maxHp;
+                            }
+                        }
+                        c = 0;
+                        break;
+                    default:
+                        break;
+                }
                 break;
             default:
                 break;

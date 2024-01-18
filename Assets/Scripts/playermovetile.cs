@@ -378,7 +378,7 @@ public class playermovetile : MonoBehaviour
         shown = false;
     }
 
-    public bool IsPlayerOneTileAway(GameObject enemy)
+    public bool IsPlayer_X_TileAway(GameObject enemy, int x)
     {
         Vector3Int playerCell = tmap.WorldToCell(player.transform.position);
         Vector3Int enemyCell = tmap.WorldToCell(enemy.transform.position);
@@ -390,8 +390,8 @@ public class playermovetile : MonoBehaviour
         }
 
         // Check if the player is exactly one tile above, below, to the left, or to the right of the enemy
-        return Mathf.Abs(playerCell.x - enemyCell.x) == 1 && playerCell.y == enemyCell.y
-            || Mathf.Abs(playerCell.y - enemyCell.y) == 1 && playerCell.x == enemyCell.x;
+        return Mathf.Abs(playerCell.x - enemyCell.x) == x && playerCell.y == enemyCell.y
+            || Mathf.Abs(playerCell.y - enemyCell.y) == x && playerCell.x == enemyCell.x;
     }
 
     public void MoveTowardsPlayer(GameObject enemy)
@@ -424,6 +424,53 @@ public class playermovetile : MonoBehaviour
 
         //enemy.transform.position = destinationCell;
         LeanTweenIt(enemy, destinationCell, 1f);
+    }
+
+    public void MoveAwayFromPlayer(GameObject enemy)
+    {
+        Vector3Int playerCell = tmap.WorldToCell(player.transform.position);
+        Vector3Int enemyCell = tmap.WorldToCell(enemy.transform.position);
+
+        Vector3 destinationCell;
+
+        if (playerCell.x < enemyCell.x)
+        {
+            // Player is to the left of the enemy
+            destinationCell = tmap.GetCellCenterWorld(new Vector3Int(enemyCell.x + 1, enemyCell.y, enemyCell.z));
+        }
+        else if (playerCell.x > enemyCell.x)
+        {
+            // Player is to the right of the enemy
+            destinationCell = tmap.GetCellCenterWorld(new Vector3Int(enemyCell.x - 1, enemyCell.y, enemyCell.z));
+        }
+        else if (playerCell.y < enemyCell.y)
+        {
+            // Player is below the enemy
+            destinationCell = tmap.GetCellCenterWorld(new Vector3Int(enemyCell.x, enemyCell.y + 1, enemyCell.z));
+        }
+        else
+        {
+            // Player is above the enemy
+            destinationCell = tmap.GetCellCenterWorld(new Vector3Int(enemyCell.x, enemyCell.y - 1, enemyCell.z));
+        }
+
+        //enemy.transform.position = destinationCell;
+        LeanTweenIt(enemy, destinationCell, 1f);
+    }
+
+    public float DistanceFromPlayer(GameObject enemy)
+    {
+        Vector3 playerCell = tmap.GetCellCenterWorld(tmap.WorldToCell(player.transform.position));
+        Vector3 enemyCell = tmap.GetCellCenterWorld(tmap.WorldToCell(enemy.transform.position));
+
+        if (Mathf.Abs(playerCell.x - enemyCell.x) < Mathf.Abs(playerCell.y - enemyCell.y))
+        {
+            return Mathf.Abs(playerCell.y - enemyCell.y);
+        }
+        else
+        {
+            return Mathf.Abs(playerCell.x - enemyCell.x);
+        }
     }
 
     bool HitByDash(Vector3 OriPos, Vector3 EndPos, Vector3 TargetPos)

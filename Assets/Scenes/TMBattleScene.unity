@@ -2701,7 +2701,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 21300000, guid: bce41414a9f1d6b4a9dce6702a6fd84d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
@@ -2736,9 +2736,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b62fd3be22890b448a8460bf14aa6e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 0
+  enemyType: 1
   health: 100
-  attack: 15
+  attack: 10
   baseatk: 15
   startingPosition: {x: 4, y: 3, z: 0}
   EnemyHpBarPrefab: {fileID: 4590226450685844252, guid: 5eb4b956a0b1172448762bb1ca649659, type: 3}

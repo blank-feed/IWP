@@ -102,8 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4cfd662a4b312468e3c49a3bcc93b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractIcon_prefab: {fileID: 8731405266958779075, guid: bfdbc44f8ecee124a8ae2d43b94f80bc, type: 3}
   PlayerRace: 0
   PlayerClass: 0
+  dialogueStarted: 0
   playerSprite: {fileID: 0}
   spriteRenderer: {fileID: 0}
   moveSpeed: 5
@@ -206,3 +208,9 @@ MonoBehaviour:
   S1: 0
   S2: 0
   S3: 0
+  S1_Img: {fileID: 0}
+  S2_Img: {fileID: 0}
+  S3_Img: {fileID: 0}
+  Boon_Img: []
+  range: 0
+  repeat: -1

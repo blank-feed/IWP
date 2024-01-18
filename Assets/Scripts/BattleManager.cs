@@ -360,40 +360,40 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    void EnemyTurn()
-    {
-        PlayerSkills.instance.repeat = -1;
-        if (playermovetile.instance.enemies == null)
-        {
-            return;
-        }
+    //void EnemyTurn()
+    //{
+    //    PlayerSkills.instance.repeat = -1;
+    //    if (playermovetile.instance.enemies == null)
+    //    {
+    //        return;
+    //    }
 
-        foreach (GameObject e in playermovetile.instance.enemies)
-        {
-            if (e.activeSelf)
-            {
-                if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Rogue)
-                {
-                    e.GetComponent<Enemy>().attack = e.GetComponent<Enemy>().baseatk - confiscation;
-                    if (e.GetComponent<Enemy>().attack <= 0)
-                    {
-                        e.GetComponent<Enemy>().attack = 1;
-                    }
-                }
+    //    foreach (GameObject e in playermovetile.instance.enemies)
+    //    {
+    //        if (e.activeSelf)
+    //        {
+    //            if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Rogue)
+    //            {
+    //                e.GetComponent<Enemy>().attack = e.GetComponent<Enemy>().baseatk - confiscation;
+    //                if (e.GetComponent<Enemy>().attack <= 0)
+    //                {
+    //                    e.GetComponent<Enemy>().attack = 1;
+    //                }
+    //            }
 
-                if (playermovetile.instance.IsPlayerOneTileAway(e))
-                {
-                    PlayerManager.instance.health -= e.GetComponent<Enemy>().attack;
-                    deficiency += Mathf.FloorToInt(e.GetComponent<Enemy>().attack / 3);
-                }
-                else
-                {
-                    playermovetile.instance.MoveTowardsPlayer(e);
-                }
-            }
-        }
-        bs = BattlingState.playerturn;
-    }
+    //            if (playermovetile.instance.IsPlayerOneTileAway(e))
+    //            {
+    //                PlayerManager.instance.health -= e.GetComponent<Enemy>().attack;
+    //                deficiency += Mathf.FloorToInt(e.GetComponent<Enemy>().attack / 3);
+    //            }
+    //            else
+    //            {
+    //                playermovetile.instance.MoveTowardsPlayer(e);
+    //            }
+    //        }
+    //    }
+    //    bs = BattlingState.playerturn;
+    //}
 
     bool AreAllEnemiesInactive()
     {

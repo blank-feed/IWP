@@ -77,8 +77,7 @@ public class PlayerSkills : MonoBehaviour
     {
         if (repeat == -1)
         {
-            random = UnityEngine.Random.Range(1, 7);
-            Debug.Log("Dice Rolled : " + random);
+            random = BattleManager.instance.RollDie(7);
             repeat = random;
         }
         else
@@ -238,13 +237,13 @@ public class PlayerSkills : MonoBehaviour
                 str = "Deals damage in a single direction \nRange : Melee";
                 break;
             case AllSkills.Frenzy_Impact:
-                str = "Performs a random number of strikes (1-6) \nRange : Melee";
+                str = "Performs a random number of strikes based on the d6 roll \nRange : Melee";
                 break;
             case AllSkills.Critical_Opportunity:
-                str = "Has a 33% chance to inflict huge damage \nRange : Melee";
+                str = "Inflict huge damage if you roll 5 or higher on the d6 roll \nRange : Melee";
                 break;
             case AllSkills.Frail_Crush:
-                str = "Uses all your momentum for one massive attack \nRange : Melee";
+                str = "Spends all your momentum for one massive attack \nRange : Melee";
                 break;
             case AllSkills.Dragon_Beam:
                 str = "Deals damage in a single direction \nRange : Melee";

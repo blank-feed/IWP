@@ -2388,7 +2388,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 5b1ad76cf71a76441a1d21de0a04fbae, type: 3}
     - target: {fileID: 2732253920464025865, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: health
-      value: 70
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2732253920464025865, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: moveSpeed

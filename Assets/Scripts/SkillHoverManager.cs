@@ -69,7 +69,7 @@ public class SkillHoverManager : MonoBehaviour
                 break;
             case PlayerManager.Class.Rogue:
                 boonnamestr = "Confiscation";
-                BoonDesc.text = "The more damage stolen, the more damage you deal";
+                BoonDesc.text = "Gains more damage by stealing attack stats from enemies";
                 break;
             case PlayerManager.Class.Sorcerer:
                 boonnamestr = "DKDC";
@@ -77,15 +77,15 @@ public class SkillHoverManager : MonoBehaviour
                 break;
             case PlayerManager.Class.Ranger:
                 boonnamestr = "Crippled";
-                BoonDesc.text = "The further away you are from the enemy, the more damage you deal";
+                BoonDesc.text = "Gains more damage by being further away from enemies";
                 break;
             case PlayerManager.Class.Fighter:
                 boonnamestr = "Momentum";
-                BoonDesc.text = "The more skills you use consecutively, the more damage you deal";
+                BoonDesc.text = "Gains momentum by attacking. The higher the momentum, the more damage";
                 break;
             case PlayerManager.Class.Druid:
                 boonnamestr = "Dragon Pals";
-                BoonDesc.text = "The more Dragon Pals, the more damage you deal";
+                BoonDesc.text = "The more Dragon Pals you have, the more damage you deal";
                 break;
             default:
                 break;

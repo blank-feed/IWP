@@ -43,6 +43,9 @@ public class BattleManager : MonoBehaviour
 
     public Image BoonImg;
 
+    public Sprite[] DiceFaces;
+    public Image Dice;
+
     //can move
     public bool moveable = false;
 
@@ -65,8 +68,10 @@ public class BattleManager : MonoBehaviour
     //public int enemyAtk = 15;
 
     private bool delayTriggered = false;
+    public bool dicerolled = false;
 
     public int Damage;
+    public int PrevDiceRoll;
 
     //boons
     //paladin
@@ -316,6 +321,8 @@ public class BattleManager : MonoBehaviour
     public int RollDie(int maxDieCount)
     {
         int NumRolled = Random.Range(1, maxDieCount + 1);
+        PrevDiceRoll = NumRolled;
+        dicerolled = true;
 
         return NumRolled;
     }
@@ -404,7 +411,11 @@ public class BattleManager : MonoBehaviour
     {
         // Wait for 1 second
         yield return new WaitForSeconds(1.0f);
-        EnemyTurn();
+        //EnemyTurn();
+        foreach (GameObject e in playermovetile.instance.enemies)
+        {
+            e.GetComponent<Enemy>().EnemyTurn();
+        }
     }
 
     IEnumerator EndBattle()

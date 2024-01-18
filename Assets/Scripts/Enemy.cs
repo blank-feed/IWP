@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Enemy : MonoBehaviour
 {
@@ -18,17 +19,18 @@ public class Enemy : MonoBehaviour
     public int baseatk = 15;
     public Vector3Int startingPosition;
     GameObject hpbar;
+    TextMeshProUGUI hptxt;
 
     public GameObject EnemyHpBarPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Canvas canvas = FindObjectOfType<Canvas>();
         GameObject healthbars = GameObject.Find("healthbars");
         hpbar = Instantiate(EnemyHpBarPrefab, healthbars.transform);
         hpbar.GetComponent<Slider>().maxValue = health;
         hpbar.GetComponent<Slider>().value = health;
+        hptxt = hpbar.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -36,6 +38,7 @@ public class Enemy : MonoBehaviour
     {
         hpbar.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 75f);
         hpbar.GetComponent<Slider>().value = health;
+        hptxt.text = health.ToString();
 
         if (health <= 0)
         {
@@ -45,6 +48,12 @@ public class Enemy : MonoBehaviour
 
     public void EnemyTurn()
     {
+        if (BattleManager.instance.dicerolled)
+        {
+            BattleManager.instance.Dice.sprite = BattleManager.instance.DiceFaces[BattleManager.instance.PrevDiceRoll - 1];
+            BattleManager.instance.dicerolled = false;
+        }
+
         if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Rogue)
         {
             gameObject.GetComponent<Enemy>().attack = gameObject.GetComponent<Enemy>().baseatk - BattleManager.instance.confiscation;
@@ -75,5 +84,6 @@ public class Enemy : MonoBehaviour
             default:
                 break;
         }
+        BattleManager.instance.bs = BattlingState.playerturn;
     }
 }

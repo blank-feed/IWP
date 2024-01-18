@@ -6,6 +6,7 @@ using TMPro;
 public class SkillHoverManager : MonoBehaviour
 {
     public GameObject SkillDescriptionUI;
+    public GameObject MovementDescriptionUI;
 
     public Image Skill1Img;
     public Image Skill2Img;
@@ -27,6 +28,7 @@ public class SkillHoverManager : MonoBehaviour
     void Start()
     {
         SkillDescriptionUI.SetActive(false);
+        MovementDescriptionUI.SetActive(false);
     }
 
     void Update()
@@ -62,8 +64,8 @@ public class SkillHoverManager : MonoBehaviour
         switch (PlayerManager.instance.PlayerClass)
         {
             case PlayerManager.Class.Paladin:
-                boonnamestr = "Holy Blessing"; //aka Deficiency
-                BoonDesc.text = "The more health lost, the more damage you deal";
+                boonnamestr = "Holy Buff"; //aka Deficiency
+                BoonDesc.text = "The more health that has been lost, the more damage you deal";
                 break;
             case PlayerManager.Class.Rogue:
                 boonnamestr = "Confiscation";
@@ -79,7 +81,7 @@ public class SkillHoverManager : MonoBehaviour
                 break;
             case PlayerManager.Class.Fighter:
                 boonnamestr = "Momentum";
-                BoonDesc.text = "The more skills you use in a row, the more damage you deal";
+                BoonDesc.text = "The more skills you use consecutively, the more damage you deal";
                 break;
             case PlayerManager.Class.Druid:
                 boonnamestr = "Dragon Pals";
@@ -94,5 +96,15 @@ public class SkillHoverManager : MonoBehaviour
     public void OnF1KeyReleased()
     {
         SkillDescriptionUI.SetActive(false);
+    }
+
+    public void OpenMovementUI()
+    {
+        MovementDescriptionUI.SetActive(true);
+    }
+
+    public void CloseMovementUI()
+    {
+        MovementDescriptionUI.SetActive(false);
     }
 }

@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     public int health = 100;
     public int attack = 15;
     public int baseatk = 15;
+    public Vector3Int startingPosition;
     GameObject hpbar;
 
     public GameObject EnemyHpBarPrefab;
@@ -23,8 +24,9 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Canvas canvas = FindObjectOfType<Canvas>();
-        hpbar = Instantiate(EnemyHpBarPrefab, canvas.transform);
+        //Canvas canvas = FindObjectOfType<Canvas>();
+        GameObject healthbars = GameObject.Find("healthbars");
+        hpbar = Instantiate(EnemyHpBarPrefab, healthbars.transform);
         hpbar.GetComponent<Slider>().maxValue = health;
         hpbar.GetComponent<Slider>().value = health;
     }

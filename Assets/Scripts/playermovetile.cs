@@ -40,8 +40,10 @@ public class playermovetile : MonoBehaviour
         tmap = GameObject.Find("Tilemap_Base").GetComponent<Tilemap>();
         player.transform.localScale = new Vector3(.5f, .5f, 1);
         player.transform.position = tmap.GetCellCenterWorld(new Vector3Int(-4, 0));
-        enemies[0].transform.position = tmap.GetCellCenterWorld(new Vector3Int(4, 0));
-        enemies[1].transform.position = tmap.GetCellCenterWorld(new Vector3Int(4, 3));
+        foreach (GameObject e in enemies)
+        {
+            e.transform.position = tmap.GetCellCenterWorld(e.GetComponent<Enemy>().startingPosition);
+        }
     }
 
     // Update is called once per frame

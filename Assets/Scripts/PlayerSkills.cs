@@ -96,7 +96,14 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Holy_Heal:
                 range = Range.Self;
-                PlayerManager.instance.health += 10;
+                if (PlayerManager.instance.maxHealth - PlayerManager.instance.health > 50)
+                {
+                    PlayerManager.instance.health += 20;
+                }
+                else
+                {
+                    PlayerManager.instance.health += 10;
+                }
                 if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
                 {
                     PlayerManager.instance.health = PlayerManager.instance.maxHealth;
@@ -108,7 +115,7 @@ public class PlayerSkills : MonoBehaviour
                 playermovetile.instance.movespaces = 1;
                 if (PlayerManager.instance.health < 50)
                 {
-                    BattleManager.instance.Damage = 40;
+                    BattleManager.instance.Damage = 40 + BattleManager.instance.deficiency;
                 }
                 else
                 {
@@ -170,7 +177,8 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Frail_Crush:
                 range = Range.Melee;
-                BattleManager.instance.Damage = 10 * BattleManager.instance.momentum;
+                BattleManager.instance.Damage = 25 * BattleManager.instance.momentum;
+                BattleManager.instance.momentum = -1;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Dragon_Beam:
@@ -197,7 +205,7 @@ public class PlayerSkills : MonoBehaviour
                 str = "Deals damage in a single direction \nRange : Melee";
                 break;
             case AllSkills.Holy_Heal:
-                str = "Heals yourself \nRange : Self";
+                str = "Heals youself based on missing health \nRange : Self";
                 break;
             case AllSkills.Holy_Rage:
                 str = "Deals more damage the lesser your health in a single direction \nRange : Melee";
@@ -233,10 +241,10 @@ public class PlayerSkills : MonoBehaviour
                 str = "Performs a random number of strikes (1-6) \nRange : Melee";
                 break;
             case AllSkills.Critical_Opportunity:
-                str = "Has a 33% chance to inflict massive damage \nRange : Melee";
+                str = "Has a 33% chance to inflict huge damage \nRange : Melee";
                 break;
             case AllSkills.Frail_Crush:
-                str = "The higher your Momentum, the higher the damage \nRange : Melee";
+                str = "Uses all your momentum for one massive attack \nRange : Melee";
                 break;
             case AllSkills.Dragon_Beam:
                 str = "Deals damage in a single direction \nRange : Melee";

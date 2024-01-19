@@ -65,27 +65,27 @@ public class SkillHoverManager : MonoBehaviour
         {
             case PlayerManager.Class.Paladin:
                 boonnamestr = "Holy Buff"; //aka Deficiency
-                BoonDesc.text = "The more health that has been lost, the more damage you deal";
+                BoonDesc.text = "Gains more damage by losing more health";
                 break;
             case PlayerManager.Class.Rogue:
                 boonnamestr = "Confiscation";
                 BoonDesc.text = "Gains more damage by stealing attack stats from enemies";
                 break;
             case PlayerManager.Class.Sorcerer:
-                boonnamestr = "DKDC";
-                BoonDesc.text = "DKDC";
+                boonnamestr = "Amplification";
+                BoonDesc.text = "Gains more damage by using more spells";
                 break;
             case PlayerManager.Class.Ranger:
                 boonnamestr = "Crippled";
                 BoonDesc.text = "Gains more damage by being further away from enemies";
                 break;
             case PlayerManager.Class.Fighter:
-                boonnamestr = "Momentum";
-                BoonDesc.text = "Gains momentum by attacking. The higher the momentum, the more damage";
+                boonnamestr = "Bloodlust";
+                BoonDesc.text = "Gains more damage by killing more enemies";
                 break;
             case PlayerManager.Class.Druid:
                 boonnamestr = "Dragon Pals";
-                BoonDesc.text = "The more Dragon Pals you have, the more damage you deal";
+                BoonDesc.text = "Gains more damage by having more Dragon Pals";
                 break;
             default:
                 break;

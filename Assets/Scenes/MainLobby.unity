@@ -187,6 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllMessages:
   - messages_array:
+    - actorID: 1
+      msg: bring it
     - actorID: 0
       msg: 'stare what stare '
     - actorID: 0
@@ -5284,7 +5286,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Click N or the screen to continue '
+  m_text: 'Click F or the screen to continue '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6156,6 +6158,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3351646225142253567, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bce41414a9f1d6b4a9dce6702a6fd84d, type: 3}
     - target: {fileID: 4054188100269978527, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
       propertyPath: m_Name
       value: Circle

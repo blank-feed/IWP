@@ -17,17 +17,19 @@ public class Enemy : MonoBehaviour
     public int health = 100;
     public int maxHp;
     public int attack = 15;
-    public int baseatk = 15;
+    public int baseatk;
     public Vector3Int startingPosition;
     GameObject hpbar;
     TextMeshProUGUI hptxt;
     int c = 0;
 
     public GameObject EnemyHpBarPrefab;
+    public GameObject ProjectilePrefab;
 
     // Start is called before the first frame update
     void Start()
     {
+        baseatk = attack;
         maxHp = health;
         GameObject healthbars = GameObject.Find("healthbars");
         hpbar = Instantiate(EnemyHpBarPrefab, healthbars.transform);
@@ -53,6 +55,7 @@ public class Enemy : MonoBehaviour
     {
         if (BattleManager.instance.dicerolled)
         {
+            Debug.Log(BattleManager.instance.PrevDiceRoll);
             BattleManager.instance.Dice.sprite = BattleManager.instance.DiceFaces[BattleManager.instance.PrevDiceRoll];
             BattleManager.instance.dicerolled = false;
         }
@@ -89,14 +92,16 @@ public class Enemy : MonoBehaviour
                         }
                         else
                         {
-                            attack += Mathf.FloorToInt(playermovetile.instance.DistanceFromPlayer(gameObject));
-                            PlayerManager.instance.health -= gameObject.GetComponent<Enemy>().attack;
+                            attack = Mathf.FloorToInt(playermovetile.instance.DistanceFromPlayer(gameObject)) + baseatk;
+                            BattleManager.instance.deficiency += Mathf.FloorToInt(gameObject.GetComponent<Enemy>().attack / 3);
+                            ThrowProjectile(ProjectilePrefab, attack);
                         }
                         c = 1;
                         break;
                     case 1: //attack player
-                        attack += Mathf.FloorToInt(playermovetile.instance.DistanceFromPlayer(gameObject));
-                        PlayerManager.instance.health -= gameObject.GetComponent<Enemy>().attack;
+                        attack = Mathf.FloorToInt(playermovetile.instance.DistanceFromPlayer(gameObject)) + baseatk;
+                        BattleManager.instance.deficiency += Mathf.FloorToInt(gameObject.GetComponent<Enemy>().attack / 3);
+                        ThrowProjectile(ProjectilePrefab, attack);
                         c = 0;
                         break;
                     default:
@@ -142,6 +147,29 @@ public class Enemy : MonoBehaviour
             default:
                 break;
         }
-        BattleManager.instance.bs = BattlingState.playerturn;
+
+        StartCoroutine(BattleManager.instance.DelayBeforePlayerTurn(1.5f));
+    }
+
+    void ThrowProjectile(GameObject projectilePrefab, int dmg)
+    {
+        if (!gameObject.activeSelf)
+        {
+            return;
+        }
+
+        // Instantiate the ball prefab at the enemy's position
+        GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, Quaternion.identity);
+        projectile.GetComponent<Projectile>().atk = dmg;
+
+        // Calculate the direction from the enemy to the player
+        Vector3 directionToPlayer = (PlayerManager.instance.transform.position - gameObject.transform.position).normalized;
+
+        // Set the velocity of the ball to shoot it towards the player
+        Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+        if (projectileRb != null)
+        {
+            projectileRb.velocity = directionToPlayer * 7.5f;
+        }
     }
 }

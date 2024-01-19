@@ -70,7 +70,7 @@ public class playermovetile : MonoBehaviour
                     targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     //movespaces = 1;
                     TileBase destinationTile = GetDestination(targetPosition, movespaces);
-                    if (destinationTile != null /*&& tmap.WorldToCell(targetPosition) != tmap.WorldToCell(enemy.transform.position)*/)
+                    if (destinationTile != null)
                     {
                         foreach (GameObject e in enemies)
                         {
@@ -81,11 +81,6 @@ public class playermovetile : MonoBehaviour
                         }
                         Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
                         LeanTweenIt(player, tmap.GetCellCenterWorld(destinationCell), 1f);
-                        BattleManager.instance.momentum--;
-                        if (BattleManager.instance.momentum < 0)
-                        {
-                            BattleManager.instance.momentum = 0;
-                        }
                         BattleManager.instance.MoveCount--;
                         BattleManager.instance.MoveCount_Text.text = BattleManager.instance.MoveCount.ToString();
                     }
@@ -108,15 +103,9 @@ public class playermovetile : MonoBehaviour
                     Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
                     foreach (GameObject e in enemies)
                     {
-                        //if (tmap.GetCellCenterWorld(destinationCell) != tmap.GetCellCenterWorld(tmap.WorldToCell(e.transform.position)))
-                        //{
-                        //    return;
-                        //}
-
                         if (tmap.GetCellCenterWorld(destinationCell) == tmap.GetCellCenterWorld(tmap.WorldToCell(e.transform.position)))
                         {
                             e.GetComponent<Enemy>().health -= BattleManager.instance.Damage;
-                            BattleManager.instance.momentum++;
                             BattleManager.instance.confiscation++;
                         }
                     }
@@ -138,7 +127,6 @@ public class playermovetile : MonoBehaviour
                         if (HitByDash(tmap.GetCellCenterWorld(tmap.WorldToCell(player.transform.position)), tmap.GetCellCenterWorld(destinationCell), tmap.GetCellCenterWorld(tmap.WorldToCell(e.transform.position))))
                         {
                             e.GetComponent<Enemy>().health -= BattleManager.instance.Damage;
-                            BattleManager.instance.momentum++;
                         }
                     }
                     LeanTweenIt(player, tmap.GetCellCenterWorld(destinationCell), 1);
@@ -160,7 +148,6 @@ public class playermovetile : MonoBehaviour
                         if (HitByDash(tmap.GetCellCenterWorld(tmap.WorldToCell(player.transform.position)), tmap.GetCellCenterWorld(destinationCell), tmap.GetCellCenterWorld(tmap.WorldToCell(e.transform.position))))
                         {
                             e.GetComponent<Enemy>().health -= BattleManager.instance.Damage;
-                            BattleManager.instance.momentum++;
                         }
                     }
                     BattleManager.instance.can_shoot = false;
@@ -433,17 +420,17 @@ public class playermovetile : MonoBehaviour
 
         Vector3 destinationCell;
 
-        if (playerCell.x < enemyCell.x)
+        if (playerCell.x < enemyCell.x && (tmap.GetTile(new Vector3Int(enemyCell.x + 1, enemyCell.y, enemyCell.z)) != null))
         {
             // Player is to the left of the enemy
             destinationCell = tmap.GetCellCenterWorld(new Vector3Int(enemyCell.x + 1, enemyCell.y, enemyCell.z));
         }
-        else if (playerCell.x > enemyCell.x)
+        else if (playerCell.x > enemyCell.x && (tmap.GetTile(new Vector3Int(enemyCell.x - 1, enemyCell.y, enemyCell.z)) != null))
         {
             // Player is to the right of the enemy
             destinationCell = tmap.GetCellCenterWorld(new Vector3Int(enemyCell.x - 1, enemyCell.y, enemyCell.z));
         }
-        else if (playerCell.y < enemyCell.y)
+        else if (playerCell.y < enemyCell.y && (tmap.GetTile(new Vector3Int(enemyCell.x, enemyCell.y + 1, enemyCell.z)) != null))
         {
             // Player is below the enemy
             destinationCell = tmap.GetCellCenterWorld(new Vector3Int(enemyCell.x, enemyCell.y + 1, enemyCell.z));

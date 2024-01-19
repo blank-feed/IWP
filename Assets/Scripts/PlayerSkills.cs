@@ -160,24 +160,29 @@ public class PlayerSkills : MonoBehaviour
             case AllSkills.Frenzy_Impact:
                 range = Range.Melee;
                 playermovetile.instance.movespaces = 1;
-                BattleManager.instance.Damage = 8 * random;
+                BattleManager.instance.Damage = 12 * random;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Critical_Opportunity:
                 range = Range.Melee;
                 playermovetile.instance.movespaces = 1;
                 BattleManager.instance.Damage = 0;
-                if (random > 4)
+                if (random > 3)
                 {
                     BattleManager.instance.Damage = 70;
-                    BattleManager.instance.momentum++;
                 }
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Frail_Crush:
                 range = Range.Melee;
-                BattleManager.instance.Damage = 25 * BattleManager.instance.momentum;
-                BattleManager.instance.momentum = -1;
+                if (BattleManager.instance.bloodlust == 0)
+                {
+                    BattleManager.instance.Damage = 10;
+                }
+                else
+                {
+                    BattleManager.instance.Damage = 30 * BattleManager.instance.bloodlust;
+                }
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Dragon_Beam:
@@ -240,7 +245,7 @@ public class PlayerSkills : MonoBehaviour
                 str = "Performs a random number of strikes based on the d6 roll \nRange : Melee";
                 break;
             case AllSkills.Critical_Opportunity:
-                str = "Inflict huge damage if you roll 5 or higher on the d6 roll \nRange : Melee";
+                str = "Inflict huge damage if you roll 4 or higher on the d6 roll \nRange : Melee";
                 break;
             case AllSkills.Frail_Crush:
                 str = "Spends all your momentum for one massive attack \nRange : Melee";

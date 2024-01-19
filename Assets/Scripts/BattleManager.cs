@@ -87,7 +87,7 @@ public class BattleManager : MonoBehaviour
     public int cripple = 0;
 
     //fighter
-    public int momentum = 0;
+    public int bloodlust = 0;
 
     //druid
     public int Dragon_Pals = 0;
@@ -164,7 +164,7 @@ public class BattleManager : MonoBehaviour
                     boonCount = cripple.ToString();
                     break;
                 case PlayerManager.Class.Fighter:
-                    boonCount = momentum.ToString();
+                    boonCount = bloodlust.ToString();
                     break;
                 case PlayerManager.Class.Druid:
                     boonCount = Dragon_Pals.ToString();
@@ -202,7 +202,11 @@ public class BattleManager : MonoBehaviour
         {
             if (e.GetComponent<Enemy>().health <= 0)
             {
-                //Destroy(e);
+                if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Fighter)
+                {
+                    bloodlust++;
+                }
+                e.transform.position = new Vector3(-10, -10);
                 e.SetActive(false);
             }
         }
@@ -320,7 +324,7 @@ public class BattleManager : MonoBehaviour
 
     public int RollDie(int maxDieCount)
     {
-        int NumRolled = Random.Range(1, maxDieCount + 1);
+        int NumRolled = Random.Range(1, maxDieCount);
         PrevDiceRoll = NumRolled - 1;
         dicerolled = true;
 
@@ -360,41 +364,6 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    //void EnemyTurn()
-    //{
-    //    PlayerSkills.instance.repeat = -1;
-    //    if (playermovetile.instance.enemies == null)
-    //    {
-    //        return;
-    //    }
-
-    //    foreach (GameObject e in playermovetile.instance.enemies)
-    //    {
-    //        if (e.activeSelf)
-    //        {
-    //            if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Rogue)
-    //            {
-    //                e.GetComponent<Enemy>().attack = e.GetComponent<Enemy>().baseatk - confiscation;
-    //                if (e.GetComponent<Enemy>().attack <= 0)
-    //                {
-    //                    e.GetComponent<Enemy>().attack = 1;
-    //                }
-    //            }
-
-    //            if (playermovetile.instance.IsPlayerOneTileAway(e))
-    //            {
-    //                PlayerManager.instance.health -= e.GetComponent<Enemy>().attack;
-    //                deficiency += Mathf.FloorToInt(e.GetComponent<Enemy>().attack / 3);
-    //            }
-    //            else
-    //            {
-    //                playermovetile.instance.MoveTowardsPlayer(e);
-    //            }
-    //        }
-    //    }
-    //    bs = BattlingState.playerturn;
-    //}
-
     bool AreAllEnemiesInactive()
     {
         foreach (GameObject enemy in playermovetile.instance.enemies)
@@ -416,6 +385,13 @@ public class BattleManager : MonoBehaviour
         {
             e.GetComponent<Enemy>().EnemyTurn();
         }
+    }
+
+    public IEnumerator DelayBeforePlayerTurn(float x)
+    {
+        // Wait for 1 second
+        yield return new WaitForSeconds(x);
+        bs = BattlingState.playerturn;
     }
 
     IEnumerator EndBattle()

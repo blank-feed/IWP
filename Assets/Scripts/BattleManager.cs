@@ -60,13 +60,6 @@ public class BattleManager : MonoBehaviour
 
     public TextMeshProUGUI playerhpinfo;
 
-    public TextMeshProUGUI Skill1_Name;
-    public TextMeshProUGUI Skill2_Name;
-    public TextMeshProUGUI Skill3_Name;
-
-    //public int enemyhp = 100;
-    //public int enemyAtk = 15;
-
     private bool delayTriggered = false;
     public bool dicerolled = false;
 
@@ -112,9 +105,6 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         MainCamera = Camera.main;
-        Skill1_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S1);
-        Skill2_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S2);
-        Skill3_Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S3);
         S1_Img.sprite = PlayerSkills.instance.S1_Img;
         S2_Img.sprite = PlayerSkills.instance.S2_Img;
         S3_Img.sprite = PlayerSkills.instance.S3_Img;
@@ -202,11 +192,13 @@ public class BattleManager : MonoBehaviour
         {
             if (e.GetComponent<Enemy>().health <= 0)
             {
-                if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Fighter)
+                if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Fighter && !e.GetComponent<Enemy>().GivenBloodlust)
                 {
                     bloodlust++;
+                    e.GetComponent<Enemy>().GivenBloodlust = true;
                 }
                 e.transform.position = new Vector3(-10, -10);
+                Destroy(e.GetComponent<Enemy>().hpbar);
                 e.SetActive(false);
             }
         }
@@ -282,7 +274,6 @@ public class BattleManager : MonoBehaviour
         switch (skill)
         {
             case 1:
-                //can_melee = true;
                 PlayerSkills.instance.UseSkill(PlayerSkills.instance.S1);
                 if (PlayerSkills.instance.range == PlayerSkills.Range.Melee)
                 {
@@ -294,8 +285,6 @@ public class BattleManager : MonoBehaviour
                 }
                 break;
             case 2:
-                //enemyhp -= 100; //10
-                //bs = BattlingState.enemyturn;
                 PlayerSkills.instance.UseSkill(PlayerSkills.instance.S2);
                 if (PlayerSkills.instance.range == PlayerSkills.Range.Melee)
                 {
@@ -380,7 +369,6 @@ public class BattleManager : MonoBehaviour
     {
         // Wait for 1 second
         yield return new WaitForSeconds(1.0f);
-        //EnemyTurn();
         foreach (GameObject e in playermovetile.instance.enemies)
         {
             e.GetComponent<Enemy>().EnemyTurn();

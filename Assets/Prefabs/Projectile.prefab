@@ -137,3 +137,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atk: 0
+  DmgIndicatorPrefab: {fileID: 658792239460126965, guid: c425fc0d3e32aeb44bfecc2f2e03dd7f, type: 3}

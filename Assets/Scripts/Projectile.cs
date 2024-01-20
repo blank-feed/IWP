@@ -3,6 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public int atk;
+    public GameObject DmgIndicatorPrefab;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -11,6 +12,10 @@ public class Projectile : MonoBehaviour
         {
             // Destroy the projectile
             PlayerManager.instance.health -= atk;
+            GameObject go = Instantiate(DmgIndicatorPrefab);
+            go.transform.SetParent(GameObject.Find("Canvas").transform, false);
+            go.transform.position = new Vector3(Camera.main.WorldToScreenPoint(PlayerManager.instance.transform.position).x, Camera.main.WorldToScreenPoint(PlayerManager.instance.transform.position).y + 75);
+            go.GetComponent<DamageNumberIndicator>().baseText.text = "-" + atk.ToString();
             Destroy(gameObject);
         }
     }

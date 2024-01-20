@@ -19,6 +19,7 @@ public class playermovetile : MonoBehaviour
     public bool shown = false;
     public int movespaces = 0;
     bool back = false;
+    public bool isMoving = false;
 
     private void Awake()
     {
@@ -200,6 +201,10 @@ public class playermovetile : MonoBehaviour
 
     public void PressBack()
     {
+        if (isMoving)
+        {
+            return;
+        }
         back = true;
     }
 
@@ -474,6 +479,7 @@ public class playermovetile : MonoBehaviour
 
     void LeanTweenIt(GameObject obj, Vector3 targetPos, float duration)
     {
+        isMoving = true;
         Vector3 originalPos = obj.transform.position;
         bool isX;
 
@@ -492,11 +498,11 @@ public class playermovetile : MonoBehaviour
         // Choose the appropriate tween method based on the specified axis
         if (isX)
         {
-            LeanTween.moveX(obj, targetPos.x, duration).setEase(easeType).setOnComplete(() => DestroyObjectsWithName("BouncingArrow"));
+            LeanTween.moveX(obj, targetPos.x, duration).setEase(easeType).setOnComplete(() => { DestroyObjectsWithName("BouncingArrow"); isMoving = false; });
         }
         else
         {
-            LeanTween.moveY(obj, targetPos.y, duration).setEase(easeType).setOnComplete(() => DestroyObjectsWithName("BouncingArrow"));
+            LeanTween.moveY(obj, targetPos.y, duration).setEase(easeType).setOnComplete(() => { DestroyObjectsWithName("BouncingArrow"); isMoving = false; });
         }
     }
 }

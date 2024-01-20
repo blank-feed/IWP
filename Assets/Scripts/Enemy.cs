@@ -19,12 +19,14 @@ public class Enemy : MonoBehaviour
     public int attack = 15;
     public int baseatk;
     public Vector3Int startingPosition;
-    GameObject hpbar;
+    public GameObject hpbar;
     TextMeshProUGUI hptxt;
     int c = 0;
+    public bool GivenBloodlust = false;
 
     public GameObject EnemyHpBarPrefab;
     public GameObject ProjectilePrefab;
+    public GameObject DmgIndicatorPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -44,18 +46,12 @@ public class Enemy : MonoBehaviour
         hpbar.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 75f);
         hpbar.GetComponent<Slider>().value = health;
         hptxt.text = health.ToString();
-
-        if (health <= 0)
-        {
-            Destroy(hpbar);
-        }
     }
 
     public void EnemyTurn()
     {
         if (BattleManager.instance.dicerolled)
         {
-            Debug.Log(BattleManager.instance.PrevDiceRoll);
             BattleManager.instance.Dice.sprite = BattleManager.instance.DiceFaces[BattleManager.instance.PrevDiceRoll];
             BattleManager.instance.dicerolled = false;
         }
@@ -74,7 +70,11 @@ public class Enemy : MonoBehaviour
             case EnemyType.Melee:
                 if (playermovetile.instance.IsPlayer_X_TileAway(gameObject, 1))
                 {
-                    PlayerManager.instance.health -= gameObject.GetComponent<Enemy>().attack;
+                    PlayerManager.instance.health -= gameObject.GetComponent<Enemy>().attack; 
+                    GameObject go = Instantiate(DmgIndicatorPrefab);
+                    go.transform.SetParent(GameObject.Find("Canvas").transform, false);
+                    go.transform.position = new Vector3(Camera.main.WorldToScreenPoint(PlayerManager.instance.transform.position).x, Camera.main.WorldToScreenPoint(PlayerManager.instance.transform.position).y + 75);
+                    go.GetComponent<DamageNumberIndicator>().baseText.text = "-" + gameObject.GetComponent<Enemy>().attack.ToString();
                     BattleManager.instance.deficiency += Mathf.FloorToInt(gameObject.GetComponent<Enemy>().attack / 3);
                 }
                 else
@@ -148,7 +148,10 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
-        StartCoroutine(BattleManager.instance.DelayBeforePlayerTurn(1.5f));
+        if (gameObject.activeSelf)
+        {
+            StartCoroutine(BattleManager.instance.DelayBeforePlayerTurn(1.5f));
+        }
     }
 
     void ThrowProjectile(GameObject projectilePrefab, int dmg)

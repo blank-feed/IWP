@@ -74,7 +74,7 @@ public class BattleManager : MonoBehaviour
     public int confiscation = 0;
 
     //sorcerer
-
+    public int amplification = 0;
 
     //archer
     public int cripple = 0;
@@ -85,8 +85,9 @@ public class BattleManager : MonoBehaviour
     //druid
     public int Dragon_Pals = 0;
 
+    public bool LifeSteal = false;
     public int MoveCount;
-
+    public int ManaToDeduct;
     public Vector3 Ori_Pos;
 
     private void Awake()

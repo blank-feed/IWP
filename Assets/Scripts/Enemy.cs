@@ -48,6 +48,11 @@ public class Enemy : MonoBehaviour
         hptxt.text = health.ToString();
     }
 
+    public void EnemyTeurn()
+    {
+        
+    }
+
     public void EnemyTurn()
     {
         if (BattleManager.instance.dicerolled)
@@ -70,7 +75,7 @@ public class Enemy : MonoBehaviour
             case EnemyType.Melee:
                 if (playermovetile.instance.IsPlayer_X_TileAway(gameObject, 1))
                 {
-                    PlayerManager.instance.health -= gameObject.GetComponent<Enemy>().attack; 
+                    PlayerManager.instance.health -= gameObject.GetComponent<Enemy>().attack;
                     GameObject go = Instantiate(DmgIndicatorPrefab);
                     go.transform.SetParent(GameObject.Find("Canvas").transform, false);
                     go.transform.position = new Vector3(Camera.main.WorldToScreenPoint(PlayerManager.instance.transform.position).x, Camera.main.WorldToScreenPoint(PlayerManager.instance.transform.position).y + 75);

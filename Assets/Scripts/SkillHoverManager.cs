@@ -73,7 +73,7 @@ public class SkillHoverManager : MonoBehaviour
                 break;
             case PlayerManager.Class.Sorcerer:
                 boonnamestr = "Amplification";
-                BoonDesc.text = "Gains more damage by using more spells";
+                BoonDesc.text = "Casts a stronger spell on every 4th spell cast";
                 break;
             case PlayerManager.Class.Ranger:
                 boonnamestr = "Crippled";

@@ -110,6 +110,8 @@ public class playermovetile : MonoBehaviour
                             BattleManager.instance.confiscation++;
                         }
                     }
+                    PlayerManager.instance.mana -= BattleManager.instance.ManaToDeduct;
+                    BattleManager.instance.ManaToDeduct = 0;
                     BattleManager.instance.can_melee = false;
                     DestroyObjectsWithName("swordcross");
                     BattleManager.instance.bs = BattlingState.enemyturn;
@@ -131,8 +133,11 @@ public class playermovetile : MonoBehaviour
                         }
                     }
                     LeanTweenIt(player, tmap.GetCellCenterWorld(destinationCell), 1);
+                    PlayerManager.instance.mana -= BattleManager.instance.ManaToDeduct;
+                    BattleManager.instance.ManaToDeduct = 0;
                     BattleManager.instance.can_dash = false;
                     DestroyObjectsWithName("swordcross");
+                    DestroyObjectsWithName("crosshair");
                     BattleManager.instance.bs = BattlingState.enemyturn;
                 }
             }
@@ -149,8 +154,19 @@ public class playermovetile : MonoBehaviour
                         if (HitByDash(tmap.GetCellCenterWorld(tmap.WorldToCell(player.transform.position)), tmap.GetCellCenterWorld(destinationCell), tmap.GetCellCenterWorld(tmap.WorldToCell(e.transform.position))))
                         {
                             e.GetComponent<Enemy>().health -= BattleManager.instance.Damage;
+                            if (BattleManager.instance.LifeSteal)
+                            {
+                                PlayerManager.instance.health += Mathf.FloorToInt(BattleManager.instance.Damage / 2);
+                                if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
+                                {
+                                    PlayerManager.instance.health = PlayerManager.instance.maxHealth;
+                                }
+                                BattleManager.instance.LifeSteal = false;
+                            }
                         }
                     }
+                    PlayerManager.instance.mana -= BattleManager.instance.ManaToDeduct;
+                    BattleManager.instance.ManaToDeduct = 0;
                     BattleManager.instance.can_shoot = false;
                     DestroyObjectsWithName("crosshair");
                     BattleManager.instance.bs = BattlingState.enemyturn;

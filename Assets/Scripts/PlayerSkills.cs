@@ -20,7 +20,7 @@ public class PlayerSkills : MonoBehaviour
         Agile_Snip,
         Arcane_Smash,
         Blood_Siphon,
-        Recovery_Pool,
+        Arcane_Teleportation,
         Crippling_Volley,
         High_Shot,
         Barrage_Strike,
@@ -84,14 +84,22 @@ public class PlayerSkills : MonoBehaviour
         {
             random = repeat;
         }
-        
+
         switch (skill_used)
         {
             case AllSkills.Holy_Strike:
-                range = Range.Melee;
-                playermovetile.instance.movespaces = 1;
-                BattleManager.instance.Damage = 30 + BattleManager.instance.deficiency;
-                BattleManager.instance.can_melee = true;
+                //if (PlayerManager.instance.mana >= 10)
+                //{ 
+                    range = Range.Melee;
+                    playermovetile.instance.movespaces = 1;
+                    BattleManager.instance.Damage = 30 + BattleManager.instance.deficiency;
+                    BattleManager.instance.ManaToDeduct = 10;
+                    BattleManager.instance.can_melee = true;
+                //}
+                //else
+                //{
+                //    BattleManager.instance.bs = BattlingState.playerturn;
+                //}
                 break;
             case AllSkills.Holy_Heal:
                 range = Range.Self;
@@ -141,12 +149,44 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Arcane_Smash:
                 range = Range.Ranged;
+                BattleManager.instance.amplification++;
+                BattleManager.instance.Damage = 25;
+                if (BattleManager.instance.amplification == 4)
+                {
+                    BattleManager.instance.Damage *= 2;
+                    BattleManager.instance.amplification = 0;
+                }
+                playermovetile.instance.movespaces = 5;
+                BattleManager.instance.can_shoot = true;
                 break;
             case AllSkills.Blood_Siphon:
                 range = Range.Ranged;
+                BattleManager.instance.amplification++;
+                BattleManager.instance.Damage = 25;
+                BattleManager.instance.LifeSteal = true;
+                if (BattleManager.instance.amplification == 4)
+                {
+                    BattleManager.instance.Damage *= 2;
+                    BattleManager.instance.amplification = 0;
+                }
+                playermovetile.instance.movespaces = 3;
+                BattleManager.instance.can_shoot = true;
                 break;
-            case AllSkills.Recovery_Pool:
-                range = Range.Melee;
+            case AllSkills.Arcane_Teleportation:
+                range = Range.Ranged;
+                BattleManager.instance.amplification++;
+                playermovetile.instance.movespaces = 3;
+                BattleManager.instance.Damage = 0;
+                BattleManager.instance.can_dash = true;
+                if (BattleManager.instance.amplification == 4)
+                {
+                    PlayerManager.instance.health += 25;
+                    BattleManager.instance.amplification = 0;
+                }
+                if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
+                {
+                    PlayerManager.instance.health = PlayerManager.instance.maxHealth;
+                }
                 break;
             case AllSkills.Crippling_Volley:
                 range = Range.Ranged;
@@ -224,13 +264,13 @@ public class PlayerSkills : MonoBehaviour
                 str = "High damage short dash \nRange : Dash";
                 break;
             case AllSkills.Arcane_Smash:
-                str = "Deals damage in a single direction \nRange : Melee";
+                str = "Deals damage in a long line of direction \nRange : Melee";
                 break;
             case AllSkills.Blood_Siphon:
-                str = "Deals damage in a single direction \nRange : Melee";
+                str = "Deals damage in a short line direction and heals \nRange : Melee";
                 break;
-            case AllSkills.Recovery_Pool:
-                str = "Deals damage in a single direction \nRange : Melee";
+            case AllSkills.Arcane_Teleportation:
+                str = "Teleports away \nRange : Melee";
                 break;
             case AllSkills.Crippling_Volley:
                 str = "Deals damage in a single direction \nRange : Melee";

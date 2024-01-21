@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 29639402}
   - component: {fileID: 29639401}
-  - component: {fileID: 29639403}
   m_Layer: 0
   m_Name: DialogueManager
   m_TagString: Untagged
@@ -173,33 +172,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &29639403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29639400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d4cd7a0e8d6be649938101a975c650f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AllMessages:
-  - messages_array:
-    - actorID: 1
-      msg: bring it
-    - actorID: 0
-      msg: 'stare what stare '
-    - actorID: 0
-      msg: i wanna fight u
-    - actorID: 1
-      msg: bring it
-  actors:
-  - name: enemy
-    sprite: {fileID: 21300000, guid: bce41414a9f1d6b4a9dce6702a6fd84d, type: 3}
-  - name: player
-    sprite: {fileID: 21300000, guid: 0d0771abc96591942ace6d4636cce63c, type: 3}
 --- !u!1 &30642010
 GameObject:
   m_ObjectHideFlags: 0
@@ -4184,6 +4156,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+--- !u!1 &2132246579 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4054188100269978527, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+  m_PrefabInstance: {fileID: 2132246578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2132246580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132246579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d4cd7a0e8d6be649938101a975c650f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllMessages:
+  - messages_array:
+    - actorID: 0
+      msg: 
+    - actorID: 1
+      msg: Stare what stare
+    - actorID: 1
+      msg: I wanna fight u
+    - actorID: 0
+      msg: bring it
+  actors:
+  - name: Player
+    sprite: {fileID: 21300000, guid: 28ee00d79084a4942b3eb5082a7d7ccc, type: 3}
+  - name: Enemy
+    sprite: {fileID: 21300000, guid: bce41414a9f1d6b4a9dce6702a6fd84d, type: 3}
 --- !u!1001 &4572664101681790911
 PrefabInstance:
   m_ObjectHideFlags: 0

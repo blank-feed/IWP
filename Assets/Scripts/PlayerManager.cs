@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject InteractIcon_prefab;
     GameObject newPrefabInstance;
-
+    GameObject ConversableGOInrage;
     public enum Race
     {
         Human,
@@ -111,7 +111,11 @@ public class PlayerManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.F) && inRange && !DialogueManager.isActive)
             {
-                FindAnyObjectByType<DialogueTrigger>().StartDialogue();
+                if (ConversableGOInrage != null)
+                {
+                    ConversableGOInrage.GetComponent<DialogueTrigger>().StartDialogue();
+                }
+                //FindAnyObjectByType<DialogueTrigger>().StartDialogue();
                 dialogueStarted = true;
             }
 
@@ -132,6 +136,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (other.CompareTag("conversable"))
         {
+            ConversableGOInrage = other.gameObject;
             newPrefabInstance = Instantiate(InteractIcon_prefab, Vector3.zero, Quaternion.identity);
             newPrefabInstance.name = "Interact_Icon";
             Canvas canvas = FindObjectOfType<Canvas>();
@@ -146,9 +151,9 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-
         if (other.CompareTag("conversable"))
         {
+            ConversableGOInrage = null;
             GameObject destroying = GameObject.Find("Interact_Icon");
             Destroy(destroying);
             inRange = false;

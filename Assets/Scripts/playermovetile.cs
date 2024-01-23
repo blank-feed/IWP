@@ -172,6 +172,10 @@ public class playermovetile : MonoBehaviour
                             {
                                 e.GetComponent<Enemy>().health -= Mathf.FloorToInt(BattleManager.instance.Damage * .3f);
                             }
+                            if (BattleManager.instance.VoidJumped)
+                            {
+                                BattleManager.instance.VoidJumped = false;
+                            }
                         }
                     }
                     if (BattleManager.instance.HighShotCount >= 3)
@@ -209,6 +213,7 @@ public class playermovetile : MonoBehaviour
             {
                 BattleManager.instance.can_dash = false;
                 DestroyObjectsWithName("swordcross");
+                DestroyObjectsWithName("crosshair");
                 BattleManager.instance.bs = BattlingState.Select_attack;
             }
 

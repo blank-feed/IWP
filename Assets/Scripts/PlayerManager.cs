@@ -62,7 +62,7 @@ public class PlayerManager : MonoBehaviour
     //sliders
     private Slider HealthBar;
     private Slider ExpBar;
-    private Slider ManaBar;
+    //private Slider ManaBar;
 
     //TMPros
     private TextMeshProUGUI HealthText;
@@ -165,10 +165,10 @@ public class PlayerManager : MonoBehaviour
     {
         ExpBar.value = exp;
         HealthBar.value = health;
-        ManaBar.value = mana;
+        //ManaBar.value = mana;
         HealthText.text = health.ToString();
         LevelText.text = level.ToString();
-        ManaText.text = mana.ToString();
+        //ManaText.text = mana.ToString();
     }
 
     void SceneStart()
@@ -177,13 +177,13 @@ public class PlayerManager : MonoBehaviour
         spriteRenderer.sprite = playerSprite;
         ExpBar = GameObject.Find("ExpBar").GetComponent<Slider>();
         HealthBar = GameObject.Find("Healthbar").GetComponent<Slider>();
-        ManaBar = GameObject.Find("ManaBar").GetComponent<Slider>();
+        //ManaBar = GameObject.Find("ManaBar").GetComponent<Slider>();
         HealthText = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
         LevelText = GameObject.Find("LevelNum").GetComponent<TextMeshProUGUI>();
-        ManaText = GameObject.Find("ManaText").GetComponent<TextMeshProUGUI>();
+        //ManaText = GameObject.Find("ManaText").GetComponent<TextMeshProUGUI>();
         ExpBar.maxValue = maxExp;
         HealthBar.maxValue = maxHealth;
-        ManaBar.maxValue = maxMana;
+        //ManaBar.maxValue = maxMana;
         runOnce = true;
     }
 

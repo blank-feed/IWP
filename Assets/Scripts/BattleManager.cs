@@ -88,6 +88,7 @@ public class BattleManager : MonoBehaviour
 
     public bool LifeSteal = false;
     public bool CripplingAtk = false;
+    public bool VoidJumped = false;
     public int HighShotCount = 0;
     public int MoveCount;
     public int ManaToDeduct;

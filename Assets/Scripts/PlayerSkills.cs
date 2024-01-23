@@ -173,19 +173,29 @@ public class PlayerSkills : MonoBehaviour
                 BattleManager.instance.can_shoot = true;
                 break;
             case AllSkills.Void_Jump:
-                range = Range.Ranged;
-                BattleManager.instance.amplification++;
-                playermovetile.instance.movespaces = 3;
-                BattleManager.instance.Damage = 0;
-                BattleManager.instance.can_dash = true;
-                if (BattleManager.instance.amplification == 4)
+                if (!BattleManager.instance.VoidJumped)
                 {
-                    PlayerManager.instance.health += 25;
-                    BattleManager.instance.amplification = 0;
+                    range = Range.Ranged;
+                    BattleManager.instance.amplification++;
+                    playermovetile.instance.movespaces = 3;
+                    BattleManager.instance.Damage = 0;
+                    if (BattleManager.instance.amplification == 4)
+                    {
+                        PlayerManager.instance.health += 25;
+                        BattleManager.instance.amplification = 0;
+                    }
+                    if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
+                    {
+                        PlayerManager.instance.health = PlayerManager.instance.maxHealth;
+                    }
+                    BattleManager.instance.VoidJumped = true;
+                    BattleManager.instance.can_dash = true;
                 }
-                if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
+                else
                 {
-                    PlayerManager.instance.health = PlayerManager.instance.maxHealth;
+                    range = Range.Self;
+                    BattleManager.instance.VoidJumped = false;
+                    BattleManager.instance.bs = BattlingState.enemyturn;
                 }
                 break;
             case AllSkills.Crippling_Volley:
@@ -309,7 +319,7 @@ public class PlayerSkills : MonoBehaviour
                 str = "Deals damage in a short line direction and heals \nRange : Distant";
                 break;
             case AllSkills.Void_Jump:
-                str = "Teleports away \nRange : Distant";
+                str = "Teleports away\nCannot use twice in a row\nRange : Distant";
                 break;
             case AllSkills.Crippling_Volley:
                 str = "Fires an arrow that cripples enemies \nRange : Distant";

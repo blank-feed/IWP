@@ -2302,6 +2302,107 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1247363000
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1961009667394531495, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_Radius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351646225142253567, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bce41414a9f1d6b4a9dce6702a6fd84d, type: 3}
+    - target: {fileID: 4054188100269978527, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_Name
+      value: Circle (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4054188100269978527, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_TagString
+      value: conversable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537755392336091375, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537755392336091375, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537755392336091375, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537755392336091375, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537755392336091375, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537755392336091375, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537755392336091375, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537755392336091375, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537755392336091375, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537755392336091375, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537755392336091375, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+--- !u!1 &1247363001 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4054188100269978527, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+  m_PrefabInstance: {fileID: 1247363000}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1247363002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247363001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d4cd7a0e8d6be649938101a975c650f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllMessages:
+  - messages_array:
+    - actorID: 0
+      msg: 
+    - actorID: 1
+      msg: what are u staring at
+    - actorID: 1
+      msg: I wanna fight u
+    - actorID: 0
+      msg: bring it
+  actors:
+  - name: Player
+    sprite: {fileID: 21300000, guid: 28ee00d79084a4942b3eb5082a7d7ccc, type: 3}
+  - name: Enemy
+    sprite: {fileID: 21300000, guid: bce41414a9f1d6b4a9dce6702a6fd84d, type: 3}
 --- !u!1 &1273586905
 GameObject:
   m_ObjectHideFlags: 0

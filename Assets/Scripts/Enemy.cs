@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
     public GameObject ProjectilePrefab;
     public GameObject DmgIndicatorPrefab;
 
+    public bool crippled = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,11 +48,6 @@ public class Enemy : MonoBehaviour
         hpbar.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 75f);
         hpbar.GetComponent<Slider>().value = health;
         hptxt.text = health.ToString();
-    }
-
-    public void EnemyTeurn()
-    {
-        
     }
 
     public void EnemyTurn()

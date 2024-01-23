@@ -20,7 +20,7 @@ public class PlayerSkills : MonoBehaviour
         Agile_Snip,
         Arcane_Smash,
         Blood_Siphon,
-        Arcane_Teleportation,
+        Void_Jump,
         Crippling_Volley,
         High_Shot,
         Barrage_Strike,
@@ -29,7 +29,7 @@ public class PlayerSkills : MonoBehaviour
         Frail_Crush,
         Dragon_Beam,
         Winged_Buddy,
-        Wyrm_Summon
+        Dragon_Rush
     }
 
     public enum Range
@@ -172,7 +172,7 @@ public class PlayerSkills : MonoBehaviour
                 playermovetile.instance.movespaces = 3;
                 BattleManager.instance.can_shoot = true;
                 break;
-            case AllSkills.Arcane_Teleportation:
+            case AllSkills.Void_Jump:
                 range = Range.Ranged;
                 BattleManager.instance.amplification++;
                 playermovetile.instance.movespaces = 3;
@@ -192,7 +192,20 @@ public class PlayerSkills : MonoBehaviour
                 range = Range.Ranged;
                 break;
             case AllSkills.High_Shot:
-                range = Range.Ranged;
+                BattleManager.instance.HighShotCount++;
+                if (BattleManager.instance.HighShotCount >= 3)
+                {
+                    range = Range.Ranged;
+                    playermovetile.instance.movespaces = 4;
+                    BattleManager.instance.Damage = 90;
+                    BattleManager.instance.can_shoot = true;
+                    BattleManager.instance.HighShotCount = 0;
+                }
+                else
+                {
+                    range = Range.Self;
+                    BattleManager.instance.bs = BattlingState.enemyturn;
+                }
                 break;
             case AllSkills.Barrage_Strike:
                 range = Range.Ranged;
@@ -231,7 +244,7 @@ public class PlayerSkills : MonoBehaviour
             case AllSkills.Winged_Buddy:
                 range = Range.Ranged;
                 break;
-            case AllSkills.Wyrm_Summon:
+            case AllSkills.Dragon_Rush:
                 range = Range.Ranged;
                 playermovetile.instance.movespaces = 3;
                 break;
@@ -264,22 +277,22 @@ public class PlayerSkills : MonoBehaviour
                 str = "High damage short dash \nRange : Dash";
                 break;
             case AllSkills.Arcane_Smash:
-                str = "Deals damage in a long line of direction \nRange : Melee";
+                str = "Deals damage in a long line of direction \nRange : Distant";
                 break;
             case AllSkills.Blood_Siphon:
-                str = "Deals damage in a short line direction and heals \nRange : Melee";
+                str = "Deals damage in a short line direction and heals \nRange : Distant";
                 break;
-            case AllSkills.Arcane_Teleportation:
-                str = "Teleports away \nRange : Melee";
+            case AllSkills.Void_Jump:
+                str = "Teleports away \nRange : Distant";
                 break;
             case AllSkills.Crippling_Volley:
-                str = "Deals damage in a single direction \nRange : Melee";
+                str = "Fires an arrow that cripples enemies \nRange : Distant";
                 break;
             case AllSkills.High_Shot:
-                str = "Deals damage in a single direction \nRange : Melee";
+                str = "Use this skill 3 times to inflict massive damage \nRange : Distant";
                 break;
             case AllSkills.Barrage_Strike:
-                str = "Deals damage in a single direction \nRange : Melee";
+                str = "Fires a barrage of arrows in a direction \nRange : Distant";
                 break;
             case AllSkills.Frenzy_Impact:
                 str = "Performs a random number of strikes based on the d6 roll \nRange : Melee";
@@ -291,13 +304,13 @@ public class PlayerSkills : MonoBehaviour
                 str = "Spends all your momentum for one massive attack \nRange : Melee";
                 break;
             case AllSkills.Dragon_Beam:
-                str = "Deals damage in a single direction \nRange : Melee";
+                str = "Commands your dragons to fire a dragon beam \nRange : Distant";
                 break;
             case AllSkills.Winged_Buddy:
-                str = "Deals damage in a single direction \nRange : Melee";
+                str = "Summons a dragon to aid your fight \nRange : Self";
                 break;
-            case AllSkills.Wyrm_Summon:
-                str = "Deals damage in a single direction \nRange : Melee";
+            case AllSkills.Dragon_Rush:
+                str = "Commands your dragons to charge at a nearby target \nRange : Melee";
                 break;
             default:
                 break;

@@ -72,12 +72,12 @@ public class SkillHoverManager : MonoBehaviour
                 BoonDesc.text = "Gains more damage by stealing attack stats from enemies";
                 break;
             case PlayerManager.Class.Sorcerer:
-                boonnamestr = "Amplification";
+                boonnamestr = "Amplify";
                 BoonDesc.text = "Casts a stronger spell on every 4th spell cast";
                 break;
             case PlayerManager.Class.Ranger:
                 boonnamestr = "Crippled";
-                BoonDesc.text = "Gains more damage by being further away from enemies";
+                BoonDesc.text = "Gains more damage by being further away from enemies\n\nDeals 30% more damage to crippled enemies";
                 break;
             case PlayerManager.Class.Fighter:
                 boonnamestr = "Bloodlust";

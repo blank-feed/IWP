@@ -86,6 +86,8 @@ public class BattleManager : MonoBehaviour
     public int Dragon_Pals = 0;
 
     public bool LifeSteal = false;
+    public bool CripplingAtk = false;
+    public int HighShotCount = 0;
     public int MoveCount;
     public int ManaToDeduct;
     public Vector3 Ori_Pos;
@@ -150,6 +152,7 @@ public class BattleManager : MonoBehaviour
                     boonCount = confiscation.ToString();
                     break;
                 case PlayerManager.Class.Sorcerer:
+                    boonCount = amplification.ToString();
                     break;
                 case PlayerManager.Class.Ranger:
                     boonCount = cripple.ToString();

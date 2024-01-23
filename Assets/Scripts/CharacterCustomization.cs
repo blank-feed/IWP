@@ -130,6 +130,7 @@ public class CharacterCustomization : MonoBehaviour
             case 4:
                 RaceClassText.text = "Class : Ranger";
                 PlayerManager.instance.PlayerRace = PlayerManager.Race.HighElf;
+                PlayerManager.instance.PlayerClass = PlayerManager.Class.Ranger;
                 playerSkills.S1 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(9);
                 playerSkills.S2 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(10);
                 playerSkills.S3 = (PlayerSkills.AllSkills)playerSkills.skillValues.GetValue(11);

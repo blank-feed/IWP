@@ -163,6 +163,14 @@ public class playermovetile : MonoBehaviour
                                 }
                                 BattleManager.instance.LifeSteal = false;
                             }
+                            if (BattleManager.instance.CripplingAtk && !e.GetComponent<Enemy>().crippled)
+                            {
+                                e.GetComponent<Enemy>().crippled = true;
+                            }
+                            if (e.GetComponent<Enemy>().crippled)
+                            {
+                                e.GetComponent<Enemy>().health -= Mathf.FloorToInt(BattleManager.instance.Damage * .3f);
+                            }
                         }
                     }
                     PlayerManager.instance.mana -= BattleManager.instance.ManaToDeduct;

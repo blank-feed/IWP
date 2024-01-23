@@ -40,8 +40,9 @@ public class BattleManager : MonoBehaviour
     public Image S1_Img;
     public Image S2_Img;
     public Image S3_Img;
-
     public Image BoonImg;
+
+    public Sprite HighShotReadyImg;
 
     public Sprite[] DiceFaces;
     public Image Dice;
@@ -167,6 +168,15 @@ public class BattleManager : MonoBehaviour
                     break;
             }
             Boon_Text.text = boonCount.ToString();
+        }
+
+        if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Ranger && HighShotCount >= 2)
+        {
+            S2_Img.sprite = HighShotReadyImg;
+        }
+        else
+        {
+            S2_Img.sprite = PlayerSkills.instance.S2_Img;
         }
 
         if (PlayerManager.instance.transform.position.y >= 3.5)

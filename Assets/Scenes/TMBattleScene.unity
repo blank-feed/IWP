@@ -2995,6 +2995,7 @@ MonoBehaviour:
   EnemyHpBarPrefab: {fileID: 4590226450685844252, guid: 5eb4b956a0b1172448762bb1ca649659, type: 3}
   ProjectilePrefab: {fileID: 4054188100269978527, guid: ca93f0089dd6a684890aa3c0283dc6ff, type: 3}
   DmgIndicatorPrefab: {fileID: 658792239460126965, guid: c425fc0d3e32aeb44bfecc2f2e03dd7f, type: 3}
+  crippled: 0
 --- !u!1 &639122489
 GameObject:
   m_ObjectHideFlags: 0
@@ -6329,6 +6330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillDescriptionUI: {fileID: 1025149777}
   MovementDescriptionUI: {fileID: 1285458056}
+  HighShotReadyImg: {fileID: 21300000, guid: 1c9abebfe0cf3bf4490099cf86fea5f0, type: 3}
   Skill1Img: {fileID: 555863044}
   Skill2Img: {fileID: 1888849433}
   Skill3Img: {fileID: 1332660700}
@@ -9173,6 +9175,7 @@ MonoBehaviour:
   S2_Img: {fileID: 566443544}
   S3_Img: {fileID: 2063234208}
   BoonImg: {fileID: 1174369565}
+  HighShotReadyImg: {fileID: 21300000, guid: 1c9abebfe0cf3bf4490099cf86fea5f0, type: 3}
   DiceFaces:
   - {fileID: 21300000, guid: e956472e2ac8aaa438b25f48858b5503, type: 3}
   - {fileID: 21300000, guid: 36fdb0f50f763f24fb47552b97e04def, type: 3}
@@ -9196,6 +9199,8 @@ MonoBehaviour:
   bloodlust: 0
   Dragon_Pals: 0
   LifeSteal: 0
+  CripplingAtk: 0
+  HighShotCount: 0
   MoveCount: 0
   ManaToDeduct: 0
   Ori_Pos: {x: 0, y: 0, z: 0}

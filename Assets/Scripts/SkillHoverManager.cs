@@ -8,6 +8,8 @@ public class SkillHoverManager : MonoBehaviour
     public GameObject SkillDescriptionUI;
     public GameObject MovementDescriptionUI;
 
+    public Sprite HighShotReadyImg;
+
     public Image Skill1Img;
     public Image Skill2Img;
     public Image Skill3Img;
@@ -52,6 +54,10 @@ public class SkillHoverManager : MonoBehaviour
         Skill1Desc.text = PlayerSkills.instance.GetSkillDescription(PlayerSkills.instance.S1);
 
         Skill2Img.sprite = PlayerSkills.instance.S2_Img;
+        if (PlayerManager.instance.PlayerClass == PlayerManager.Class.Ranger && BattleManager.instance.HighShotCount == 2)
+        {
+            Skill2Img.sprite = HighShotReadyImg;
+        }
         Skill2Name.text = PlayerSkills.instance.ProcessSkillName(PlayerSkills.instance.S2);
         Skill2Desc.text = PlayerSkills.instance.GetSkillDescription(PlayerSkills.instance.S2);
 
@@ -77,7 +83,7 @@ public class SkillHoverManager : MonoBehaviour
                 break;
             case PlayerManager.Class.Ranger:
                 boonnamestr = "Crippled";
-                BoonDesc.text = "Gains more damage by being further away from enemies\n\nDeals 30% more damage to crippled enemies";
+                BoonDesc.text = /*"Gains more damage by being further away from enemies\n\n*/"Deals 30% more damage to crippled enemies";
                 break;
             case PlayerManager.Class.Fighter:
                 boonnamestr = "Bloodlust";

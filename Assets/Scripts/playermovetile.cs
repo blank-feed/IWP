@@ -166,12 +166,17 @@ public class playermovetile : MonoBehaviour
                             if (BattleManager.instance.CripplingAtk && !e.GetComponent<Enemy>().crippled)
                             {
                                 e.GetComponent<Enemy>().crippled = true;
+                                BattleManager.instance.cripple++;
                             }
                             if (e.GetComponent<Enemy>().crippled)
                             {
                                 e.GetComponent<Enemy>().health -= Mathf.FloorToInt(BattleManager.instance.Damage * .3f);
                             }
                         }
+                    }
+                    if (BattleManager.instance.HighShotCount >= 3)
+                    {
+                        BattleManager.instance.HighShotCount = 0;
                     }
                     PlayerManager.instance.mana -= BattleManager.instance.ManaToDeduct;
                     BattleManager.instance.ManaToDeduct = 0;

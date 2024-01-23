@@ -190,6 +190,10 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Crippling_Volley:
                 range = Range.Ranged;
+                BattleManager.instance.Damage = 0;
+                playermovetile.instance.movespaces = 5;
+                BattleManager.instance.CripplingAtk = true;
+                BattleManager.instance.can_shoot = true;
                 break;
             case AllSkills.High_Shot:
                 BattleManager.instance.HighShotCount++;
@@ -199,7 +203,6 @@ public class PlayerSkills : MonoBehaviour
                     playermovetile.instance.movespaces = 4;
                     BattleManager.instance.Damage = 90;
                     BattleManager.instance.can_shoot = true;
-                    BattleManager.instance.HighShotCount = 0;
                 }
                 else
                 {
@@ -209,6 +212,9 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Barrage_Strike:
                 range = Range.Ranged;
+                BattleManager.instance.Damage = 24;
+                playermovetile.instance.movespaces = 5;
+                BattleManager.instance.can_shoot = true;
                 break;
             case AllSkills.Frenzy_Impact:
                 range = Range.Melee;
@@ -240,13 +246,33 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Dragon_Beam:
                 range = Range.Ranged;
+                BattleManager.instance.Damage = 10 * (BattleManager.instance.Dragon_Pals + 1);
+                playermovetile.instance.movespaces = 5;
+                BattleManager.instance.can_shoot = true;
                 break;
             case AllSkills.Winged_Buddy:
-                range = Range.Ranged;
+                range = Range.Self;
+                PlayerManager.instance.maxHealth += 5;
+                PlayerManager.instance.health += 5;
+                if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
+                {
+                    PlayerManager.instance.health = PlayerManager.instance.maxHealth;
+                }
+                BattleManager.instance.Dragon_Pals++;
+                BattleManager.instance.bs = BattlingState.enemyturn;
                 break;
             case AllSkills.Dragon_Rush:
-                range = Range.Ranged;
-                playermovetile.instance.movespaces = 3;
+                range = Range.Melee;
+                if (BattleManager.instance.Dragon_Pals == 0)
+                {
+                    BattleManager.instance.Damage = 5;
+                }
+                else
+                {
+                    BattleManager.instance.Damage = 20 * BattleManager.instance.Dragon_Pals;
+                }
+                playermovetile.instance.movespaces = 1;
+                BattleManager.instance.can_melee = true;
                 break;
             default:
                 break;
@@ -307,7 +333,7 @@ public class PlayerSkills : MonoBehaviour
                 str = "Commands your dragons to fire a dragon beam \nRange : Distant";
                 break;
             case AllSkills.Winged_Buddy:
-                str = "Summons a dragon to aid your fight \nRange : Self";
+                str = "Summons a dragon to aid your fight\n\nadds 5 Max Health \nRange : Self";
                 break;
             case AllSkills.Dragon_Rush:
                 str = "Commands your dragons to charge at a nearby target \nRange : Melee";

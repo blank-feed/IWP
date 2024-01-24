@@ -3111,7 +3111,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bc36acfa945a23c4c8af51b209f11df7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e9511423925e8a14b92fcf65196d7f8a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9200,6 +9200,7 @@ MonoBehaviour:
   Dragon_Pals: 0
   LifeSteal: 0
   CripplingAtk: 0
+  VoidJumped: 0
   HighShotCount: 0
   MoveCount: 0
   ManaToDeduct: 0

@@ -88,7 +88,7 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S1_Img = skillImg[0];
                 playerSkills.S2_Img = skillImg[1];
                 playerSkills.S3_Img = skillImg[2];
-                PlayerManager.instance.playerSprite = paladin;
+                PlayerManager.instance.spriteChosen = paladin;
                 break;
             case 1:
                 RaceClassText.text = "Class : Sorcerer";
@@ -100,7 +100,7 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S1_Img = skillImg[6];
                 playerSkills.S2_Img = skillImg[7];
                 playerSkills.S3_Img = skillImg[8];
-                PlayerManager.instance.playerSprite = sorcerer;
+                PlayerManager.instance.spriteChosen = sorcerer;
                 break;
             case 2:
                 RaceClassText.text = "Class : Fighter";
@@ -112,7 +112,7 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S1_Img = skillImg[12];
                 playerSkills.S2_Img = skillImg[13];
                 playerSkills.S3_Img = skillImg[14];
-                PlayerManager.instance.playerSprite = fighter;
+                PlayerManager.instance.spriteChosen = fighter;
                 break;
 
             case 3:
@@ -125,7 +125,7 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S1_Img = skillImg[3];
                 playerSkills.S2_Img = skillImg[4];
                 playerSkills.S3_Img = skillImg[5];
-                PlayerManager.instance.playerSprite = rogue;
+                PlayerManager.instance.spriteChosen = rogue;
                 break;
             case 4:
                 RaceClassText.text = "Class : Ranger";
@@ -137,7 +137,7 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S1_Img = skillImg[9];
                 playerSkills.S2_Img = skillImg[10];
                 playerSkills.S3_Img = skillImg[11];
-                PlayerManager.instance.playerSprite = ranger;
+                PlayerManager.instance.spriteChosen = ranger;
                 break;
             case 5:
                 RaceClassText.text = "Class : Druid";
@@ -149,7 +149,7 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S1_Img = skillImg[15];
                 playerSkills.S2_Img = skillImg[16];
                 playerSkills.S3_Img = skillImg[17];
-                PlayerManager.instance.playerSprite = druid;
+                PlayerManager.instance.spriteChosen = druid;
                 break;
             default:
                 break;

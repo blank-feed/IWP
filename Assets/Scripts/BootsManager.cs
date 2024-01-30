@@ -11,7 +11,7 @@ public class BootsManager : MonoBehaviour
 
         // Check if another CursorManager already exists
         BootsManager[] bootsManagers = FindObjectsOfType<BootsManager>();
-        if (bootsManagers.Length > 1)
+        if (bootsManagers.Length > 1 || PlayerManager.instance.bootsclicked)
         {
             // Destroy this instance to keep only one
             Destroy(gameObject);
@@ -31,6 +31,7 @@ public class BootsManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            PlayerManager.instance.bootsclicked = true;
             Destroy(gameObject);
         }
     }

@@ -92,7 +92,7 @@ public class PlayerSkills : MonoBehaviour
                 //{ 
                     range = Range.Melee;
                     playermovetile.instance.movespaces = 1;
-                    BattleManager.instance.Damage = 30 + BattleManager.instance.deficiency;
+                    BattleManager.instance.Damage = 100 + BattleManager.instance.deficiency; //30 + deficiency
                     BattleManager.instance.ManaToDeduct = 10;
                     BattleManager.instance.can_melee = true;
                 //}

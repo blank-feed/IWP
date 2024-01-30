@@ -14,7 +14,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject InventoryUI;
     public GameObject InventoryGrid;
 
-    public GameObject egg;
+    //public GameObject egg;
     public GameObject Prefab_InventoryItem;
 
     public bool openInventoryUI = false;
@@ -42,7 +42,7 @@ public class InventoryManager : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             openInventoryUI = !openInventoryUI;
         }
@@ -50,7 +50,6 @@ public class InventoryManager : MonoBehaviour
         if (openInventoryUI)
         {
             InventoryUI.SetActive(true);
-            //SkillManager.instance.SkillTree.SetActive(false);
 
             //display things
             if (!displayOnce)

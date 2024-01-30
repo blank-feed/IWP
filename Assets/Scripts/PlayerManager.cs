@@ -33,12 +33,14 @@ public class PlayerManager : MonoBehaviour
     public Class PlayerClass;
 
     private bool runOnce = false;
-    private bool inRange = false;
+    public bool inRange = false;
     public bool dialogueStarted = false;
+    public bool bootsclicked = false;
 
     //sprites
     public Sprite playerSprite;
     public SpriteRenderer spriteRenderer;
+    public Sprite spriteChosen;
 
     //player stats
 
@@ -73,6 +75,8 @@ public class PlayerManager : MonoBehaviour
     public int MaxDieNum = 20;
 
     GameObject enemy;
+
+    public GameObject prefab_Inventory; 
 
     private void Awake()
     {
@@ -114,8 +118,8 @@ public class PlayerManager : MonoBehaviour
                 if (ConversableGOInrage != null)
                 {
                     ConversableGOInrage.GetComponent<DialogueTrigger>().StartDialogue();
+                    inRange = false;
                 }
-                //FindAnyObjectByType<DialogueTrigger>().StartDialogue();
                 dialogueStarted = true;
             }
 
@@ -129,7 +133,10 @@ public class PlayerManager : MonoBehaviour
             //Update UI values
             UIUpdate();
         }
-
+        else
+        {
+            runOnce = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -163,6 +170,8 @@ public class PlayerManager : MonoBehaviour
 
     void UIUpdate()
     {
+        transform.localScale = new Vector3(1.5f, 1.5f, 1f);
+        playerSprite = spriteChosen;
         ExpBar.value = exp;
         HealthBar.value = health;
         //ManaBar.value = mana;

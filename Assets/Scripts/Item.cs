@@ -21,8 +21,8 @@ public class Item : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             InventoryManager.instance.AddItem(itemname, 1, itemcat, itemsprite);
-            gameObject.tag = "gone";
-            Destroy(gameObject);
+            LobbyManager.instance.CollectedGameObjs.Add(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

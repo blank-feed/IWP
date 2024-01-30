@@ -674,7 +674,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InventoryUI: {fileID: 89890965}
   InventoryGrid: {fileID: 1034770728}
-  egg: {fileID: 4572664103244885668, guid: 180f4566b85e7734ba1af7c343d42b7d, type: 3}
   Prefab_InventoryItem: {fileID: 9184527918744336129, guid: 8c1acddf892afc6419c331359b1e3a4b, type: 3}
   openInventoryUI: 0
 --- !u!4 &239881778
@@ -3183,6 +3182,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 180f4566b85e7734ba1af7c343d42b7d, type: 3}
+--- !u!1 &1482659727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4572664103244885668, guid: 180f4566b85e7734ba1af7c343d42b7d, type: 3}
+  m_PrefabInstance: {fileID: 1482659726}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1527675264
 GameObject:
   m_ObjectHideFlags: 0
@@ -3624,7 +3628,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d76beec6f3d1c249b3cbffc544f8b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoneGameObjs: []
+  UncollectedGameObjs:
+  - {fileID: 4572664101681790912}
+  - {fileID: 1482659727}
+  CollectedGameObjs: []
+  RunOnce: 0
 --- !u!4 &1835094661
 Transform:
   m_ObjectHideFlags: 0
@@ -4390,3 +4398,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 180f4566b85e7734ba1af7c343d42b7d, type: 3}
+--- !u!1 &4572664101681790912 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4572664103244885668, guid: 180f4566b85e7734ba1af7c343d42b7d, type: 3}
+  m_PrefabInstance: {fileID: 4572664101681790911}
+  m_PrefabAsset: {fileID: 0}

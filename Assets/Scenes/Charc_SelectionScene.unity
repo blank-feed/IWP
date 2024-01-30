@@ -372,7 +372,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &163485852
 MonoBehaviour:
@@ -394,7 +394,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c8a69ecdf54ac8e4b873466605de27ff, type: 3}
+  m_Sprite: {fileID: 500384245, guid: e709fccd922811142a56f6784811450d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1341,6 +1341,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectionUI: {fileID: 1390937910}
   ConfirmationUI: {fileID: 2112102031}
+  animators:
+  - {fileID: 9100000, guid: f2e8dafdeddfa5b4496539ce005f1382, type: 2}
+  - {fileID: 9100000, guid: 4667a0efcde0e234b94ed45375ff8450, type: 2}
+  - {fileID: 9100000, guid: 9d08a3f852404ff4fb0d8bc10f9f5aab, type: 2}
+  - {fileID: 9100000, guid: c88a8cd50466ac94da57104cd5681ba1, type: 2}
+  - {fileID: 9100000, guid: fcc98c8867f3ada49b91b9dd3a46df5a, type: 2}
+  - {fileID: 9100000, guid: c1379ac33ea1ccf44bde6b2f6ce294dd, type: 2}
   skillImg:
   - {fileID: 21300000, guid: 4b73dbd10e953e444af7cf093d2dadb5, type: 3}
   - {fileID: 21300000, guid: 41325763385cdba44844e5b282e8a12d, type: 3}
@@ -1361,12 +1368,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b2963df3b6ed9da4c983a6cc49990b18, type: 3}
   - {fileID: 21300000, guid: 90c75b6c52569c44c8e5b7ea3cfc32b8, type: 3}
   ConfirmationImg: {fileID: 1096111106}
-  paladin: {fileID: 21300000, guid: 28ee00d79084a4942b3eb5082a7d7ccc, type: 3}
-  rogue: {fileID: 21300000, guid: 28ee00d79084a4942b3eb5082a7d7ccc, type: 3}
-  sorcerer: {fileID: 21300000, guid: 28ee00d79084a4942b3eb5082a7d7ccc, type: 3}
-  ranger: {fileID: 21300000, guid: 28ee00d79084a4942b3eb5082a7d7ccc, type: 3}
-  fighter: {fileID: 21300000, guid: 28ee00d79084a4942b3eb5082a7d7ccc, type: 3}
-  druid: {fileID: 21300000, guid: 28ee00d79084a4942b3eb5082a7d7ccc, type: 3}
+  paladin: {fileID: -804944622, guid: ebef64a8874f13244a34e74755f2c1c8, type: 3}
+  rogue: {fileID: -824715369, guid: 6a6124bb4e41968468035a3b0ffcb46b, type: 3}
+  sorcerer: {fileID: -677076110, guid: 28902b279ec8a3c46b17a30a810043db, type: 3}
+  ranger: {fileID: -2123881286, guid: fcf1b9398facbe145a858d253e87909c, type: 3}
+  fighter: {fileID: 500384245, guid: e709fccd922811142a56f6784811450d, type: 3}
+  druid: {fileID: -756473314, guid: 612c883562bc24b439a02b3294456d17, type: 3}
   PaladinBtn: {fileID: 768305816}
   RogueBtn: {fileID: 807250923}
   SorcererBtn: {fileID: 883490678}
@@ -2062,7 +2069,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1136496527
 MonoBehaviour:
@@ -2084,7 +2091,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c8a69ecdf54ac8e4b873466605de27ff, type: 3}
+  m_Sprite: {fileID: -824715369, guid: 6a6124bb4e41968468035a3b0ffcb46b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2169,6 +2176,10 @@ PrefabInstance:
       propertyPath: prefab_Inventory
       value: 
       objectReference: {fileID: 900888691999966533, guid: 2cc378b9c9c7ce64ab677b644bcc2758, type: 3}
+    - target: {fileID: 3670723748839635846, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4665218645162043692, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2327,7 +2338,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1200504598
 MonoBehaviour:
@@ -2349,7 +2360,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c8a69ecdf54ac8e4b873466605de27ff, type: 3}
+  m_Sprite: {fileID: -677076110, guid: 28902b279ec8a3c46b17a30a810043db, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2525,7 +2536,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1373149387
 MonoBehaviour:
@@ -2547,7 +2558,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c8a69ecdf54ac8e4b873466605de27ff, type: 3}
+  m_Sprite: {fileID: -2123881286, guid: fcf1b9398facbe145a858d253e87909c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3345,7 +3356,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1964608036
 MonoBehaviour:
@@ -3367,7 +3378,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c8a69ecdf54ac8e4b873466605de27ff, type: 3}
+  m_Sprite: {fileID: -756473314, guid: 612c883562bc24b439a02b3294456d17, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -13,6 +13,9 @@ public class CharacterCustomization : MonoBehaviour
     public GameObject SelectionUI;
     public GameObject ConfirmationUI;
 
+    //animator controllers
+    public RuntimeAnimatorController[] animators;
+
     //Skill Images
     public Sprite[] skillImg;
 
@@ -89,6 +92,7 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S2_Img = skillImg[1];
                 playerSkills.S3_Img = skillImg[2];
                 PlayerManager.instance.spriteChosen = paladin;
+                PlayerManager.instance.gameObject.GetComponent<Animator>().runtimeAnimatorController = animators[0];
                 break;
             case 1:
                 RaceClassText.text = "Class : Sorcerer";
@@ -101,6 +105,7 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S2_Img = skillImg[7];
                 playerSkills.S3_Img = skillImg[8];
                 PlayerManager.instance.spriteChosen = sorcerer;
+                PlayerManager.instance.gameObject.GetComponent<Animator>().runtimeAnimatorController = animators[2];
                 break;
             case 2:
                 RaceClassText.text = "Class : Fighter";
@@ -113,6 +118,7 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S2_Img = skillImg[13];
                 playerSkills.S3_Img = skillImg[14];
                 PlayerManager.instance.spriteChosen = fighter;
+                PlayerManager.instance.gameObject.GetComponent<Animator>().runtimeAnimatorController = animators[4];
                 break;
 
             case 3:
@@ -126,6 +132,7 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S2_Img = skillImg[4];
                 playerSkills.S3_Img = skillImg[5];
                 PlayerManager.instance.spriteChosen = rogue;
+                PlayerManager.instance.gameObject.GetComponent<Animator>().runtimeAnimatorController = animators[1];
                 break;
             case 4:
                 RaceClassText.text = "Class : Ranger";
@@ -138,6 +145,7 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S2_Img = skillImg[10];
                 playerSkills.S3_Img = skillImg[11];
                 PlayerManager.instance.spriteChosen = ranger;
+                PlayerManager.instance.gameObject.GetComponent<Animator>().runtimeAnimatorController = animators[3];
                 break;
             case 5:
                 RaceClassText.text = "Class : Druid";
@@ -150,13 +158,12 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S2_Img = skillImg[16];
                 playerSkills.S3_Img = skillImg[17];
                 PlayerManager.instance.spriteChosen = druid;
+                PlayerManager.instance.gameObject.GetComponent<Animator>().runtimeAnimatorController = animators[5];
                 break;
             default:
                 break;
         }
-
-
-        ConfirmationImg.sprite = PlayerManager.instance.playerSprite;
+        ConfirmationImg.sprite = PlayerManager.instance.spriteChosen;
     }
 
     void Back()

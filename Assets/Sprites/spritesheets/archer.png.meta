@@ -101,6 +101,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -2593,14 +2605,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      archer_61: 974611625
+      archer_111: 367425376
       archer_59: -305536344
       archer_100: 1504468445
-      archer_68: -221193071
+      archer_61: 974611625
       archer_65: -1458866107
       archer_95: -1575907225
       archer_56: -1337731737
-      archer_111: 367425376
+      archer_68: -221193071
       archer_52: 1456931461
       archer_72: -2123881286
       archer_81: -877704555

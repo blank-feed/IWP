@@ -2021,6 +2021,11 @@ RectTransform:
   m_AnchoredPosition: {x: -250, y: -125}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1135440016 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3670723748839635846, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+  m_PrefabInstance: {fileID: 1175784806}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1136496525
 GameObject:
   m_ObjectHideFlags: 0
@@ -2153,6 +2158,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 0d0771abc96591942ace6d4636cce63c, type: 3}
     - target: {fileID: 2732253920464025865, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 1135440016}
+    - target: {fileID: 2732253920464025865, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 814557359}
@@ -2166,11 +2175,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4665218645162043692, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4665218645162043692, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4665218645162043692, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2222,11 +2231,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4665218645162043695, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_Size.x
-      value: 4.48
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 4665218645162043695, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_Size.y
-      value: 4.48
+      value: 0.24
       objectReference: {fileID: 0}
     - target: {fileID: 4665218645162043695, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_Sprite
@@ -2241,8 +2250,40 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4665464807138233699, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665464807138233699, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665464807138233699, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665464807138233699, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665464807138233699, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665464807138233699, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665464807138233699, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665464807138233699, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665464807138233699, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.24
       objectReference: {fileID: 0}
     - target: {fileID: 5108470393034617959, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: m_Enabled
@@ -3115,7 +3156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0d0771abc96591942ace6d4636cce63c, type: 3}
+  m_Sprite: {fileID: -804944622, guid: ebef64a8874f13244a34e74755f2c1c8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

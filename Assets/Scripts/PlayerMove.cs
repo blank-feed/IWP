@@ -32,6 +32,7 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) || PlayerManager.instance.dialogueStarted)
         {
             isMoving = false;
+            PlayerManager.instance.playerAnimator.SetBool("RunMove", false);
             HideIndicator();
         }
 
@@ -43,6 +44,7 @@ public class PlayerMove : MonoBehaviour
         targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         targetPosition.z = transform.position.z; // Ensure the z-coordinate remains the same
         ShowIndicator();
+        PlayerManager.instance.playerAnimator.SetBool("RunMove", true);
         isMoving = true;
     }
 
@@ -56,6 +58,7 @@ public class PlayerMove : MonoBehaviour
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
                 isMoving = false;
+                PlayerManager.instance.playerAnimator.SetBool("RunMove", false);
                 HideIndicator();
             }
         }

@@ -74,9 +74,14 @@ public class PlayerManager : MonoBehaviour
     //Die
     public int MaxDieNum = 20;
 
-    GameObject enemy;
+    //animation shits
+    public Animator playerAnimator;
 
-    public GameObject prefab_Inventory; 
+    GameObject talkablePerson;
+
+    public GameObject prefab_Inventory;
+
+    public bool fightable;
 
     private void Awake()
     {
@@ -108,11 +113,6 @@ public class PlayerManager : MonoBehaviour
                 SceneStart();
             }
 
-            //if (Input.GetKeyDown(KeyCode.X))
-            //{
-            //    InventoryManager.instance.RemoveItem("Egg", 1);
-            //}
-
             if (Input.GetKeyDown(KeyCode.F) && inRange && !DialogueManager.isActive)
             {
                 if (ConversableGOInrage != null)
@@ -125,10 +125,10 @@ public class PlayerManager : MonoBehaviour
 
             if (inRange)
             {
-                newPrefabInstance.transform.position = Camera.main.WorldToScreenPoint(enemy.transform.position);
+                newPrefabInstance.transform.position = Camera.main.WorldToScreenPoint(talkablePerson.transform.position);
             }
 
-            //LevelCheck();
+            LevelCheck();
 
             //Update UI values
             UIUpdate();
@@ -144,15 +144,18 @@ public class PlayerManager : MonoBehaviour
         if (other.CompareTag("conversable"))
         {
             ConversableGOInrage = other.gameObject;
-            newPrefabInstance = Instantiate(InteractIcon_prefab, Vector3.zero, Quaternion.identity);
-            newPrefabInstance.name = "Interact_Icon";
-            Canvas canvas = FindObjectOfType<Canvas>();
-            if (canvas != null)
+            if (newPrefabInstance == null)
             {
-                newPrefabInstance.transform.SetParent(canvas.transform, false);
+                newPrefabInstance = Instantiate(InteractIcon_prefab, Vector3.zero, Quaternion.identity);
+                newPrefabInstance.name = "Interact_Icon";
+                Canvas canvas = FindObjectOfType<Canvas>();
+                if (canvas != null)
+                {
+                    newPrefabInstance.transform.SetParent(canvas.transform, false);
+                }
             }
             inRange = true;
-            enemy = other.gameObject;
+            talkablePerson = other.gameObject;
         }
     }
 
@@ -162,15 +165,16 @@ public class PlayerManager : MonoBehaviour
         {
             ConversableGOInrage = null;
             GameObject destroying = GameObject.Find("Interact_Icon");
+            newPrefabInstance = null;
             Destroy(destroying);
             inRange = false;
-            enemy = null;
+            talkablePerson = null;
         }
     }
 
     void UIUpdate()
     {
-        transform.localScale = new Vector3(1.5f, 1.5f, 1f);
+        transform.localScale = new Vector3(5f, 5f, 1f);
         playerSprite = spriteChosen;
         ExpBar.value = exp;
         HealthBar.value = health;
@@ -198,20 +202,20 @@ public class PlayerManager : MonoBehaviour
 
     void LevelCheck()
     {
-        if (exp == maxExp)
+        if (exp >= maxExp)
         {
+            //level up
             level++;
-            SkillPoints++;
-            exp = 0;
+            //set exp back to 0 and increases max exp
+            exp = exp - maxExp;
             maxExp += 10;
             ExpBar.maxValue = maxExp;
+            //increase max health
+            maxHealth += 15;
+            health += 15;
+            HealthBar.maxValue = maxHealth;
         }
     }
-
-    //public PlayerSkills GetPlayerSkills()
-    //{
-    //    //return playerSkills;
-    //}
 
     public void FlipSprite(bool ToF)
     {

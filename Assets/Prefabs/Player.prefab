@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4665464807138233699}
   - component: {fileID: 8975886795933706725}
   - component: {fileID: 350658778532744568}
+  - component: {fileID: 3670723748839635846}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -105,9 +106,12 @@ MonoBehaviour:
   InteractIcon_prefab: {fileID: 8731405266958779075, guid: bfdbc44f8ecee124a8ae2d43b94f80bc, type: 3}
   PlayerRace: 0
   PlayerClass: 0
+  inRange: 0
   dialogueStarted: 0
+  bootsclicked: 0
   playerSprite: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  spriteChosen: {fileID: 0}
   moveSpeed: 5
   health: 100
   maxHealth: 100
@@ -118,6 +122,9 @@ MonoBehaviour:
   maxExp: 100
   SkillPoints: 1
   MaxDieNum: 20
+  playerAnimator: {fileID: 0}
+  prefab_Inventory: {fileID: 0}
+  fightable: 0
 --- !u!114 &-6192792445335321578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,3 +221,23 @@ MonoBehaviour:
   Boon_Img: []
   range: 0
   repeat: -1
+--- !u!95 &3670723748839635846
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4665218645162043694}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f2e8dafdeddfa5b4496539ce005f1382, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0

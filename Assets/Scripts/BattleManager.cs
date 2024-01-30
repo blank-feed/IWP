@@ -399,6 +399,10 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator EndBattle()
     {
+        if (PlayerManager.instance.health <= 0)
+        {
+            PlayerManager.instance.playerAnimator.SetTrigger("RunDeath");
+        }
         yield return new WaitForSeconds(1.0f);
         SceneManager.LoadScene("MainLobby");
     }

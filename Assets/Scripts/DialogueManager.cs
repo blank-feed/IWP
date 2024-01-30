@@ -51,18 +51,16 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            if (DialogueTrigger.AllMessages_Index < DialogueTrigger.AllMessages_Length - 1)
-            {
-                DialogueTrigger.AllMessages_Index++;
-                FindAnyObjectByType<DialogueTrigger>().StartDialogue();
-                return;
-            }
             DialogueTrigger.AllMessages_Index = 0;
             DialogueTrigger.AllMessages_Length = 0;
             PlayerManager.instance.dialogueStarted = false;
             isActive = false;
             DialogueUI.SetActive(false);
-            SceneManager.LoadScene("TMBattleScene");
+
+            if (PlayerManager.instance.fightable)
+            {
+                SceneManager.LoadScene("TMBattleScene");
+            }
         }
     }
 

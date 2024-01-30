@@ -39,7 +39,7 @@ public class playermovetile : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         tmap = GameObject.Find("Tilemap_Base").GetComponent<Tilemap>();
-        player.transform.localScale = new Vector3(.5f, .5f, 1);
+        player.transform.localScale = new Vector3(2.5f, 2.5f, 1);
         player.transform.position = tmap.GetCellCenterWorld(new Vector3Int(-4, 0));
         foreach (GameObject e in enemies)
         {
@@ -101,6 +101,7 @@ public class playermovetile : MonoBehaviour
                 TileBase destinationTile = GetDestination(targetPosition, movespaces);
                 if (destinationTile != null)
                 {
+                    PlayerManager.instance.playerAnimator.SetTrigger("RunAtk");
                     Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
                     foreach (GameObject e in enemies)
                     {
@@ -124,6 +125,7 @@ public class playermovetile : MonoBehaviour
                 TileBase destinationTile = GetDestination(targetPosition, movespaces);
                 if (destinationTile != null)
                 {
+                    PlayerManager.instance.playerAnimator.SetTrigger("RunAtk");
                     Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
                     foreach (GameObject e in enemies)
                     {
@@ -148,6 +150,7 @@ public class playermovetile : MonoBehaviour
                 TileBase destinationTile = GetDestination(targetPosition, movespaces);
                 if (destinationTile != null)
                 {
+                    PlayerManager.instance.playerAnimator.SetTrigger("RunAtk");
                     Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
                     foreach (GameObject e in enemies)
                     {
@@ -513,6 +516,7 @@ public class playermovetile : MonoBehaviour
 
     void LeanTweenIt(GameObject obj, Vector3 targetPos, float duration)
     {
+        PlayerManager.instance.playerAnimator.SetBool("RunMove", true);
         isMoving = true;
         Vector3 originalPos = obj.transform.position;
         bool isX;
@@ -532,11 +536,11 @@ public class playermovetile : MonoBehaviour
         // Choose the appropriate tween method based on the specified axis
         if (isX)
         {
-            LeanTween.moveX(obj, targetPos.x, duration).setEase(easeType).setOnComplete(() => { DestroyObjectsWithName("BouncingArrow"); isMoving = false; });
+            LeanTween.moveX(obj, targetPos.x, duration).setEase(easeType).setOnComplete(() => { DestroyObjectsWithName("BouncingArrow"); isMoving = false; PlayerManager.instance.playerAnimator.SetBool("RunMove", false); });
         }
         else
         {
-            LeanTween.moveY(obj, targetPos.y, duration).setEase(easeType).setOnComplete(() => { DestroyObjectsWithName("BouncingArrow"); isMoving = false; });
+            LeanTween.moveY(obj, targetPos.y, duration).setEase(easeType).setOnComplete(() => { DestroyObjectsWithName("BouncingArrow"); isMoving = false; PlayerManager.instance.playerAnimator.SetBool("RunMove", false); });
         }
     }
 }

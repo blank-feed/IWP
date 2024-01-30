@@ -101,6 +101,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -830,7 +842,6 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       druid_26: 241840591
-      druid_31: -1792695281
       druid_2: -1963543064
       druid_29: -504732146
       druid_20: -1003887982
@@ -853,6 +864,7 @@ TextureImporter:
       druid_21: 33165879
       druid_6: -2075199246
       druid_28: 1724594941
+      druid_31: -1792695281
       druid_13: 1246261351
       druid_15: -212388289
       druid_11: 1972577747

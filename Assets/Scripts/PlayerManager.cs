@@ -197,6 +197,8 @@ public class PlayerManager : MonoBehaviour
         ExpBar.maxValue = maxExp;
         HealthBar.maxValue = maxHealth;
         //ManaBar.maxValue = maxMana;
+        Sprite playerpfp = GameObject.Find("PlayerPFP").GetComponent<Image>().sprite = spriteChosen;
+        GameObject.Find("PlayerPFP").transform.localScale = new Vector3(.3f, .3f, 1);
         runOnce = true;
     }
 

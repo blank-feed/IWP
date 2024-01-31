@@ -39,6 +39,10 @@ public class DialogueManager : MonoBehaviour
         Actor actorToDisplay = currentActors[messageToDisplay.actorID];
         actorName.text = actorToDisplay.name;
         actorImg.sprite = actorToDisplay.sprite;
+        if (actorToDisplay.self)
+        {
+            actorImg.sprite = PlayerManager.instance.spriteChosen;
+        }
     }
 
     public void NextMessage()

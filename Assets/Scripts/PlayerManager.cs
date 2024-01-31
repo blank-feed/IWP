@@ -83,10 +83,13 @@ public class PlayerManager : MonoBehaviour
 
     public bool fightable;
 
+    public Vector3 lastPos = new Vector3(54, 31, 0);
+
+    public Vector3 lor = new Vector3(5, 5, 1);
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        //playerSkills = new PlayerSkills();
 
         if (instance == null)
         {
@@ -103,14 +106,19 @@ public class PlayerManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
         {
-            transform.position = new Vector3 (999, 999, 0);
+            transform.position = new Vector3 (0, 0, 0);
         }
 
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1))
         {
+            
             if (!runOnce)
             {
                 SceneStart();
+            }
+            else
+            {
+                lastPos = transform.position;
             }
 
             if (Input.GetKeyDown(KeyCode.F) && inRange && !DialogueManager.isActive)
@@ -174,7 +182,8 @@ public class PlayerManager : MonoBehaviour
 
     void UIUpdate()
     {
-        transform.localScale = new Vector3(5f, 5f, 1f);
+        //transform.localScale = new Vector3(5f, 5f, 1f);
+        transform.localScale = lor;
         playerSprite = spriteChosen;
         ExpBar.value = exp;
         HealthBar.value = health;
@@ -186,7 +195,7 @@ public class PlayerManager : MonoBehaviour
 
     void SceneStart()
     {
-        transform.position = new Vector3(0, 0, 0);
+        transform.position = lastPos;
         spriteRenderer.sprite = playerSprite;
         ExpBar = GameObject.Find("ExpBar").GetComponent<Slider>();
         HealthBar = GameObject.Find("Healthbar").GetComponent<Slider>();
@@ -225,28 +234,30 @@ public class PlayerManager : MonoBehaviour
         {
             if (transform.localScale.x > 0)
             {
-                // Get the current local scale
-                Vector3 scale = transform.localScale;
+                //// Get the current local scale
+                //Vector3 scale = transform.localScale;
 
-                // Invert the X scale to flip horizontally
-                scale.x *= -1;
+                //// Invert the X scale to flip horizontally
+                //scale.x *= -1;
 
-                // Update the local scale
-                transform.localScale = scale;
+                //// Update the local scale
+                //transform.localScale = scale;
+                lor.x = -5;
             }
         }
         else
         {
             if (transform.localScale.x < 0)
             {
-                // Get the current local scale
-                Vector3 scale = transform.localScale;
+                //// Get the current local scale
+                //Vector3 scale = transform.localScale;
 
-                // Invert the X scale to flip horizontally
-                scale.x *= -1;
+                //// Invert the X scale to flip horizontally
+                //scale.x *= -1;
 
-                // Update the local scale
-                transform.localScale = scale;
+                //// Update the local scale
+                //transform.localScale = scale;
+                lor.x = 5;
             }
         }
     }

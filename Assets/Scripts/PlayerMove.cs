@@ -11,6 +11,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 0, 1);
         if (SceneManager.GetActiveScene() != SceneManager.GetSceneByBuildIndex(1))
         {
             return;
@@ -44,6 +45,7 @@ public class PlayerMove : MonoBehaviour
         targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         targetPosition.z = transform.position.z; // Ensure the z-coordinate remains the same
         ShowIndicator();
+        PlayerManager.instance.FlipSprite(targetPosition.x < PlayerManager.instance.transform.position.x);
         PlayerManager.instance.playerAnimator.SetBool("RunMove", true);
         isMoving = true;
     }

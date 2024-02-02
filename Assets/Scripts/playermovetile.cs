@@ -8,8 +8,8 @@ public class playermovetile : MonoBehaviour
     public static playermovetile instance;
 
     GameObject player;
-    //public GameObject enemy;
-    public GameObject[] enemies;
+    public List<GameObject> enemies;
+    public GameObject[] EnemiesToInstantiate;
     Tilemap tmap;
     private Vector3 targetPosition;
     public int temp_num = -1;
@@ -37,6 +37,12 @@ public class playermovetile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EnemiesToInstantiate = PlayerManager.instance.enemies;
+        foreach (GameObject e in EnemiesToInstantiate)
+        {
+            GameObject Enemy = Instantiate(e);
+            enemies.Add(Enemy);
+        }
         player = GameObject.FindGameObjectWithTag("Player");
         tmap = GameObject.Find("Tilemap_Base").GetComponent<Tilemap>();
         player.transform.localScale = new Vector3(2.5f, 2.5f, 1);

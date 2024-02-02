@@ -50,6 +50,7 @@ public class InventoryManager : MonoBehaviour
         if (openInventoryUI)
         {
             InventoryUI.SetActive(true);
+            PlayerManager.instance.canMove = false;
 
             //display things
             if (!displayOnce)
@@ -69,6 +70,7 @@ public class InventoryManager : MonoBehaviour
             }
             UndisplayItems();
             InventoryUI.SetActive(false);
+            PlayerManager.instance.canMove = true;
         }
     }
 

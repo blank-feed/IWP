@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8025065793386604538}
   - component: {fileID: 8025065793386604536}
   m_Layer: 0
-  m_Name: enemy
+  m_Name: enemy_Melee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8025065793386604541}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -103,6 +103,9 @@ MonoBehaviour:
   attack: 15
   baseatk: 15
   startingPosition: {x: 4, y: 0, z: 0}
+  hpbar: {fileID: 0}
+  GivenBloodlust: 0
   EnemyHpBarPrefab: {fileID: 4590226450685844252, guid: 5eb4b956a0b1172448762bb1ca649659, type: 3}
   ProjectilePrefab: {fileID: 4054188100269978527, guid: ca93f0089dd6a684890aa3c0283dc6ff, type: 3}
   DmgIndicatorPrefab: {fileID: 658792239460126965, guid: c425fc0d3e32aeb44bfecc2f2e03dd7f, type: 3}
+  crippled: 0

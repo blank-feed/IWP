@@ -19,14 +19,16 @@ public class DialogueManager : MonoBehaviour
     int activeMessage = 0;
     public static bool isActive = false;
     public static DialogueManager instance;
+    bool GoFightScene = false;
 
-    public void OpenDialogue(Message[] messages, Actor[] actors)
+    public void OpenDialogue(Message[] messages, Actor[] actors, bool canFight)
     {
         DialogueUI.SetActive(true);
         currentMessages = messages;
         currentActors = actors;
         activeMessage = 0;
         isActive = true;
+        GoFightScene = canFight;
 
         DisplayMessage();
     }
@@ -61,7 +63,7 @@ public class DialogueManager : MonoBehaviour
             isActive = false;
             DialogueUI.SetActive(false);
 
-            if (PlayerManager.instance.fightable)
+            if (GoFightScene)
             {
                 SceneManager.LoadScene("TMBattleScene");
             }

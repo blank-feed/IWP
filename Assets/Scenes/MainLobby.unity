@@ -2814,6 +2814,10 @@ PrefabInstance:
       value: Circle (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4054188100269978527, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4054188100269978527, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
       propertyPath: m_TagString
       value: conversable
       objectReference: {fileID: 0}
@@ -2892,6 +2896,7 @@ MonoBehaviour:
       msg: I wanna fight u
     - actorID: 0
       msg: bring it
+    fightable: 1
   - messages_array:
     - actorID: 0
       msg: 
@@ -2901,6 +2906,7 @@ MonoBehaviour:
       msg: i dont wanna fight u anymore
     - actorID: 0
       msg: ok thanks
+    fightable: 0
   actors:
   - name: Player
     sprite: {fileID: 21300000, guid: 28ee00d79084a4942b3eb5082a7d7ccc, type: 3}
@@ -2908,6 +2914,24 @@ MonoBehaviour:
   - name: Enemy
     sprite: {fileID: 21300000, guid: bce41414a9f1d6b4a9dce6702a6fd84d, type: 3}
     self: 0
+--- !u!114 &1247363003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247363001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bacbcbf99efa0e54a89084542705931f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies:
+  - {fileID: 8025065793386604541, guid: 25fffd4aac5e640428963d0f1a43d178, type: 3}
+  - {fileID: 8025065793386604541, guid: 4f50d9108bedcf2449cacb8c5da8d15a, type: 3}
+  startingPos:
+  - {x: 4, y: 0, z: 0}
+  - {x: 4, y: 3, z: 0}
 --- !u!1 &1273586905
 GameObject:
   m_ObjectHideFlags: 0
@@ -4997,6 +5021,7 @@ MonoBehaviour:
       msg: I wanna fight u
     - actorID: 0
       msg: bring it
+    fightable: 0
   actors:
   - name: Player
     sprite: {fileID: 21300000, guid: 28ee00d79084a4942b3eb5082a7d7ccc, type: 3}

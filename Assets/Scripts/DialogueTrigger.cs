@@ -13,18 +13,25 @@ public class DialogueTrigger : MonoBehaviour
 
     public void StartDialogue()
     {
-        PlayerManager.instance.fightable = fightable;
         AllMessages_Length = AllMessages.Length;
-        if (!talkedBefore)
+        if (PlayerPrefs.GetInt(gameObject.name, 0) == 0)
         {
             AllMessages_Index = 0;
         }
         else
         {
-            AllMessages_Index = 1;
+            if (AllMessages.Length != 1)
+            {
+                AllMessages_Index = 1;
+            }
+            else
+            {
+                AllMessages_Index = 0;
+            }
         }
+        fightable = AllMessages[AllMessages_Index].fightable;
         Message[] msg = AllMessages[AllMessages_Index].messages_array;
-        FindAnyObjectByType<DialogueManager>().OpenDialogue(msg, actors);
+        FindAnyObjectByType<DialogueManager>().OpenDialogue(msg, actors, fightable);
     }
 }
 
@@ -32,6 +39,7 @@ public class DialogueTrigger : MonoBehaviour
 public class AllMessages
 {
     public Message[] messages_array;
+    public bool fightable;
 }
 
 [System.Serializable]

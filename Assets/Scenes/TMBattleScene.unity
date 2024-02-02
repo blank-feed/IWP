@@ -460,9 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bcbf358ebaf2a24ab4406e875e72811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 1851262555}
-  - {fileID: 584521118}
+  enemies: []
   temp_num: -1
   MoveableArrowsPrefab: {fileID: 2644070625012694242, guid: ff816d9fe9e94234cb00de4fa6031e3e, type: 3}
   HittablePrefab: {fileID: 2644070625012694242, guid: 64482e022b3d387489a599b19ccaf1b6, type: 3}
@@ -2904,7 +2902,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &584521119
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9175,11 +9173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93ec7feee6e24e4a824f9a5c7d4d2be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1851262555 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8025065793386604541, guid: 25fffd4aac5e640428963d0f1a43d178, type: 3}
-  m_PrefabInstance: {fileID: 8025065794958942630}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1888849430
 GameObject:
   m_ObjectHideFlags: 0
@@ -9948,6 +9941,10 @@ PrefabInstance:
     - target: {fileID: 8025065793386604541, guid: 25fffd4aac5e640428963d0f1a43d178, type: 3}
       propertyPath: m_Name
       value: enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025065793386604541, guid: 25fffd4aac5e640428963d0f1a43d178, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25fffd4aac5e640428963d0f1a43d178, type: 3}

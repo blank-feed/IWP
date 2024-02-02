@@ -2154,11 +2154,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2732253920464025865, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: lastPos.x
-      value: 54
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2732253920464025865, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: lastPos.y
-      value: 31
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2732253920464025865, guid: 0871dbaa73841164e9988f78530ea69c, type: 3}
       propertyPath: moveSpeed

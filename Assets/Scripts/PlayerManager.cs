@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject InteractIcon_prefab;
     GameObject newPrefabInstance;
-    GameObject ConversableGOInrage;
+    public GameObject ConversableGOInrage;
     public enum Race
     {
         Human,
@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
     public bool inRange = false;
     public bool dialogueStarted = false;
     public bool bootsclicked = false;
+    //public bool fightable = false;
 
     //sprites
     public Sprite playerSprite;
@@ -81,15 +82,18 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject prefab_Inventory;
 
-    public bool fightable;
-
     public Vector3 lastPos = new Vector3(54, 31, 0);
 
     public Vector3 lor = new Vector3(5, 5, 1);
 
+    public GameObject[] enemies;
+
+    public bool canMove = true;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        PlayerPrefs.DeleteAll();
 
         if (instance == null)
         {
@@ -125,7 +129,13 @@ public class PlayerManager : MonoBehaviour
             {
                 if (ConversableGOInrage != null)
                 {
+                    EnemyOverworld EO = ConversableGOInrage.GetComponent<EnemyOverworld>();
+                    if (EO != null)
+                    {
+                        enemies = EO.enemies;
+                    }
                     ConversableGOInrage.GetComponent<DialogueTrigger>().StartDialogue();
+                    PlayerPrefs.SetInt(ConversableGOInrage.name, 1);
                     inRange = false;
                 }
                 dialogueStarted = true;

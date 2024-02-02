@@ -19,6 +19,10 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (!PlayerManager.instance.canMove)
+            {
+                return;
+            }
             if (PlayerManager.instance.dialogueStarted)
             {
                 if (DialogueManager.isActive)

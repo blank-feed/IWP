@@ -22,7 +22,7 @@ public class InventoryUIItem : MonoBehaviour
 
         if (ItemName.text == "Egg")
         {
-            ItemDesc.text = "Eat egg good for health. Add 10hp";
+            ItemDesc.text = "Egg good for health.\nConsuming restores 10hp";
         }
     }
 
@@ -35,8 +35,8 @@ public class InventoryUIItem : MonoBehaviour
             {
                 PlayerManager.instance.health = PlayerManager.instance.maxHealth;
             }
+            InventoryManager.instance.RemoveItem(ItemName.text, 1);
         }
-        InventoryManager.instance.RemoveItem(ItemName.text, 1);
         InventoryManager.instance.UndisplayItems();
         InventoryManager.instance.DisplayItems();
         OnClickCancel();

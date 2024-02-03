@@ -117,8 +117,6 @@ public class playermovetile : MonoBehaviour
                             BattleManager.instance.confiscation++;
                         }
                     }
-                    PlayerManager.instance.mana -= BattleManager.instance.ManaToDeduct;
-                    BattleManager.instance.ManaToDeduct = 0;
                     BattleManager.instance.can_melee = false;
                     DestroyObjectsWithName("swordcross");
                     BattleManager.instance.bs = BattlingState.enemyturn;
@@ -141,8 +139,6 @@ public class playermovetile : MonoBehaviour
                         }
                     }
                     LeanTweenIt(player, tmap.GetCellCenterWorld(destinationCell), 1);
-                    PlayerManager.instance.mana -= BattleManager.instance.ManaToDeduct;
-                    BattleManager.instance.ManaToDeduct = 0;
                     BattleManager.instance.can_dash = false;
                     DestroyObjectsWithName("swordcross");
                     DestroyObjectsWithName("crosshair");
@@ -191,8 +187,6 @@ public class playermovetile : MonoBehaviour
                     {
                         BattleManager.instance.HighShotCount = 0;
                     }
-                    PlayerManager.instance.mana -= BattleManager.instance.ManaToDeduct;
-                    BattleManager.instance.ManaToDeduct = 0;
                     BattleManager.instance.can_shoot = false;
                     DestroyObjectsWithName("crosshair");
                     BattleManager.instance.bs = BattlingState.enemyturn;

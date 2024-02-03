@@ -106,6 +106,19 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public bool HasItem(string item_name)
+    {
+        for (int i = 0; i < Item_List.Count; i++)
+        {
+            if (Item_List[i].Name == item_name)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void DisplayItems()
     {
         for (int i = 0; i < Item_List.Count; i++)

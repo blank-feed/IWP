@@ -52,10 +52,6 @@ public class PlayerManager : MonoBehaviour
     public int health = 100;
     public int maxHealth = 100;
 
-    //mana
-    public int mana = 100;
-    public int maxMana = 100;
-
     //level / exp
     public int level = 1;
     public int exp = 0;
@@ -70,7 +66,6 @@ public class PlayerManager : MonoBehaviour
     //TMPros
     private TextMeshProUGUI HealthText;
     private TextMeshProUGUI LevelText;
-    private TextMeshProUGUI ManaText;
 
     //Die
     public int MaxDieNum = 20;
@@ -135,7 +130,18 @@ public class PlayerManager : MonoBehaviour
                         enemies = EO.enemies;
                     }
                     ConversableGOInrage.GetComponent<DialogueTrigger>().StartDialogue();
-                    PlayerPrefs.SetInt(ConversableGOInrage.name, 1);
+                    if (ConversableGOInrage.GetComponent<DialogueTrigger>().AllMessages[0].NeedGive)
+                    {
+                        if (InventoryManager.instance.HasItem("Egg"))
+                        {
+                            InventoryManager.instance.RemoveItem("Egg", 1);
+                            PlayerPrefs.SetInt(ConversableGOInrage.name, 1);
+                        }
+                    }
+                    else
+                    {
+                        PlayerPrefs.SetInt(ConversableGOInrage.name, 1);
+                    }
                     inRange = false;
                 }
                 dialogueStarted = true;
@@ -192,15 +198,12 @@ public class PlayerManager : MonoBehaviour
 
     void UIUpdate()
     {
-        //transform.localScale = new Vector3(5f, 5f, 1f);
         transform.localScale = lor;
         playerSprite = spriteChosen;
         ExpBar.value = exp;
         HealthBar.value = health;
-        //ManaBar.value = mana;
         HealthText.text = health.ToString();
         LevelText.text = level.ToString();
-        //ManaText.text = mana.ToString();
     }
 
     void SceneStart()
@@ -209,13 +212,10 @@ public class PlayerManager : MonoBehaviour
         spriteRenderer.sprite = playerSprite;
         ExpBar = GameObject.Find("ExpBar").GetComponent<Slider>();
         HealthBar = GameObject.Find("Healthbar").GetComponent<Slider>();
-        //ManaBar = GameObject.Find("ManaBar").GetComponent<Slider>();
         HealthText = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
         LevelText = GameObject.Find("LevelNum").GetComponent<TextMeshProUGUI>();
-        //ManaText = GameObject.Find("ManaText").GetComponent<TextMeshProUGUI>();
         ExpBar.maxValue = maxExp;
         HealthBar.maxValue = maxHealth;
-        //ManaBar.maxValue = maxMana;
         Sprite playerpfp = GameObject.Find("PlayerPFP").GetComponent<Image>().sprite = spriteChosen;
         GameObject.Find("PlayerPFP").transform.localScale = new Vector3(.3f, .3f, 1);
         runOnce = true;
@@ -244,14 +244,6 @@ public class PlayerManager : MonoBehaviour
         {
             if (transform.localScale.x > 0)
             {
-                //// Get the current local scale
-                //Vector3 scale = transform.localScale;
-
-                //// Invert the X scale to flip horizontally
-                //scale.x *= -1;
-
-                //// Update the local scale
-                //transform.localScale = scale;
                 lor.x = -5;
             }
         }
@@ -259,14 +251,6 @@ public class PlayerManager : MonoBehaviour
         {
             if (transform.localScale.x < 0)
             {
-                //// Get the current local scale
-                //Vector3 scale = transform.localScale;
-
-                //// Invert the X scale to flip horizontally
-                //scale.x *= -1;
-
-                //// Update the local scale
-                //transform.localScale = scale;
                 lor.x = 5;
             }
         }

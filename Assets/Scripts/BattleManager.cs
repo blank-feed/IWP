@@ -91,7 +91,6 @@ public class BattleManager : MonoBehaviour
     public bool VoidJumped = false;
     public int HighShotCount = 0;
     public int MoveCount;
-    public int ManaToDeduct;
     public Vector3 Ori_Pos;
 
     private void Awake()

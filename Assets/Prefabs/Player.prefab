@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4665218645162043695}
   - component: {fileID: 2732253920464025865}
   - component: {fileID: -6192792445335321578}
-  - component: {fileID: 5108470393034617959}
   - component: {fileID: 4665464807138233699}
   - component: {fileID: 8975886795933706725}
   - component: {fileID: 350658778532744568}
@@ -104,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractIcon_prefab: {fileID: 8731405266958779075, guid: bfdbc44f8ecee124a8ae2d43b94f80bc, type: 3}
+  ConversableGOInrage: {fileID: 0}
   PlayerRace: 0
   PlayerClass: 0
   inRange: 0
@@ -115,8 +115,6 @@ MonoBehaviour:
   moveSpeed: 5
   health: 100
   maxHealth: 100
-  mana: 100
-  maxMana: 100
   level: 1
   exp: 0
   maxExp: 100
@@ -124,7 +122,10 @@ MonoBehaviour:
   MaxDieNum: 20
   playerAnimator: {fileID: 0}
   prefab_Inventory: {fileID: 0}
-  fightable: 0
+  lastPos: {x: 54, y: 31, z: 0}
+  lor: {x: 5, y: 5, z: 1}
+  enemies: []
+  canMove: 1
 --- !u!114 &-6192792445335321578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,21 +139,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicatorPrefab: {fileID: 5123265173141194266, guid: 3e9d838b47b8452468e5a398d7905a52, type: 3}
---- !u!114 &5108470393034617959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4665218645162043694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f76b5765626955c4798120cfa951a53a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 4054188100269978527, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
-  shootForce: 10
-  ballLifetime: 3
 --- !u!61 &4665464807138233699
 BoxCollider2D:
   m_ObjectHideFlags: 0

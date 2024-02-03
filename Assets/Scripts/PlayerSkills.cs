@@ -88,18 +88,10 @@ public class PlayerSkills : MonoBehaviour
         switch (skill_used)
         {
             case AllSkills.Holy_Strike:
-                //if (PlayerManager.instance.mana >= 10)
-                //{ 
-                    range = Range.Melee;
-                    playermovetile.instance.movespaces = 1;
-                    BattleManager.instance.Damage = 100 + BattleManager.instance.deficiency; //30 + deficiency
-                    BattleManager.instance.ManaToDeduct = 10;
-                    BattleManager.instance.can_melee = true;
-                //}
-                //else
-                //{
-                //    BattleManager.instance.bs = BattlingState.playerturn;
-                //}
+                range = Range.Melee;
+                playermovetile.instance.movespaces = 1;
+                BattleManager.instance.Damage = 100 + BattleManager.instance.deficiency; //30 + deficiency
+                BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Holy_Heal:
                 range = Range.Self;

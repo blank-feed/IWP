@@ -40,6 +40,7 @@ public class AllMessages
 {
     public Message[] messages_array;
     public bool fightable;
+    public bool NeedGive;
 }
 
 [System.Serializable]

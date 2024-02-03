@@ -257,7 +257,7 @@ public class PlayerSkills : MonoBehaviour
             case AllSkills.Dragon_Beam:
                 range = Range.Ranged;
                 BattleManager.instance.Damage = 10 * (BattleManager.instance.Dragon_Pals + 1);
-                playermovetile.instance.movespaces = 5;
+                playermovetile.instance.movespaces = 4;
                 BattleManager.instance.can_shoot = true;
                 break;
             case AllSkills.Winged_Buddy:

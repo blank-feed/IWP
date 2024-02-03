@@ -19,11 +19,27 @@ public class InventoryUIItem : MonoBehaviour
         ItemDescription.SetActive(true);
         ItemName.text = IUIItemName.text;
         ItemImg.sprite = IUIItemImg.sprite;
+
+        if (ItemName.text == "Egg")
+        {
+            ItemDesc.text = "Eat egg good for health. Add 10hp";
+        }
     }
 
     public void OnClickUseItem()
     {
+        if (ItemName.text == "Egg")
+        {
+            PlayerManager.instance.health += 10;
+            if (PlayerManager.instance.health > PlayerManager.instance.maxHealth)
+            {
+                PlayerManager.instance.health = PlayerManager.instance.maxHealth;
+            }
+        }
         InventoryManager.instance.RemoveItem(ItemName.text, 1);
+        InventoryManager.instance.UndisplayItems();
+        InventoryManager.instance.DisplayItems();
+        OnClickCancel();
     }
 
     public void OnClickCancel()

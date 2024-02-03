@@ -134,7 +134,7 @@ public class InventoryManager : MonoBehaviour
         displayOnce = true;
     }
 
-    void UndisplayItems()
+    public void UndisplayItems()
     {
         if (!InventoryGrid.activeSelf)
         {

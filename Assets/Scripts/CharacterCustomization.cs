@@ -92,6 +92,8 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S2_Img = skillImg[1];
                 playerSkills.S3_Img = skillImg[2];
                 PlayerManager.instance.spriteChosen = paladin;
+                PlayerManager.instance.maxHealth = 100;
+                PlayerManager.instance.health = 100;
                 PlayerManager.instance.gameObject.GetComponent<Animator>().runtimeAnimatorController = animators[0];
                 break;
             case 1:
@@ -105,6 +107,8 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S2_Img = skillImg[7];
                 playerSkills.S3_Img = skillImg[8];
                 PlayerManager.instance.spriteChosen = sorcerer;
+                PlayerManager.instance.maxHealth = 60;
+                PlayerManager.instance.health = PlayerManager.instance.maxHealth;
                 PlayerManager.instance.gameObject.GetComponent<Animator>().runtimeAnimatorController = animators[2];
                 break;
             case 2:
@@ -118,6 +122,8 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S2_Img = skillImg[13];
                 playerSkills.S3_Img = skillImg[14];
                 PlayerManager.instance.spriteChosen = fighter;
+                PlayerManager.instance.maxHealth = 100;
+                PlayerManager.instance.health = PlayerManager.instance.maxHealth;
                 PlayerManager.instance.gameObject.GetComponent<Animator>().runtimeAnimatorController = animators[4];
                 break;
 
@@ -132,6 +138,8 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S2_Img = skillImg[4];
                 playerSkills.S3_Img = skillImg[5];
                 PlayerManager.instance.spriteChosen = rogue;
+                PlayerManager.instance.maxHealth = 75;
+                PlayerManager.instance.health = PlayerManager.instance.maxHealth;
                 PlayerManager.instance.gameObject.GetComponent<Animator>().runtimeAnimatorController = animators[1];
                 break;
             case 4:
@@ -145,6 +153,8 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S2_Img = skillImg[10];
                 playerSkills.S3_Img = skillImg[11];
                 PlayerManager.instance.spriteChosen = ranger;
+                PlayerManager.instance.maxHealth = 60;
+                PlayerManager.instance.health = PlayerManager.instance.maxHealth;
                 PlayerManager.instance.gameObject.GetComponent<Animator>().runtimeAnimatorController = animators[3];
                 break;
             case 5:
@@ -158,6 +168,8 @@ public class CharacterCustomization : MonoBehaviour
                 playerSkills.S2_Img = skillImg[16];
                 playerSkills.S3_Img = skillImg[17];
                 PlayerManager.instance.spriteChosen = druid;
+                PlayerManager.instance.maxHealth = 70;
+                PlayerManager.instance.health = PlayerManager.instance.maxHealth;
                 PlayerManager.instance.gameObject.GetComponent<Animator>().runtimeAnimatorController = animators[5];
                 break;
             default:

@@ -2,13 +2,18 @@ using UnityEngine;
 
 public class CircleTrigger : MonoBehaviour
 {
-    public GameObject Hp_UI;
+    public GameObject[] Target_UI;
+    public Vector3[] NewPos;
+    public Vector3[] OldPos;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            Hp_UI.GetComponent<RectTransform>().anchoredPosition = new Vector3(625, 0);
+            for (int i = 0; i < Target_UI.Length; i++)
+            {
+                Target_UI[i].GetComponent<RectTransform>().anchoredPosition = NewPos[i];
+            }
         }
     }
 
@@ -16,7 +21,10 @@ public class CircleTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Hp_UI.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0);
+            for (int i = 0; i < Target_UI.Length; i++)
+            {
+                Target_UI[i].GetComponent<RectTransform>().anchoredPosition = OldPos[i];
+            }
         }
     }
 }

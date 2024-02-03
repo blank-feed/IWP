@@ -10,7 +10,8 @@ public class Enemy : MonoBehaviour
     {
         Melee,
         Ranged,
-        Healer
+        Healer,
+        Boss
     }
 
     public EnemyType enemyType;
@@ -23,12 +24,15 @@ public class Enemy : MonoBehaviour
     TextMeshProUGUI hptxt;
     int c = 0;
     public bool GivenBloodlust = false;
+    public bool GivenExp = false;
 
     public GameObject EnemyHpBarPrefab;
     public GameObject ProjectilePrefab;
     public GameObject DmgIndicatorPrefab;
 
     public bool crippled = false;
+
+    bool boss_moveback = false;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +56,11 @@ public class Enemy : MonoBehaviour
 
     public void EnemyTurn()
     {
+        if (gameObject.transform.position == new Vector3(-10, -10))
+        {
+            return;
+        }
+
         if (BattleManager.instance.dicerolled)
         {
             BattleManager.instance.Dice.sprite = BattleManager.instance.DiceFaces[BattleManager.instance.PrevDiceRoll];
@@ -96,14 +105,14 @@ public class Enemy : MonoBehaviour
                         {
                             attack = Mathf.FloorToInt(playermovetile.instance.DistanceFromPlayer(gameObject)) + baseatk;
                             BattleManager.instance.deficiency += Mathf.FloorToInt(gameObject.GetComponent<Enemy>().attack / 3);
-                            ThrowProjectile(ProjectilePrefab, attack);
+                            ThrowProjectile(ProjectilePrefab, attack, PlayerManager.instance.transform.position);
                         }
                         c = 1;
                         break;
                     case 1: //attack player
                         attack = Mathf.FloorToInt(playermovetile.instance.DistanceFromPlayer(gameObject)) + baseatk;
                         BattleManager.instance.deficiency += Mathf.FloorToInt(gameObject.GetComponent<Enemy>().attack / 3);
-                        ThrowProjectile(ProjectilePrefab, attack);
+                        ThrowProjectile(ProjectilePrefab, attack, PlayerManager.instance.transform.position);
                         c = 0;
                         break;
                     default:
@@ -146,6 +155,38 @@ public class Enemy : MonoBehaviour
                         break;
                 }
                 break;
+            case EnemyType.Boss:
+                if (health > 100 && !boss_moveback)
+                {
+                    if (playermovetile.instance.IsPlayer_X_TileAway(gameObject, 1))
+                    {
+                        PlayerManager.instance.health -= gameObject.GetComponent<Enemy>().attack;
+                        GameObject go = Instantiate(DmgIndicatorPrefab);
+                        go.transform.SetParent(GameObject.Find("Canvas").transform, false);
+                        go.transform.position = new Vector3(Camera.main.WorldToScreenPoint(PlayerManager.instance.transform.position).x, Camera.main.WorldToScreenPoint(PlayerManager.instance.transform.position).y + 75);
+                        go.GetComponent<DamageNumberIndicator>().baseText.text = "-" + gameObject.GetComponent<Enemy>().attack.ToString();
+                        BattleManager.instance.deficiency += Mathf.FloorToInt(gameObject.GetComponent<Enemy>().attack / 3);
+                    }
+                    else
+                    {
+                        playermovetile.instance.MoveTowardsPlayer(gameObject);
+                    }
+                }
+                if (health <= 100)
+                {
+                    if (!boss_moveback)
+                    {
+                        Vector3 targetPos = new Vector3(gameObject.transform.position.x + 3, gameObject.transform.position.y);
+                        playermovetile.instance.LeanTweenIt(gameObject, targetPos, 1f);
+                        boss_moveback = true;
+                    }
+                }
+                if (boss_moveback)
+                {
+                    BattleManager.instance.deficiency += Mathf.FloorToInt(gameObject.GetComponent<Enemy>().attack / 3);
+                    ThrowProjectile(ProjectilePrefab, attack, PlayerManager.instance.transform.position);
+                }
+                break;
             default:
                 break;
         }
@@ -156,7 +197,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void ThrowProjectile(GameObject projectilePrefab, int dmg)
+    void ThrowProjectile(GameObject projectilePrefab, int dmg, Vector3 pos)
     {
         if (!gameObject.activeSelf)
         {
@@ -168,13 +209,13 @@ public class Enemy : MonoBehaviour
         projectile.GetComponent<Projectile>().atk = dmg;
 
         // Calculate the direction from the enemy to the player
-        Vector3 directionToPlayer = (PlayerManager.instance.transform.position - gameObject.transform.position).normalized;
+        Vector3 directionToTarget = (pos - gameObject.transform.position).normalized;
 
         // Set the velocity of the ball to shoot it towards the player
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
         if (projectileRb != null)
         {
-            projectileRb.velocity = directionToPlayer * 7.5f;
+            projectileRb.velocity = directionToTarget * 7.5f;
         }
     }
 }

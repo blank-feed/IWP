@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8025065793386604541
+--- !u!1 &4054188100269978527
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8025065793386604539}
-  - component: {fileID: 8025065793386604538}
-  - component: {fileID: 8025065793386604536}
+  - component: {fileID: 6537755392336091375}
+  - component: {fileID: 3351646225142253567}
+  - component: {fileID: 3060962206649097987}
+  - component: {fileID: 1961009667394531495}
+  - component: {fileID: 3533198076061763145}
   m_Layer: 0
-  m_Name: enemy_Ranged
+  m_Name: Projectile_Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8025065793386604539
+--- !u!4 &6537755392336091375
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8025065793386604541}
+  m_GameObject: {fileID: 4054188100269978527}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5, y: 3.5, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalPosition: {x: -3, y: -1, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8025065793386604538
+--- !u!212 &3351646225142253567
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8025065793386604541}
+  m_GameObject: {fileID: 4054188100269978527}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -74,9 +76,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 31f91eedcf8dc364c8d51b24f9c57ff0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a9c995019c405c24ab36776ae8e593bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -85,27 +87,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8025065793386604536
+--- !u!50 &3060962206649097987
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4054188100269978527}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &1961009667394531495
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4054188100269978527}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.76
+--- !u!114 &3533198076061763145
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8025065793386604541}
+  m_GameObject: {fileID: 4054188100269978527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b62fd3be22890b448a8460bf14aa6e5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ec26106c96372648bfa364f3a03fe75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 1
-  health: 100
-  maxHp: 0
-  attack: 3
-  baseatk: 3
-  startingPosition: {x: 4, y: 3, z: 0}
-  hpbar: {fileID: 0}
-  GivenBloodlust: 0
-  EnemyHpBarPrefab: {fileID: 4590226450685844252, guid: 5eb4b956a0b1172448762bb1ca649659, type: 3}
-  ProjectilePrefab: {fileID: 4054188100269978527, guid: ca93f0089dd6a684890aa3c0283dc6ff, type: 3}
+  atk: 0
   DmgIndicatorPrefab: {fileID: 658792239460126965, guid: c425fc0d3e32aeb44bfecc2f2e03dd7f, type: 3}
-  crippled: 0

@@ -93,6 +93,7 @@ public class BattleManager : MonoBehaviour
     public int MoveCount;
     public Vector3 Ori_Pos;
 
+    int kills = 0;
     private void Awake()
     {
         if (instance != null)
@@ -199,6 +200,7 @@ public class BattleManager : MonoBehaviour
 
         if (AreAllEnemiesInactive())
         {
+            
             StartCoroutine(EndBattle());
         }
 
@@ -210,6 +212,11 @@ public class BattleManager : MonoBehaviour
                 {
                     bloodlust++;
                     e.GetComponent<Enemy>().GivenBloodlust = true;
+                }
+                if (!e.GetComponent<Enemy>().GivenExp)
+                {
+                    kills++;
+                    e.GetComponent<Enemy>().GivenExp = true;
                 }
                 e.transform.position = new Vector3(-10, -10);
                 Destroy(e.GetComponent<Enemy>().hpbar);
@@ -350,12 +357,10 @@ public class BattleManager : MonoBehaviour
 
             case 2:
                 Menu_Attack.SetActive(true);
-                BackIndicator.SetActive(true);
                 Boon_UI.SetActive(true);
                 break;
 
             case 3:
-                BackIndicator.SetActive(true);
                 stopmove_UI.SetActive(true);
                 break;
             case 4:
@@ -403,6 +408,19 @@ public class BattleManager : MonoBehaviour
             PlayerManager.instance.playerAnimator.SetTrigger("RunDeath");
         }
         yield return new WaitForSeconds(1.0f);
-        SceneManager.LoadScene("MainLobby");
+        PlayerManager.instance.exp += 100 * kills;
+        if (PlayerManager.instance.health <= 0)
+        {
+            SceneManager.LoadScene("Charc_SelectionScene");
+
+        }
+        else if (PlayerManager.instance.lastFight)
+        {
+            SceneManager.LoadScene("Charc_SelectionScene");
+        }
+        else
+        {
+            SceneManager.LoadScene("MainLobby");
+        }
     }
 }

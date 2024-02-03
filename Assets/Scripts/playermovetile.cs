@@ -75,7 +75,6 @@ public class playermovetile : MonoBehaviour
                 if (BattleManager.instance.MoveCount != 0)
                 {
                     targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    //movespaces = 1;
                     TileBase destinationTile = GetDestination(targetPosition, movespaces);
                     if (destinationTile != null)
                     {
@@ -88,6 +87,7 @@ public class playermovetile : MonoBehaviour
                         }
                         Vector3Int destinationCell = tmap.WorldToCell(targetPosition);
                         LeanTweenIt(player, tmap.GetCellCenterWorld(destinationCell), 1f);
+                        PlayerManager.instance.playerAnimator.SetBool("RunMove", true);
                         BattleManager.instance.MoveCount--;
                         BattleManager.instance.MoveCount_Text.text = BattleManager.instance.MoveCount.ToString();
                     }
@@ -97,6 +97,7 @@ public class playermovetile : MonoBehaviour
                         BattleManager.instance.MoveCount_UI.SetActive(false);
                         BattleManager.instance.moveable = false;
                         BattleManager.instance.bs = BattlingState.enemyturn;
+                        PlayerManager.instance.playerAnimator.SetBool("RunMove", false);
                     }
                 }
             }
@@ -514,9 +515,8 @@ public class playermovetile : MonoBehaviour
         return hitOnX && hitOnY;
     }
 
-    void LeanTweenIt(GameObject obj, Vector3 targetPos, float duration)
+    public void LeanTweenIt(GameObject obj, Vector3 targetPos, float duration)
     {
-        PlayerManager.instance.playerAnimator.SetBool("RunMove", true);
         isMoving = true;
         Vector3 originalPos = obj.transform.position;
         bool isX;

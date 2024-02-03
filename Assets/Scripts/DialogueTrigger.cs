@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
+    public bool lastfight = false;
     public bool talkedBefore = false;
     public bool fightable;
     public AllMessages[] AllMessages;

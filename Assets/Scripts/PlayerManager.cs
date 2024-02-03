@@ -85,6 +85,8 @@ public class PlayerManager : MonoBehaviour
 
     public bool canMove = true;
 
+    public bool lastFight = false;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -129,6 +131,7 @@ public class PlayerManager : MonoBehaviour
                     {
                         enemies = EO.enemies;
                     }
+                    lastFight = ConversableGOInrage.GetComponent<DialogueTrigger>().lastfight;
                     ConversableGOInrage.GetComponent<DialogueTrigger>().StartDialogue();
                     if (ConversableGOInrage.GetComponent<DialogueTrigger>().AllMessages[0].NeedGive)
                     {
@@ -229,7 +232,7 @@ public class PlayerManager : MonoBehaviour
             level++;
             //set exp back to 0 and increases max exp
             exp = exp - maxExp;
-            maxExp += 10;
+            maxExp += 100;
             ExpBar.maxValue = maxExp;
             //increase max health
             maxHealth += 15;

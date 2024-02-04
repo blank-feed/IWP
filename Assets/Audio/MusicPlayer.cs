@@ -7,6 +7,8 @@ public class MusicPlayer : MonoBehaviour
     public AudioClip standard_bgm;
     public AudioClip battle_bgm;
     public AudioClip lowhp_bgm;
+    public AudioClip win_bgm;
+    public AudioClip lose_bgm;
     private AudioSource musicSource;
 
     private void Awake()
@@ -37,6 +39,12 @@ public class MusicPlayer : MonoBehaviour
                 break;
             case 2:
                 musicClip = lowhp_bgm;
+                break;
+            case 3:
+                musicClip = win_bgm;
+                break;
+            case 4:
+                musicClip = lose_bgm;
                 break;
             default:
                 musicClip = standard_bgm;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8025065793386604538}
   - component: {fileID: 8025065793386604536}
   m_Layer: 0
-  m_Name: enemy_Ranged
+  m_Name: enemy_Ranged 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   maxHp: 0
   attack: 1
   baseatk: 1
-  startingPosition: {x: 4, y: 3, z: 0}
+  startingPosition: {x: 4, y: -3, z: 0}
   hpbar: {fileID: 0}
   GivenBloodlust: 0
   GivenExp: 0

@@ -2841,6 +2841,8 @@ MonoBehaviour:
   standard_bgm: {fileID: 8300000, guid: c4a1fa5eeb138ec408909381406d1b01, type: 3}
   battle_bgm: {fileID: 8300000, guid: dd9da28d4d1954b4aa97725b74aa282e, type: 3}
   lowhp_bgm: {fileID: 8300000, guid: 14c5f7e5ffbbf6a42a9f14826da16306, type: 3}
+  win_bgm: {fileID: 8300000, guid: 68f023844a4b0e04d9ee279c59d5abe0, type: 3}
+  lose_bgm: {fileID: 8300000, guid: 26b800e039ab590458c6d7c5f4b307b7, type: 3}
 --- !u!4 &1446550256
 Transform:
   m_ObjectHideFlags: 0

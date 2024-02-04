@@ -422,6 +422,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             SceneManager.LoadScene("MainLobby");
+            MusicPlayer.instance.PlayBGM(0);
         }
     }
 }

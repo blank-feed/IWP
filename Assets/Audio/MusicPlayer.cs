@@ -28,6 +28,7 @@ public class MusicPlayer : MonoBehaviour
 
     public void PlayBGM(int music_Num)
     {
+        musicSource = GetComponent<AudioSource>();
         AudioClip musicClip;
         switch (music_Num)
         {
@@ -42,15 +43,16 @@ public class MusicPlayer : MonoBehaviour
                 break;
             case 3:
                 musicClip = win_bgm;
+                musicSource.loop = false;
                 break;
             case 4:
                 musicClip = lose_bgm;
+                musicSource.loop = false;
                 break;
             default:
                 musicClip = standard_bgm;
                 break;
         }
-        musicSource = GetComponent<AudioSource>();
         musicSource.clip = musicClip;
         musicSource.Play();
     }

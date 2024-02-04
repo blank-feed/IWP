@@ -87,6 +87,7 @@ public class PlayerManager : MonoBehaviour
 
     public bool lastFight = false;
 
+    public int BonusDamage = 0;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -238,6 +239,8 @@ public class PlayerManager : MonoBehaviour
             maxHealth += 15;
             health += 15;
             HealthBar.maxValue = maxHealth;
+            //increase base attack
+            BonusDamage += 5;
         }
     }
 

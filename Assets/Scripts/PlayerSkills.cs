@@ -90,7 +90,7 @@ public class PlayerSkills : MonoBehaviour
             case AllSkills.Holy_Strike:
                 range = Range.Melee;
                 playermovetile.instance.movespaces = 1;
-                BattleManager.instance.Damage = 100 + BattleManager.instance.deficiency; //30 + deficiency
+                BattleManager.instance.Damage = 30 + BattleManager.instance.deficiency + PlayerManager.instance.BonusDamage;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Holy_Heal:
@@ -114,17 +114,17 @@ public class PlayerSkills : MonoBehaviour
                 playermovetile.instance.movespaces = 1;
                 if (PlayerManager.instance.health < 50)
                 {
-                    BattleManager.instance.Damage = 40 + BattleManager.instance.deficiency;
+                    BattleManager.instance.Damage = 40 + BattleManager.instance.deficiency + PlayerManager.instance.BonusDamage;
                 }
                 else
                 {
-                    BattleManager.instance.Damage = 20;
+                    BattleManager.instance.Damage = 20 + PlayerManager.instance.BonusDamage;
                 }
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Slip_Snip:
                 range = Range.Melee;
-                BattleManager.instance.Damage = 20 + (BattleManager.instance.confiscation * random);
+                BattleManager.instance.Damage = 20 + (BattleManager.instance.confiscation * random) + PlayerManager.instance.BonusDamage;
                 playermovetile.instance.movespaces = 3;
                 BattleManager.instance.can_dash = true;
                 break;
@@ -135,14 +135,14 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Agile_Snip:
                 range = Range.Melee;
-                BattleManager.instance.Damage = 40 + (BattleManager.instance.confiscation * random);
+                BattleManager.instance.Damage = 40 + (BattleManager.instance.confiscation * random) + PlayerManager.instance.BonusDamage;
                 playermovetile.instance.movespaces = 1;
                 BattleManager.instance.can_dash = true;
                 break;
             case AllSkills.Arcane_Smash:
                 range = Range.Ranged;
                 BattleManager.instance.amplification++;
-                BattleManager.instance.Damage = 25;
+                BattleManager.instance.Damage = 25 + PlayerManager.instance.BonusDamage;
                 if (BattleManager.instance.amplification == 4)
                 {
                     BattleManager.instance.Damage *= 2;
@@ -154,7 +154,7 @@ public class PlayerSkills : MonoBehaviour
             case AllSkills.Blood_Siphon:
                 range = Range.Ranged;
                 BattleManager.instance.amplification++;
-                BattleManager.instance.Damage = 25;
+                BattleManager.instance.Damage = 25 + PlayerManager.instance.BonusDamage;
                 BattleManager.instance.LifeSteal = true;
                 if (BattleManager.instance.amplification == 4)
                 {
@@ -203,7 +203,7 @@ public class PlayerSkills : MonoBehaviour
                 {
                     range = Range.Ranged;
                     playermovetile.instance.movespaces = 4;
-                    BattleManager.instance.Damage = 90;
+                    BattleManager.instance.Damage = 80 + PlayerManager.instance.BonusDamage;
                     BattleManager.instance.can_shoot = true;
                 }
                 else
@@ -214,14 +214,14 @@ public class PlayerSkills : MonoBehaviour
                 break;
             case AllSkills.Barrage_Strike:
                 range = Range.Ranged;
-                BattleManager.instance.Damage = 24;
+                BattleManager.instance.Damage = 24 + PlayerManager.instance.BonusDamage;
                 playermovetile.instance.movespaces = 5;
                 BattleManager.instance.can_shoot = true;
                 break;
             case AllSkills.Frenzy_Impact:
                 range = Range.Melee;
                 playermovetile.instance.movespaces = 1;
-                BattleManager.instance.Damage = 12 * random;
+                BattleManager.instance.Damage = (12 * random) + PlayerManager.instance.BonusDamage;
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Critical_Opportunity:
@@ -230,7 +230,7 @@ public class PlayerSkills : MonoBehaviour
                 BattleManager.instance.Damage = 0;
                 if (random > 3)
                 {
-                    BattleManager.instance.Damage = 70;
+                    BattleManager.instance.Damage = 70 + PlayerManager.instance.BonusDamage;
                 }
                 BattleManager.instance.can_melee = true;
                 break;
@@ -238,17 +238,17 @@ public class PlayerSkills : MonoBehaviour
                 range = Range.Melee;
                 if (BattleManager.instance.bloodlust == 0)
                 {
-                    BattleManager.instance.Damage = 10;
+                    BattleManager.instance.Damage = 10 + PlayerManager.instance.BonusDamage;
                 }
                 else
                 {
-                    BattleManager.instance.Damage = 30 * BattleManager.instance.bloodlust;
+                    BattleManager.instance.Damage = (30 * BattleManager.instance.bloodlust) + PlayerManager.instance.BonusDamage;
                 }
                 BattleManager.instance.can_melee = true;
                 break;
             case AllSkills.Dragon_Beam:
                 range = Range.Ranged;
-                BattleManager.instance.Damage = 10 * (BattleManager.instance.Dragon_Pals + 1);
+                BattleManager.instance.Damage = (10 * (BattleManager.instance.Dragon_Pals + 1)) + PlayerManager.instance.BonusDamage;
                 playermovetile.instance.movespaces = 4;
                 BattleManager.instance.can_shoot = true;
                 break;
@@ -267,11 +267,11 @@ public class PlayerSkills : MonoBehaviour
                 range = Range.Melee;
                 if (BattleManager.instance.Dragon_Pals == 0)
                 {
-                    BattleManager.instance.Damage = 5;
+                    BattleManager.instance.Damage = 5 + PlayerManager.instance.BonusDamage;
                 }
                 else
                 {
-                    BattleManager.instance.Damage = 20 * BattleManager.instance.Dragon_Pals;
+                    BattleManager.instance.Damage = (20 * BattleManager.instance.Dragon_Pals) +PlayerManager.instance.BonusDamage;
                 }
                 playermovetile.instance.movespaces = 1;
                 BattleManager.instance.can_melee = true;

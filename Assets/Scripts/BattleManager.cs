@@ -92,8 +92,8 @@ public class BattleManager : MonoBehaviour
     public int HighShotCount = 0;
     public int MoveCount;
     public Vector3 Ori_Pos;
-
     int kills = 0;
+
     private void Awake()
     {
         if (instance != null)
@@ -109,6 +109,7 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MusicPlayer.instance.PlayBGM(1);
         MainCamera = Camera.main;
         S1_Img.sprite = PlayerSkills.instance.S1_Img;
         S2_Img.sprite = PlayerSkills.instance.S2_Img;
@@ -411,12 +412,12 @@ public class BattleManager : MonoBehaviour
         PlayerManager.instance.exp += 100 * kills;
         if (PlayerManager.instance.health <= 0)
         {
-            SceneManager.LoadScene("Charc_SelectionScene");
+            SceneManager.LoadScene("DeathScene");
 
         }
         else if (PlayerManager.instance.lastFight)
         {
-            SceneManager.LoadScene("Charc_SelectionScene");
+            SceneManager.LoadScene("WinScene");
         }
         else
         {

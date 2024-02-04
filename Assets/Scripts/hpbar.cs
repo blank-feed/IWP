@@ -7,9 +7,11 @@ public class hpbar : MonoBehaviour
 {
     public Slider healthbar;
     public Image FillImg;
+    bool switchbgm = false;
 
     void Start()
     {
+        switchbgm = false;
         healthbar.maxValue = PlayerManager.instance.maxHealth;
         healthbar.value = PlayerManager.instance.health;
     }
@@ -24,6 +26,11 @@ public class hpbar : MonoBehaviour
         else if (PlayerManager.instance.health <= PlayerManager.instance.maxHealth / 5)
         {
             FillImg.color = new Vector4(1, 0, 0, 1);
+            if (!switchbgm)
+            {
+                MusicPlayer.instance.PlayBGM(2);
+                switchbgm = true;
+            }
         }
         else
         {

@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TMBattleScene.unity
     guid: 31728437a68daa7418fce6b8dc869634
+  - enabled: 1
+    path: Assets/Scenes/DeathScene.unity
+    guid: 7a96af626f3bed745a6f80e4288438a9
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: 84c43763e5667fa459f42cd8ee6957c7
   m_configObjects: {}

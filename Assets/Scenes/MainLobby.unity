@@ -1209,7 +1209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7505024641254246885, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
       propertyPath: AllMessages.Array.data[1].messages_array.Array.data[1].msg
-      value: I saw a bunch of them heading towards East.
+      value: I saw a bunch of them heading towards West.
       objectReference: {fileID: 0}
     - target: {fileID: 7505024641254246885, guid: b344aa0d7de1d364ca00c7f82fbc06dc, type: 3}
       propertyPath: AllMessages.Array.data[1].messages_array.Array.data[2].msg
